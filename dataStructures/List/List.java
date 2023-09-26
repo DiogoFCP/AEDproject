@@ -46,6 +46,25 @@ public interface List<E> {
 
     /**
      *
+     * @param element
+     */
+    void addFirst ( E element );
+
+    /**
+     *
+     * @param element
+     */
+    void addLast ( E element );
+
+    /**
+     *
+     * @param position
+     * @param element
+     */
+    void add ( int position, E element ) throws InvalidPositionException;
+
+    /**
+     *
      * @return
      * @throws EmptyListException
      */
