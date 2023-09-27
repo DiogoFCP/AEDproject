@@ -149,6 +149,15 @@ public class DoubleList<E> implements List<E> {
         currentSize++;
     }
 
+    protected void addMiddle(int position, E element) {
+        DoubleListNode<E> next = getNode(position);
+        DoubleListNode<E> previous = next.getPrevious();
+        DoubleListNode<E> newNode = new DoubleListNode<>(element, next, previous);
+        next.setPrevious(newNode);
+        previous.setNext(newNode);
+        currentSize++;
+    }
+
     public void add(int position, E element) throws InvalidPositionException {
 
     }
