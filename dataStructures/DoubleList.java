@@ -12,8 +12,7 @@ import java.io.Serializable;
  * @param <E> Generic Element
  * 
  */
-public class DoubleList<E> implements List<E>
-{   
+public class DoubleList<E> implements List<E> {
 
 	/**
 	 * Serial Version UID of the Class
@@ -27,8 +26,7 @@ public class DoubleList<E> implements List<E>
      * @param <E> Generic Element
      * 
      */
-    static class DoubleListNode<E> implements Serializable
-    {
+    static class DoubleListNode<E> implements Serializable {
 
     	/**
     	 * Serial Version UID of the Class
@@ -57,8 +55,7 @@ public class DoubleList<E> implements List<E>
          * @param theNext - the next node
          */
         public DoubleListNode( E theElement, DoubleListNode<E> thePrevious, 
-                          DoubleListNode<E> theNext )
-        {
+                          DoubleListNode<E> theNext ) {
             element = theElement;
             previous = thePrevious;
             next = theNext;
@@ -68,8 +65,7 @@ public class DoubleList<E> implements List<E>
          * 
          * @param theElement to be contained in the node
          */
-        public DoubleListNode( E theElement )
-        {
+        public DoubleListNode( E theElement ) {
             this(theElement, null, null);
         }
 
@@ -78,8 +74,7 @@ public class DoubleList<E> implements List<E>
          * 
          * @return the element contained in the node
          */
-        public E getElement( )
-        {
+        public E getElement( ) {
             return element;
         }
 
@@ -88,8 +83,7 @@ public class DoubleList<E> implements List<E>
          * 
          * @return the previous node
          */
-        public DoubleListNode<E> getPrevious( )
-        {
+        public DoubleListNode<E> getPrevious( ) {
             return previous;
         }
 
@@ -98,8 +92,7 @@ public class DoubleList<E> implements List<E>
          * 
          * @return the next node
          */
-        public DoubleListNode<E> getNext( )
-        {
+        public DoubleListNode<E> getNext( ) {
             return next;
         }
 
@@ -108,8 +101,7 @@ public class DoubleList<E> implements List<E>
          * 
          * @param newElement - New element to replace the current element
          */
-        public void setElement( E newElement )
-        {
+        public void setElement( E newElement ) {
             element = newElement;
         }
 
@@ -118,8 +110,7 @@ public class DoubleList<E> implements List<E>
          * 
          * @param newPrevious - node to replace the current previous node
          */
-        public void setPrevious( DoubleListNode<E> newPrevious )
-        {
+        public void setPrevious( DoubleListNode<E> newPrevious ) {
             previous = newPrevious;
         }
 
@@ -128,8 +119,7 @@ public class DoubleList<E> implements List<E>
          * 
          * @param newNext - node to replace the next node
          */
-        public void setNext( DoubleListNode<E> newNext )
-        {
+        public void setNext( DoubleListNode<E> newNext ) {
             next = newNext;
         }
 
@@ -154,8 +144,7 @@ public class DoubleList<E> implements List<E>
      * head and tail are initialized as null.
      * currentSize is initialized as 0.
      */
-    public DoubleList( )
-    {
+    public DoubleList( ) {
         head = null;
         tail = null;
         currentSize = 0;
@@ -163,29 +152,25 @@ public class DoubleList<E> implements List<E>
 
 
     @Override
-    public boolean isEmpty( )
-    {  
+    public boolean isEmpty( ) {
         return currentSize == 0;
     }
 
 
     @Override
-    public int size( )
-    {
+    public int size( ) {
         return currentSize;
     }
 
 
     @Override
-    public Iterator<E> iterator( )
-    {
-        return new DoubleListIterator<E>(head, tail);
+    public Iterator<E> iterator( ) {
+        return new DoubleListIterator<>(head, tail);
     }
 
 
     @Override
-    public E getFirst( ) throws EmptyListException
-    {  
+    public E getFirst( ) throws EmptyListException {
         if ( this.isEmpty() )
             throw new EmptyListException();
 
@@ -194,8 +179,7 @@ public class DoubleList<E> implements List<E>
 
 
     @Override
-    public E getLast( ) throws EmptyListException
-    {  
+    public E getLast( ) throws EmptyListException {
     	if (this.isEmpty() )
             throw new EmptyListException();
         return tail.getElement();
@@ -208,18 +192,15 @@ public class DoubleList<E> implements List<E>
      * @param position - position of list element to be returned
      * @return DoubleListNode<E> at position
      */
-    protected DoubleListNode<E> getNode( int position ) 
-    {
+    protected DoubleListNode<E> getNode( int position ) {
         DoubleListNode<E> node;
 
-        if ( position <= ( currentSize - 1 ) / 2 )
-        {
+        if ( position <= ( currentSize - 1 ) / 2 ) {
             node = head;
             for ( int i = 0; i < position; i++ )
                 node = node.getNext();
         }
-        else
-        {
+        else {
             node = tail;
             for ( int i = currentSize - 1; i > position; i-- )
                 node = node.getPrevious();
@@ -230,8 +211,7 @@ public class DoubleList<E> implements List<E>
 
 
     @Override    
-    public E get( int position ) throws InvalidPositionException
-    {
+    public E get( int position ) throws InvalidPositionException {
         if ( position < 0 || position >= currentSize )
             throw new InvalidPositionException();
         if( position == 0 )
@@ -244,12 +224,10 @@ public class DoubleList<E> implements List<E>
 
 
     @Override
-    public int find( E element )
-    {
+    public int find( E element ) {
         DoubleListNode<E> node = head;
         int position = 0;
-        while ( node != null && !node.getElement().equals(element) )
-        {
+        while ( node != null && !node.getElement().equals(element) ) {
             node = node.getNext();
             position++;
         }
@@ -261,9 +239,8 @@ public class DoubleList<E> implements List<E>
 
 
     @Override
-    public void addFirst( E element )
-    {
-        DoubleListNode<E> newNode = new DoubleListNode<E>(element, null, head);
+    public void addFirst( E element ) {
+        DoubleListNode<E> newNode = new DoubleListNode<>(element, null, head);
         if ( this.isEmpty() )
             tail = newNode;
         else
@@ -274,8 +251,7 @@ public class DoubleList<E> implements List<E>
 
 
     @Override
-    public void addLast( E element )
-    {
+    public void addLast( E element ) {
        DoubleListNode<E> newNode = new DoubleListNode<>(element, null, tail);
        if (this.isEmpty() )
            head = newNode;
@@ -292,11 +268,10 @@ public class DoubleList<E> implements List<E>
      * @param position - middle position for insertion of element
      * @param element - element to be inserted at middle position
      */
-    protected void addMiddle( int position, E element )
-    {
+    protected void addMiddle( int position, E element ) {
         DoubleListNode<E> prevNode = this.getNode(position - 1);
         DoubleListNode<E> nextNode = prevNode.getNext();
-        DoubleListNode<E> newNode = new DoubleListNode<E>(element, prevNode, nextNode);
+        DoubleListNode<E> newNode = new DoubleListNode<>(element, prevNode, nextNode);
         nextNode.setPrevious(newNode);
         prevNode.setNext(newNode);
         currentSize++;
@@ -304,8 +279,7 @@ public class DoubleList<E> implements List<E>
 
 
     @Override
-    public void add( int position, E element ) throws InvalidPositionException
-    {
+    public void add( int position, E element ) throws InvalidPositionException {
         if ( position < 0 || position > currentSize )
             throw new InvalidPositionException();
 
@@ -322,8 +296,7 @@ public class DoubleList<E> implements List<E>
      * Removes the first node in the list.
      * Pre-condition: the list is not empty.
      */
-    protected void removeFirstNode( )
-    {
+    protected void removeFirstNode( ) {
         head = head.getNext();
         if ( head == null )
             tail = null;
@@ -334,10 +307,13 @@ public class DoubleList<E> implements List<E>
 
 
     @Override
-    public E removeFirst( ) throws EmptyListException
-    {
-        //TODO: Left as an exercise.
-    	return null;
+    public E removeFirst( ) throws EmptyListException {
+        if (this.isEmpty() )
+            throw new EmptyListException();
+
+        E element = head.getElement();
+        this.removeFirstNode();
+        return element;
     }
 
 
@@ -345,15 +321,18 @@ public class DoubleList<E> implements List<E>
      * Removes the last node in the list.
      * Pre-condition: the list is not empty.
      */
-    protected void removeLastNode( )
-    {
-    	//TODO: Left as an exercise.
+    protected void removeLastNode( ) {
+    	tail = tail.getPrevious();
+        if (tail == null )
+            head = null;
+        else
+            tail.setNext(null);
+        currentSize--;
     }
 
 
     @Override
-    public E removeLast( ) throws EmptyListException
-    {
+    public E removeLast( ) throws EmptyListException {
         if ( this.isEmpty() )
             throw new EmptyListException();
 
@@ -368,16 +347,17 @@ public class DoubleList<E> implements List<E>
      * Pre-condition: the node is neither the head nor the tail of the list.
      * @param node - middle node to be removed
      */
-    protected void removeMiddleNode( DoubleListNode<E> node )
-    {
-    	//TODO: Left as an exercise.
-
+    protected void removeMiddleNode( DoubleListNode<E> node ) {
+        DoubleListNode<E> prevNode = node.getPrevious();
+        DoubleListNode<E> nextNode = node.getNext();
+        prevNode.setNext(nextNode);
+        nextNode.setPrevious(prevNode);
+        currentSize--;
     }
 
 
     @Override
-    public E remove( int position ) throws InvalidPositionException
-    {
+    public E remove( int position ) throws InvalidPositionException {
         if ( position < 0 || position >= currentSize )
             throw new InvalidPositionException();
 
@@ -385,10 +365,10 @@ public class DoubleList<E> implements List<E>
             return this.removeFirst();
         else if ( position == currentSize - 1 )
             return this.removeLast();
-        else 
-        {
-        	//TODO: Left as an exercise.
-        	return null;
+        else {
+            DoubleListNode<E> toRemove = getNode(position);
+            removeMiddleNode(toRemove);
+            return toRemove.getElement();
         }
     }
 
@@ -400,21 +380,20 @@ public class DoubleList<E> implements List<E>
      * @param element - element to be searched
      * @return DoubleListNode<E> where element was found, null if not found 
      */
-    protected DoubleListNode<E> findNode( E element )
-    {
-    	//TODO: Left as an exercise.
-    	return null;
+    protected DoubleListNode<E> findNode( E element ) {
+        int nodePos = find(element);
+        if (nodePos == -1)
+            return null;
+        else
+            return this.getNode(nodePos);
     }
 
-
     @Override
-    public boolean remove( E element )
-    {
+    public boolean remove( E element ) {
         DoubleListNode<E> node = this.findNode(element);
         if ( node == null )
             return false;
-        else
-        {
+        else {
             if ( node == head )
                 this.removeFirstNode();
             else if ( node == tail )
@@ -427,13 +406,18 @@ public class DoubleList<E> implements List<E>
 
 
     /**
-     * Removes all of the elements from the specified list and
+     * Removes all the elements from the specified list and
      * inserts them at the end of the list (in proper sequence).
      * @param list - list to be appended to the end of this
      */
-    public void append( DoubleList<E> list )
-    {
-        //TODO: Left as an exercise.
+    public void append( DoubleList<E> list ) {
+        this.tail.setNext(list.head);
+        list.head.setPrevious(this.tail);
+        this.tail = list.tail;
+        list.tail = null;
+        list.head = null;
+        currentSize = this.currentSize + list.currentSize;
+        list.currentSize = 0;
     }
 
 
