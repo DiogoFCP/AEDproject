@@ -1,5 +1,8 @@
 package dataStructures;
 
+import dataStructures.exceptions.EmptyStackException;
+import dataStructures.exceptions.FullStackException;
+
 /**
  * Stack Array Implementation 
  * @author AED  Team

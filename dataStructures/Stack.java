@@ -3,6 +3,8 @@
  */
 package dataStructures;
 
+import dataStructures.exceptions.EmptyStackException;
+
 import java.io.Serializable;
 
 /**

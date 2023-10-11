@@ -1,6 +1,7 @@
 package dataStructures;
 
 import dataStructures.DoubleList.DoubleListNode;
+import dataStructures.exceptions.NoSuchElementException;
 
 /**
  * Implementation of Two Way Iterator for DLList 

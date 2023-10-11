@@ -1,5 +1,7 @@
 package dataStructures;
 
+import dataStructures.exceptions.NoSuchElementException;
+
 import java.io.Serializable;
 
 /**

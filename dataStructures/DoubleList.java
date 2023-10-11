@@ -1,5 +1,8 @@
 package dataStructures;
 
+import dataStructures.exceptions.EmptyListException;
+import dataStructures.exceptions.InvalidPositionException;
+
 import java.io.Serializable;
 
 /**

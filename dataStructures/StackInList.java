@@ -1,5 +1,7 @@
 package dataStructures;
 
+import dataStructures.exceptions.EmptyStackException;
+
 public class StackInList<E> implements Stack<E>
 {
 
@@ -31,7 +33,7 @@ public class StackInList<E> implements Stack<E>
 
 
     // Returns the element at the top of the stack.
-    public E top( ) throws EmptyStackException 
+    public E top( ) throws EmptyStackException
     {     
         if ( list.isEmpty() )
             throw new EmptyStackException();

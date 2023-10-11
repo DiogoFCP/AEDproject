@@ -1,5 +1,8 @@
 package dataStructures;
 
+import dataStructures.exceptions.EmptyQueueException;
+import dataStructures.exceptions.FullQueueException;
+
 /**
  * Queue Array Implementation 
  * @author AED  Team
@@ -115,7 +118,7 @@ public class QueueInArray<E> implements Queue<E>
 
 
     @Override
-    public E dequeue( ) throws EmptyQueueException   
+    public E dequeue( ) throws EmptyQueueException
     {
         if ( this.isEmpty() )
             throw new EmptyQueueException();

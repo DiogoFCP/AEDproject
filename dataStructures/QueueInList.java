@@ -1,4 +1,6 @@
-package dataStructures;                                          
+package dataStructures;
+
+import dataStructures.exceptions.EmptyQueueException;
 
 /**
  * Queue List Implementation 
@@ -52,7 +54,7 @@ public class QueueInList<E> implements Queue<E>
 
 
     @Override
-    public E dequeue( ) throws EmptyQueueException   
+    public E dequeue( ) throws EmptyQueueException
     {
         if ( list.isEmpty() )
             throw new EmptyQueueException();

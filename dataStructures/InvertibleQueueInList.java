@@ -1,5 +1,7 @@
 package dataStructures;
 
+import dataStructures.exceptions.EmptyQueueException;
+
 public class InvertibleQueueInList<E> extends QueueInList<E> implements InvertibleQueue<E> {
 
     static final long serialVersionUID = 0L;
