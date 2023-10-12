@@ -22,7 +22,14 @@ public class UserClass implements User {
     }
 
     @Override
-    public boolean equals(User other){
-        return this.login.equals(other.getLogin());
+    public boolean equals(Object obj){
+        if(this == obj)
+            return true;
+        if(obj == null)
+            return false;
+        User other = (User) obj;
+        if (this.login == null) {
+            return other.getLogin() == null;
+        } else return this.login.equals(other.getLogin());
     }
 }

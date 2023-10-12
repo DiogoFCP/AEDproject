@@ -1,16 +1,9 @@
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 import auctionHouse.AuctionHouse;
 import auctionHouse.AuctionHouseSystem;
-import auctionHouse.InvalidAgeException;
-import auctionHouse.UserAlreadyExistsException;
-import dataStructures.*;
+import auctionHouse.exceptions.InvalidAgeException;
+import auctionHouse.exceptions.UserAlreadyExistsException;
 import constants.*;
 
 /**
@@ -47,19 +40,23 @@ public class Main {
             System.out.println();
             cmd = in.next().toUpperCase();
         }
+        System.out.println();
+        System.out.println(Prints.EXIT);
         save();
     }
 
     /**
-     *
-     * @param ah
-     * @param in
+     * Adds a new base user to the system, this user
+     * has a login (unique ID), name, age and email.
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void addUser(AuctionHouse ah, Scanner in){
         String login = in.next();
         String name = in.nextLine();
         int age = in.nextInt();
         String email = in.nextLine();
+        System.out.println();
         try{
             ah.addUser(login, name, age, email);
             System.out.println(Prints.USER_REGISTERED);
@@ -71,12 +68,26 @@ public class Main {
     }
 
     /**
-     *
-     * @param ah
-     * @param in
+     * Adds a new artist user to the system, this artist
+     * has a login (unique ID), name, artistic name, age and email.
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void addArtist(AuctionHouse ah, Scanner in){
-        //TODO
+        String login = in.next();
+        String name = in.nextLine();
+        String artisticName = in.nextLine();
+        int age = in.nextInt();
+        String email = in.nextLine();
+        System.out.println();
+        try{
+            ah.addArtist(login, name, artisticName, age, email);
+            System.out.println(Prints.ARTIST_REGISTERED);
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());
+        } catch (UserAlreadyExistsException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**

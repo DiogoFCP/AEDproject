@@ -10,8 +10,8 @@ public interface User {
 
     /**
      * Compares both users based on their login (unique ID).
-     * @param other the other user.
+     * @param obj the other user.
      * @return true if they are the same user (same login ID).
      */
-    boolean equals(User other);
+    boolean equals(Object obj);
 }
