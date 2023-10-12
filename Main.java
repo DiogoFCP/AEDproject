@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 import auctionHouse.AuctionHouse;
 import auctionHouse.AuctionHouseSystem;
+import auctionHouse.InvalidAgeException;
+import auctionHouse.UserAlreadyExistsException;
 import dataStructures.*;
 import constants.*;
 
@@ -54,7 +56,18 @@ public class Main {
      * @param in
      */
     private static void addUser(AuctionHouse ah, Scanner in){
-        //TODO
+        String login = in.next();
+        String name = in.nextLine();
+        int age = in.nextInt();
+        String email = in.nextLine();
+        try{
+            ah.addUser(login, name, age, email);
+            System.out.println(Prints.USER_REGISTERED);
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());
+        } catch (UserAlreadyExistsException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
