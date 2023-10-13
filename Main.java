@@ -12,7 +12,7 @@ import constants.*;
  */
 public class Main {
 
-    private static final String DATA_FILE = "storedqueue.dat";
+    private static final String DATA_FILE = "storedQueue.dat";
 
     public static void main(String[] args) {
         AuctionHouse ah = new AuctionHouseSystem();

@@ -1,7 +1,6 @@
 package auctionHouse;
 
-import auctionHouse.exceptions.InvalidAgeException;
-import auctionHouse.exceptions.UserAlreadyExistsException;
+import auctionHouse.exceptions.*;
 import dataStructures.DoubleList;
 import dataStructures.List;
 
@@ -39,6 +38,8 @@ public class AuctionHouseSystem implements AuctionHouse{
             throw new UserAlreadyExistsException();
         userList.addLast(artist);
     }
+
+    public void removeUser(String login) throws
 
 
 }
