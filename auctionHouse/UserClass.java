@@ -21,6 +21,16 @@ public class UserClass implements User {
         return this.login;
     }
 
+    public String getName(){ return this.name; }
+
+    public int getAge(){
+        return this.age;
+    }
+
+    public String getEmail(){
+        return this.email;
+    }
+
     @Override
     public boolean equals(Object obj){
         if(this == obj)

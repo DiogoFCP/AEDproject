@@ -8,4 +8,6 @@ public class ArtistClass extends UserClass implements Artist{
         super(login, name, age, email);
         this.artisticName = artisticName;
     }
+
+    public String getArtisticName(){ return this.artisticName; }
 }
