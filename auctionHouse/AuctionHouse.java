@@ -42,7 +42,7 @@ public interface AuctionHouse {
      * @param userLogin ID of the artist to search for
      * @return the Artist object of given ID
      * @throws UserDoesNotExistException if the User does not exist
-     * @throws ArtDoesNotExistException if the User is not an Artist
+     * @throws ArtistDoesNotExistException if the User is not an Artist
      */
     Artist getArtist(String userLogin) throws UserDoesNotExistException, ArtistDoesNotExistException;
 
