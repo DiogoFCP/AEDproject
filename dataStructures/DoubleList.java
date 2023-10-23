@@ -404,7 +404,6 @@ public class DoubleList<E> implements List<E> {
         }
     }
 
-
     /**
      * Removes all the elements from the specified list and
      * inserts them at the end of the list (in proper sequence).
@@ -419,8 +418,4 @@ public class DoubleList<E> implements List<E> {
         currentSize = this.currentSize + list.currentSize;
         list.currentSize = 0;
     }
-
-
-}   
-
-
+}

@@ -1,7 +1,6 @@
 package auctionHouse;
 
-import auctionHouse.exceptions.InvalidAgeException;
-import auctionHouse.exceptions.UserAlreadyExistsException;
+import auctionHouse.exceptions.*;
 
 public interface AuctionHouse {
 
@@ -29,4 +28,29 @@ public interface AuctionHouse {
      * @throws UserAlreadyExistsException if the artist already exists in the system.
      */
     void addArtist(String login, String name, String artisticName, int age, String email) throws InvalidAgeException, UserAlreadyExistsException;
+
+    /**
+     * Gives the object of a user with the given ID
+     * @param userLogin ID of the user to search for
+     * @return the User object of given ID
+     * @throws UserDoesNotExistException if the User does not exist
+     */
+    User getUser(String userLogin) throws UserDoesNotExistException;
+
+    /**
+     * Gives the object of an artist with the given ID
+     * @param userLogin ID of the artist to search for
+     * @return the Artist object of given ID
+     * @throws UserDoesNotExistException if the User does not exist
+     * @throws ArtDoesNotExistException if the User is not an Artist
+     */
+    Artist getArtist(String userLogin) throws UserDoesNotExistException, ArtistDoesNotExistException;
+
+    /**
+     * Gives the object of a work of art with the given ID
+     * @param workID ID of the art to search for
+     * @return the WorkOfArt object of given ID
+     * @throws ArtDoesNotExistException if the art does not exist
+     */
+    WorkOfArt getWorkOfArt(String workID) throws ArtDoesNotExistException;
 }
