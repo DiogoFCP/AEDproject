@@ -2,14 +2,14 @@ package auctionHouse;
 
 public class WorkOfArtClass implements WorkOfArt {
 
-    private String artID;
+    private final String artID;
 
     // TODO guardar em obj author ou o login do author?
-    private String author;
+    private final String author;
 
-    private int year;
+    private final int year;
 
-    private String name;
+    private final String name;
 
     private int highestBid;
 

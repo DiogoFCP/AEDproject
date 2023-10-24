@@ -2,13 +2,13 @@ package auctionHouse;
 
 public class UserClass implements User {
 
-    private String login;
+    private final String login;
 
-    private String name;
+    private final String name;
 
-    private int age;
+    private final int age;
 
-    private String email;
+    private final String email;
 
     public UserClass(String login, String name, int age, String email){
         this.login = login;

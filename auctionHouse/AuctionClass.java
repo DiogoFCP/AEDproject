@@ -2,7 +2,7 @@ package auctionHouse;
 
 public class AuctionClass implements Auction{
 
-    private String auctionID;
+    private final String auctionID;
 
     public AuctionClass(String auctionID){
         this.auctionID = auctionID;

@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 
 import auctionHouse.*;
@@ -10,10 +11,10 @@ import constants.*;
  */
 public class Main {
 
-    private static final String DATA_FILE = "storedQueue.dat";
+    private static final String DATA_FILE = "auctionHouseData.dat";
 
     public static void main(String[] args) {
-        AuctionHouse ah = new AuctionHouseSystem();
+        AuctionHouse ah = load();
         Scanner in = new Scanner(System.in);
         String cmd = in.next().toUpperCase();
         while (!cmd.equals(Commands.QUIT)) {
@@ -40,7 +41,7 @@ public class Main {
         }
         System.out.println();
         System.out.println(Prints.EXIT);
-        save();
+        save(ah);
     }
 
     /**
@@ -90,8 +91,8 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void removeUser(AuctionHouse ah, Scanner in){
         String login = in.nextLine();
@@ -110,8 +111,8 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void addWork(AuctionHouse ah, Scanner in){
         String artID = in.next();
@@ -133,8 +134,8 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void infoUser(AuctionHouse ah, Scanner in){
         String login = in.nextLine();
@@ -149,8 +150,8 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void infoArtist(AuctionHouse ah, Scanner in){
         String login = in.nextLine();
@@ -167,8 +168,8 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void infoWork(AuctionHouse ah, Scanner in){
         String artID = in.nextLine();
@@ -183,8 +184,8 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void createAuction(AuctionHouse ah, Scanner in){
         String auctionID = in.nextLine();
@@ -192,13 +193,15 @@ public class Main {
         try{
             ah.createAuction(auctionID);
             System.out.println(Prints.AUCTION_REGISTERED);
+        } catch (AuctionAlreadyExistsException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void addWorkAuction(AuctionHouse ah, Scanner in){
         //TODO
@@ -206,8 +209,8 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void bid(AuctionHouse ah, Scanner in){
         //TODO
@@ -215,8 +218,8 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void closeAuction(AuctionHouse ah, Scanner in){
         //TODO
@@ -224,8 +227,8 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void listAuctionWorks(AuctionHouse ah, Scanner in){
         //TODO
@@ -233,8 +236,8 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void listArtistWorks(AuctionHouse ah, Scanner in){
         // SECOND PART
@@ -242,8 +245,8 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void listBidsWork(AuctionHouse ah, Scanner in){
         //TODO
@@ -251,24 +254,46 @@ public class Main {
 
     /**
      *
-     * @param ah
-     * @param in
+     * @param ah the system interface.
+     * @param in the input scanner.
      */
     private static void listWorksByValue(AuctionHouse ah, Scanner in){
         // SECOND PART
     }
 
     /**
-     *
+     * Saves the auction house system, writing in the file that is going to store it.
+     * @param ah the system interface.
      */
-    private static void save() {
-        //TODO
+    private static void save(AuctionHouse ah) {
+        try{
+            ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(DATA_FILE));
+            file.writeObject(ah);
+            file.flush();
+            file.close();
+
+            //TODO ver se e para tratar estas exceçoes ou nao?
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
-     *
+     * Loads the auction house system, reading from the file that stores it.
+     * If it is the first execution of the program it creates a new auction house system.
      */
-    private static void load() {
-        //TODO
+    private static AuctionHouse load() {
+        try {
+            ObjectInputStream file = new ObjectInputStream(new FileInputStream(DATA_FILE));
+            AuctionHouse ah = (AuctionHouse) file.readObject();
+            file.close();
+            return ah;
+
+            //TODO ver se e para tratar estas exceçoes ou nao?
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException | ClassNotFoundException e) {
+            return new AuctionHouseSystem();
+        }
     }
 }

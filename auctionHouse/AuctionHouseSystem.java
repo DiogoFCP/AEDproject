@@ -2,19 +2,22 @@ package auctionHouse;
 
 import auctionHouse.exceptions.*;
 import dataStructures.DoubleList;
+import dataStructures.FindAndGetDoubleList;
+import dataStructures.FindAndGetList;
 import dataStructures.List;
 
 public class AuctionHouseSystem implements AuctionHouse{
 
-    private List<User> userList;
+    private final FindAndGetList<User> userList;
 
-    private List<WorkOfArt> artList;
+    private final FindAndGetList<WorkOfArt> artList;
 
-    private List<Auction> auctionList;
+    private final FindAndGetList<Auction> auctionList;
 
     public AuctionHouseSystem(){
-        userList = new DoubleList<>();
-        artList = new DoubleList<>();
+        userList = new FindAndGetDoubleList<>();
+        artList = new FindAndGetDoubleList<>();
+        auctionList = new FindAndGetDoubleList<>();
     }
 
     /**
@@ -23,18 +26,16 @@ public class AuctionHouseSystem implements AuctionHouse{
      * @return true if the user already exists in the system.
      */
     private boolean hasUser(String login){
-        return userList.find(new UserClass(login, null, 0, null)) != -1;
+        return this.findUser(login) != null;
     }
 
     /**
      * Finds the user with the given ID
-     * @pre hasUser = true
      * @param userID name of the user we want to find
      * @return wanted user
      */
     private User findUser(String userID){
-        return userList.get(userList.find(new UserClass(userID, null, 0, null)));
-        // TODO refazer em uma interface nova e classe nova de list
+        return userList.findAndGet(new UserClass(userID, null, 0, null));
     }
     public void addUser(String login, String name, int age, String email) throws InvalidAgeException, UserAlreadyExistsException {
         if(age < 18)
@@ -67,7 +68,7 @@ public class AuctionHouseSystem implements AuctionHouse{
      * @return true if the art exists
      */
     private boolean hasArt(String artID){
-        return artList.find(new WorkOfArtClass(artID, null, 0, null)) != -1;
+        return findArt(artID) != null;
     }
 
     /**
@@ -76,19 +77,32 @@ public class AuctionHouseSystem implements AuctionHouse{
      * @return true if the auction exists.
      */
     private boolean hasAuction(String auctionID) {
-        return auctionList.find(new AuctionClass(auctionID)) != -1;
+        return findAuction(auctionID) != null;
     }
 
     /**
      * Finds the art with the given name
-     * @pre hasArt = true
      * @param artName name of the art we want to find
      * @return wanted art
      */
     private WorkOfArt findArt(String artName){
-        return artList.get(artList.find(new WorkOfArtClass(artName, null, 0, null)));
+        return artList.findAndGet(new WorkOfArtClass(artName, null, 0, null));
     }
 
+    /**
+     * Finds the auction with the given name
+     * @param auctionID name of the auction we want to find
+     * @return wanted auction
+     */
+    private Auction findAuction(String auctionID){
+        return auctionList.findAndGet(new AuctionClass(auctionID));
+    }
+
+    /**
+     * Verifies if the given artist login corresponds to a user in the system that is an instance of the artist class.
+     * @param artistLogin the login of the artist we are verifying.
+     * @return true if the login corresponds to an instance of an artist class.
+     */
     private boolean isArtist(String artistLogin){
         return findUser(artistLogin) instanceof ArtistClass;
     }
@@ -123,9 +137,10 @@ public class AuctionHouseSystem implements AuctionHouse{
         return findArt(workID);
     }
 
-    public void createAuction(String auctionID){
+    public void createAuction(String auctionID) throws AuctionAlreadyExistsException {
         if(this.hasAuction(auctionID))
             throw new AuctionAlreadyExistsException();
+        auctionList.addLast(new AuctionClass(auctionID));
     }
 
 }

@@ -75,4 +75,11 @@ public interface AuctionHouse {
      * @throws ArtDoesNotExistException if the art does not exist
      */
     WorkOfArt getWorkOfArt(String workID) throws ArtDoesNotExistException;
+
+    /**
+     * Creates an auction, this auction has an auctionID (unique ID).
+     * @param auctionID unique ID of the auction
+     * @throws AuctionAlreadyExistsException if an auction with the given ID already exists in the system.
+     */
+    void createAuction(String auctionID) throws AuctionAlreadyExistsException;
 }
