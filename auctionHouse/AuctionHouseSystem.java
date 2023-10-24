@@ -10,6 +10,8 @@ public class AuctionHouseSystem implements AuctionHouse{
 
     private List<WorkOfArt> artList;
 
+    private List<Auction> auctionList;
+
     public AuctionHouseSystem(){
         userList = new DoubleList<>();
         artList = new DoubleList<>();
@@ -69,6 +71,15 @@ public class AuctionHouseSystem implements AuctionHouse{
     }
 
     /**
+     * Checks if there is an auction with the given auction ID in the system.
+     * @param auctionID the same ID of the auction (unique ID) we are looking for.
+     * @return true if the auction exists.
+     */
+    private boolean hasAuction(String auctionID) {
+        return auctionList.find(new AuctionClass(auctionID)) != -1;
+    }
+
+    /**
      * Finds the art with the given name
      * @pre hasArt = true
      * @param artName name of the art we want to find
@@ -99,17 +110,22 @@ public class AuctionHouseSystem implements AuctionHouse{
     }
 
     public Artist getArtist(String userLogin) throws UserDoesNotExistException, ArtistDoesNotExistException{
-        if (!hasUser(userLogin))
+        if (!this.hasUser(userLogin))
             throw new UserDoesNotExistException();
-        else if (!isArtist(userLogin))
+        else if (!this.isArtist(userLogin))
             throw new ArtistDoesNotExistException();
         return (Artist)findUser(userLogin);
     }
 
     public WorkOfArt getWorkOfArt(String workID) throws ArtDoesNotExistException{
-        if (!hasArt(workID))
+        if (!this.hasArt(workID))
             throw new ArtDoesNotExistException();
         return findArt(workID);
+    }
+
+    public void createAuction(String auctionID){
+        if(this.hasAuction(auctionID))
+            throw new AuctionAlreadyExistsException();
     }
 
 }

@@ -175,7 +175,7 @@ public class Main {
         System.out.println();
         try{
             WorkOfArt w = ah.getWorkOfArt(artID);
-            System.out.printf(Prints.INFO_WORK, w.getArtID(), w.getName(), w.getYear(), w.getHighestBid(), w.getAuthor(),);
+            // TODO FIX THIS System.out.printf(Prints.INFO_WORK, w.getArtID(), w.getName(), w.getYear(), w.getHighestBid(), w.getAuthor(),);
         } catch (ArtDoesNotExistException e) {
             System.out.println(e.getMessage());
         }
@@ -187,7 +187,12 @@ public class Main {
      * @param in
      */
     private static void createAuction(AuctionHouse ah, Scanner in){
-        //TODO
+        String auctionID = in.nextLine();
+        System.out.println();
+        try{
+            ah.createAuction(auctionID);
+            System.out.println(Prints.AUCTION_REGISTERED);
+        }
     }
 
     /**

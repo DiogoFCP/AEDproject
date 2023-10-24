@@ -40,4 +40,16 @@ public class WorkOfArtClass implements WorkOfArt {
     public int getHighestBid(){
         return this.highestBid;
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj)
+            return true;
+        if(obj == null)
+            return false;
+        WorkOfArt other = (WorkOfArt) obj;
+        if (this.artID == null) {
+            return other.getArtID() == null;
+        } else return this.artID.equals(other.getArtID());
+    }
 }
