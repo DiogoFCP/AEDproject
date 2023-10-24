@@ -30,6 +30,28 @@ public interface AuctionHouse {
     void addArtist(String login, String name, String artisticName, int age, String email) throws InvalidAgeException, UserAlreadyExistsException;
 
     /**
+     * Removes the user from the system.
+     * @param login the unique id that represents the user.
+     * @throws UserDoesNotExistException if the user does not exist in the system.
+     * @throws UserHasBidsException if the users currently has bids in the system.
+     * @throws ArtistHasAuctionedArtException if the user is an artist and has currently auctioned art.
+     */
+    void removeUser(String login) throws UserDoesNotExistException, UserHasBidsException, ArtistHasAuctionedArtException;
+
+    /**
+     * Adds a new work of art to the system, this art
+     * has a artID (unique ID), name of the creator, year and name.
+     * @param artID identifier (unique ID) of the art.
+     * @param artistLogin login of the creator of the art.
+     * @param year year of release of the art.
+     * @param artName the name of the work of art.
+     * @throws ArtAlreadyExistsException if the art already exists in the system.
+     * @throws UserDoesNotExistException if the user does not exist in the system.
+     * @throws ArtistDoesNotExistException if the given user is not an artist in the system.
+     */
+    void addWork(String artID, String artistLogin, int year, String artName) throws ArtAlreadyExistsException, UserDoesNotExistException, ArtistDoesNotExistException;
+
+    /**
      * Gives the object of a user with the given ID
      * @param userLogin ID of the user to search for
      * @return the User object of given ID

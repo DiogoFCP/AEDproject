@@ -1,9 +1,7 @@
 import java.util.Scanner;
 
-import auctionHouse.AuctionHouse;
-import auctionHouse.AuctionHouseSystem;
-import auctionHouse.exceptions.InvalidAgeException;
-import auctionHouse.exceptions.UserAlreadyExistsException;
+import auctionHouse.*;
+import auctionHouse.exceptions.*;
 import constants.*;
 
 /**
@@ -96,7 +94,18 @@ public class Main {
      * @param in
      */
     private static void removeUser(AuctionHouse ah, Scanner in){
-        //TODO
+        String login = in.nextLine();
+        System.out.println();
+        try{
+            ah.removeUser(login);
+            System.out.println(Prints.USER_REMOVED);
+        } catch (UserHasBidsException e) {
+            System.out.println(e.getMessage());
+        } catch (ArtistHasAuctionedArtException e) {
+            System.out.println(e.getMessage());
+        } catch (UserDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -105,7 +114,21 @@ public class Main {
      * @param in
      */
     private static void addWork(AuctionHouse ah, Scanner in){
-        //TODO
+        String artID = in.next();
+        String artistLogin = in.next();
+        int year = in.nextInt();
+        String name = in.nextLine();
+        System.out.println();
+        try{
+            ah.addWork(artID, artistLogin, year, name);
+            System.out.println(Prints.ART_REGISTERED);
+        } catch (ArtAlreadyExistsException e) {
+            System.out.println(e.getMessage());
+        } catch (ArtistDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        } catch (UserDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -114,7 +137,14 @@ public class Main {
      * @param in
      */
     private static void infoUser(AuctionHouse ah, Scanner in){
-        //TODO
+        String login = in.nextLine();
+        System.out.println();
+        try{
+            User u = ah.getUser(login);
+            System.out.printf(Prints.INFO_USER, u.getLogin(), u.getName(), u.getAge(), u.getEmail());
+        } catch (UserDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -123,7 +153,16 @@ public class Main {
      * @param in
      */
     private static void infoArtist(AuctionHouse ah, Scanner in){
-        //TODO
+        String login = in.nextLine();
+        System.out.println();
+        try{
+            Artist a = ah.getArtist(login);
+            System.out.printf(Prints.INFO_ARTIST, a.getLogin(), a.getName(), a.getArtisticName(), a.getAge(), a.getEmail());
+        } catch (ArtistDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        } catch (UserDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -132,7 +171,14 @@ public class Main {
      * @param in
      */
     private static void infoWork(AuctionHouse ah, Scanner in){
-        //TODO
+        String artID = in.nextLine();
+        System.out.println();
+        try{
+            WorkOfArt w = ah.getWorkOfArt(artID);
+            System.out.printf(Prints.INFO_WORK, w.getArtID(), w.getName(), w.getYear(), w.getHighestBid(), w.getAuthor(),);
+        } catch (ArtDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**

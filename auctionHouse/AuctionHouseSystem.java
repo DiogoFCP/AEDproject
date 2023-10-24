@@ -32,6 +32,7 @@ public class AuctionHouseSystem implements AuctionHouse{
      */
     private User findUser(String userID){
         return userList.get(userList.find(new UserClass(userID, null, 0, null)));
+        // TODO refazer em uma interface nova e classe nova de list
     }
     public void addUser(String login, String name, int age, String email) throws InvalidAgeException, UserAlreadyExistsException {
         if(age < 18)
@@ -49,7 +50,7 @@ public class AuctionHouseSystem implements AuctionHouse{
         userList.addLast(new ArtistClass(login, name, artisticName, age, email));
     }
 
-    public void removeUser(String login) throws UserDoesNotExistException {
+    public void removeUser(String login) throws UserDoesNotExistException, UserHasBidsException, ArtistHasAuctionedArtException {
         if(!this.hasUser(login))
             throw new UserDoesNotExistException();
         // TODO outras exeçoes
@@ -77,20 +78,18 @@ public class AuctionHouseSystem implements AuctionHouse{
         return artList.get(artList.find(new WorkOfArtClass(artName, null, 0, null)));
     }
 
-    // TODO implementar para fzr a exceçao em baixo.
     private boolean isArtist(String artistLogin){
-        return user instanceof ArtistClass;
+        return findUser(artistLogin) instanceof ArtistClass;
     }
 
-
-
-    public void addWork(String artID, String artistLogin, int year, String artName) throws ArtAlreadyExistsException, UserDoesNotExistException {
+    public void addWork(String artID, String artistLogin, int year, String artName) throws ArtAlreadyExistsException, UserDoesNotExistException, ArtistDoesNotExistException {
         if(this.hasArt(artID))
             throw new ArtAlreadyExistsException();
         if(!this.hasUser(artistLogin))
             throw new UserDoesNotExistException();
-        if()
-            //TODO por isto a funfar
+        if(isArtist(artistLogin))
+            throw new ArtistDoesNotExistException();
+        artList.addLast(new WorkOfArtClass(artID, artistLogin, year, artName));
     }
 
     public User getUser(String userLogin) throws UserDoesNotExistException{
