@@ -13,6 +13,8 @@ public class WorkOfArtClass implements WorkOfArt {
 
     private int highestBid;
 
+    //private int lowestBid; // TODO guardar isto em cada Single art auction em vez de cada art ja q pd haver a 2 leiloes da msm art com lowestBids diferentes!
+
     public WorkOfArtClass(String artID, String author, int year, String name){
         this.artID = artID;
         this.author = author;
@@ -52,4 +54,6 @@ public class WorkOfArtClass implements WorkOfArt {
             return other.getArtID() == null;
         } else return this.artID.equals(other.getArtID());
     }
+
+
 }

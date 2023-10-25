@@ -52,9 +52,9 @@ public class Main {
      */
     private static void addUser(AuctionHouse ah, Scanner in){
         String login = in.next();
-        String name = in.nextLine();
+        String name = in.nextLine().trim();
         int age = in.nextInt();
-        String email = in.nextLine();
+        String email = in.nextLine().trim();
         System.out.println();
         try{
             ah.addUser(login, name, age, email);
@@ -74,10 +74,10 @@ public class Main {
      */
     private static void addArtist(AuctionHouse ah, Scanner in){
         String login = in.next();
-        String name = in.nextLine();
+        String name = in.nextLine().trim();
         String artisticName = in.nextLine();
         int age = in.nextInt();
-        String email = in.nextLine();
+        String email = in.nextLine().trim();
         System.out.println();
         try{
             ah.addArtist(login, name, artisticName, age, email);
@@ -95,7 +95,7 @@ public class Main {
      * @param in the input scanner.
      */
     private static void removeUser(AuctionHouse ah, Scanner in){
-        String login = in.nextLine();
+        String login = in.next();
         System.out.println();
         try{
             ah.removeUser(login);
@@ -118,7 +118,7 @@ public class Main {
         String artID = in.next();
         String artistLogin = in.next();
         int year = in.nextInt();
-        String name = in.nextLine();
+        String name = in.nextLine().trim();
         System.out.println();
         try{
             ah.addWork(artID, artistLogin, year, name);
@@ -138,7 +138,7 @@ public class Main {
      * @param in the input scanner.
      */
     private static void infoUser(AuctionHouse ah, Scanner in){
-        String login = in.nextLine();
+        String login = in.next();
         System.out.println();
         try{
             User u = ah.getUser(login);
@@ -154,7 +154,7 @@ public class Main {
      * @param in the input scanner.
      */
     private static void infoArtist(AuctionHouse ah, Scanner in){
-        String login = in.nextLine();
+        String login = in.next();
         System.out.println();
         try{
             Artist a = ah.getArtist(login);
@@ -172,13 +172,16 @@ public class Main {
      * @param in the input scanner.
      */
     private static void infoWork(AuctionHouse ah, Scanner in){
-        String artID = in.nextLine();
+        String artID = in.next();
         System.out.println();
         try{
             WorkOfArt w = ah.getWorkOfArt(artID);
-            // TODO FIX THIS System.out.printf(Prints.INFO_WORK, w.getArtID(), w.getName(), w.getYear(), w.getHighestBid(), w.getAuthor(),);
+            User a = ah.getUser(w.getAuthor());
+            System.out.printf(Prints.INFO_WORK, w.getArtID(), w.getName(), w.getYear(), w.getHighestBid(), a.getLogin(), a.getName());
         } catch (ArtDoesNotExistException e) {
             System.out.println(e.getMessage());
+        } catch (UserDoesNotExistException ignored) {
+            // TODO n deviamos ter de tratar esta exception
         }
     }
 
@@ -188,7 +191,7 @@ public class Main {
      * @param in the input scanner.
      */
     private static void createAuction(AuctionHouse ah, Scanner in){
-        String auctionID = in.nextLine();
+        String auctionID = in.next();
         System.out.println();
         try{
             ah.createAuction(auctionID);
@@ -204,7 +207,18 @@ public class Main {
      * @param in the input scanner.
      */
     private static void addWorkAuction(AuctionHouse ah, Scanner in){
-        //TODO
+        String auctionID = in.next();
+        String artID = in.next();
+        int lowestBid = in.nextInt();
+        System.out.println();
+        try{
+            ah.addWorkAuction(auctionID, artID, lowestBid);
+            System.out.println(Prints.WORK_ADDED_TO_AUCTION);
+        } catch (AuctionDoesNotExistsException e) {
+            System.out.println(e.getMessage());
+        } catch (ArtDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -213,6 +227,11 @@ public class Main {
      * @param in the input scanner.
      */
     private static void bid(AuctionHouse ah, Scanner in){
+        String auctionID = in.next();
+        String artID = in.next();
+        String login = in.next();
+        int value = in.nextInt();
+        System.out.println();
         //TODO
     }
 
@@ -273,8 +292,7 @@ public class Main {
             file.close();
 
             //TODO ver se e para tratar estas exceçoes ou nao?
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException ignored) {
         }
     }
 

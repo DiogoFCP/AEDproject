@@ -78,8 +78,26 @@ public interface AuctionHouse {
 
     /**
      * Creates an auction, this auction has an auctionID (unique ID).
-     * @param auctionID unique ID of the auction
+     * @param auctionID unique ID of the auction.
      * @throws AuctionAlreadyExistsException if an auction with the given ID already exists in the system.
      */
     void createAuction(String auctionID) throws AuctionAlreadyExistsException;
+
+    /**
+     * Adds a given work of art to a given auction and sets its lowest bid value.
+     * @param auctionID the id of the auction where we are adding the work of art.
+     * @param artID the id of the work of art we are adding to the auction.
+     * @param lowestBid the lowest value the work of art can be sold in the system for.
+     */
+    void addWorkAuction(String auctionID, String artID, int lowestBid) throws AuctionDoesNotExistsException, ArtDoesNotExistException;
+
+    /**
+     * Adds a bid to a given work of art in a given auction, the bid is represented
+     * by a value and login given by the user.
+     * @param auctionID the id of the auction where the work of art that is being bid on.
+     * @param artID the work of art that is being bid on.
+     * @param login the login of the user that is bidding on the given work of at.
+     * @param value the value being bid by the user.
+     */
+    void addBid(String auctionID, String artID, String login, int value);
 }

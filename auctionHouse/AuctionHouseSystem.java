@@ -112,7 +112,7 @@ public class AuctionHouseSystem implements AuctionHouse{
             throw new ArtAlreadyExistsException();
         if(!this.hasUser(artistLogin))
             throw new UserDoesNotExistException();
-        if(isArtist(artistLogin))
+        if(!isArtist(artistLogin))
             throw new ArtistDoesNotExistException();
         artList.addLast(new WorkOfArtClass(artID, artistLogin, year, artName));
     }
@@ -141,6 +141,19 @@ public class AuctionHouseSystem implements AuctionHouse{
         if(this.hasAuction(auctionID))
             throw new AuctionAlreadyExistsException();
         auctionList.addLast(new AuctionClass(auctionID));
+    }
+
+    public void addWorkAuction(String auctionID, String artID, int lowestBid) throws AuctionDoesNotExistsException, ArtDoesNotExistException {
+        if(!this.hasAuction(auctionID))
+            throw new AuctionDoesNotExistsException();
+        if(!this.hasArt(artID))
+            throw new ArtDoesNotExistException();
+        Auction auction = this.findAuction(auctionID);
+        auction.addWork(this.getWorkOfArt(artID), lowestBid);
+    }
+
+    public void addBid(String auctionID, String artID, String login, int value) {
+        // TODO
     }
 
 }

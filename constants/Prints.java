@@ -22,4 +22,6 @@ public class Prints {
 
     public static final String AUCTION_REGISTERED = "Registo de leilao executado.";
 
+    public static final String WORK_ADDED_TO_AUCTION = "Obra adicionada ao leilao.";
+
 }
