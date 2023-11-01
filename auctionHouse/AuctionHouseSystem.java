@@ -8,6 +8,8 @@ import dataStructures.List;
 
 public class AuctionHouseSystem implements AuctionHouse{
 
+    static final long serialVersionUID = 0L;
+
     private final FindAndGetList<User> userList;
 
     private final FindAndGetList<WorkOfArt> artList;
@@ -152,8 +154,15 @@ public class AuctionHouseSystem implements AuctionHouse{
         auction.addWork(this.getWorkOfArt(artID), lowestBid);
     }
 
-    public void addBid(String auctionID, String artID, String login, int value) {
-        // TODO
+    public void addBid(String auctionID, String artID, String login, int value) throws UserDoesNotExistException, AuctionDoesNotExistsException, ArtDoesNotExistInAuctionException, BidBelowMinValueException {
+        if(!this.hasUser(login))
+            throw new UserDoesNotExistException();
+        if(!this.hasAuction(auctionID))
+            throw new AuctionDoesNotExistsException();
+        Auction auction = this.findAuction(auctionID);
+        if(!auction.hasWorkOfArt(artID))
+            throw new ArtDoesNotExistInAuctionException();
+        auction.addBid(this.findUser(login), this.findArt(artID), value);
     }
 
 }

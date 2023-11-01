@@ -9,6 +9,8 @@ package dataStructures;
  */
 public class FindAndGetDoubleList<E> extends DoubleList<E> implements FindAndGetList<E>{
 
+    static final long serialVersionUID = 0L;
+
     public FindAndGetDoubleList(){
         super();
     }

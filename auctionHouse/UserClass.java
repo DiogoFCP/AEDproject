@@ -2,6 +2,8 @@ package auctionHouse;
 
 public class UserClass implements User {
 
+    static final long serialVersionUID = 0L;
+
     private final String login;
 
     private final String name;

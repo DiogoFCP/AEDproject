@@ -252,7 +252,7 @@ public class DoubleList<E> implements List<E> {
 
     @Override
     public void addLast( E element ) {
-       DoubleListNode<E> newNode = new DoubleListNode<>(element, null, tail);
+       DoubleListNode<E> newNode = new DoubleListNode<>(element, tail, null);
        if (this.isEmpty() )
            head = newNode;
        else
@@ -357,7 +357,7 @@ public class DoubleList<E> implements List<E> {
 
 
     @Override
-    public E remove( int position ) throws InvalidPositionException {
+    public E    remove( int position ) throws InvalidPositionException {
         if ( position < 0 || position >= currentSize )
             throw new InvalidPositionException();
 

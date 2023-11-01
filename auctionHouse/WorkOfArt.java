@@ -1,6 +1,8 @@
 package auctionHouse;
 
-public interface WorkOfArt {
+import java.io.Serializable;
+
+public interface WorkOfArt extends Serializable {
 
     /**
      *

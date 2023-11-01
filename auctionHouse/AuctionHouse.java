@@ -2,7 +2,9 @@ package auctionHouse;
 
 import auctionHouse.exceptions.*;
 
-public interface AuctionHouse {
+import java.io.Serializable;
+
+public interface AuctionHouse extends Serializable {
 
     /**
      * Adds a new base user to the system, this user
@@ -99,5 +101,5 @@ public interface AuctionHouse {
      * @param login the login of the user that is bidding on the given work of at.
      * @param value the value being bid by the user.
      */
-    void addBid(String auctionID, String artID, String login, int value);
+    void addBid(String auctionID, String artID, String login, int value) throws UserDoesNotExistException, AuctionDoesNotExistsException, ArtDoesNotExistInAuctionException, BidBelowMinValueException;
 }

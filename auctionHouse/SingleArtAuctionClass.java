@@ -1,5 +1,6 @@
 package auctionHouse;
 
+import auctionHouse.exceptions.BidBelowMinValueException;
 import dataStructures.FindAndGetDoubleList;
 import dataStructures.FindAndGetList;
 
@@ -9,6 +10,8 @@ import dataStructures.FindAndGetList;
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
 public class SingleArtAuctionClass implements SingleArtAuction{
+
+    static final long serialVersionUID = 0L;
 
     private WorkOfArt art;
 
@@ -22,10 +25,10 @@ public class SingleArtAuctionClass implements SingleArtAuction{
         this.bidsList = new FindAndGetDoubleList<>();
     }
 
-    public void addBid(User bidder, int value) {
+    public void addBid(User bidder, int value) throws BidBelowMinValueException {
         if(value < this.minimumBidRequired)
-            bidsList.addLast(new BidClass(bidder, value, this.art ));
-        // TODO acabar isto...
+            throw new BidBelowMinValueException();
+        bidsList.addLast(new BidClass(bidder, value, this.art ));
     }
 
     public WorkOfArt getArt(){ return this.art; }

@@ -2,6 +2,8 @@ package auctionHouse;
 
 public class BidClass implements Bid{
 
+    static final long serialVersionUID = 0L;
+
     private int value;
 
     private User bidder;

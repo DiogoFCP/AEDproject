@@ -290,8 +290,6 @@ public class Main {
             file.writeObject(ah);
             file.flush();
             file.close();
-
-            //TODO ver se e para tratar estas exceçoes ou nao?
         } catch (IOException ignored) {
         }
     }
@@ -306,12 +304,14 @@ public class Main {
             AuctionHouse ah = (AuctionHouse) file.readObject();
             file.close();
             return ah;
+        } catch (IOException e) {
+            // Ficheiro não existe: Criar um objeto vazio
+            // Mensagem para usar localmente, remover na submissão ao Mooshak
 
-            //TODO ver se e para tratar estas exceçoes ou nao?
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException | ClassNotFoundException e) {
             return new AuctionHouseSystem();
+        } catch (ClassNotFoundException e) {
+            // Situaçao anormal!!!
+            throw new RuntimeException(e);
         }
     }
 }

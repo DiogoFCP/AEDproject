@@ -1,6 +1,8 @@
 package auctionHouse;
 
-public interface User {
+import java.io.Serializable;
+
+public interface User extends Serializable {
 
     /**
      *

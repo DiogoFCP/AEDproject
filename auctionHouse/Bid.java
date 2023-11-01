@@ -1,6 +1,8 @@
 package auctionHouse;
 
-public interface Bid {
+import java.io.Serializable;
+
+public interface Bid extends Serializable {
 
     /**
      *

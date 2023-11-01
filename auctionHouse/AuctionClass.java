@@ -1,11 +1,12 @@
 package auctionHouse;
 
-import dataStructures.DoubleList;
+import auctionHouse.exceptions.BidBelowMinValueException;
 import dataStructures.FindAndGetDoubleList;
 import dataStructures.FindAndGetList;
-import dataStructures.List;
 
 public class AuctionClass implements Auction{
+
+    static final long serialVersionUID = 0L;
 
     private final String auctionID;
 
@@ -22,7 +23,16 @@ public class AuctionClass implements Auction{
      * @return true if the art exists in the auction
      */
     private boolean hasSingularArtAuction(WorkOfArt workOfArt){
-        return artAuctionsList.findAndGet(new SingleArtAuctionClass(workOfArt, 0)) != null;
+        return this.findSingularArtAuction(workOfArt) != null;
+    }
+
+    /**
+     * Finds the singular art in this auction with the given work of art.
+     * @param workOfArt the work of art we are looking for in a single art auction.
+     * @return wanted singular art auction.
+     */
+    private SingleArtAuction findSingularArtAuction(WorkOfArt workOfArt){
+        return artAuctionsList.findAndGet(new SingleArtAuctionClass(workOfArt, 0));
     }
 
     public String getAuctionID() {
@@ -44,5 +54,13 @@ public class AuctionClass implements Auction{
         if (this.auctionID == null) {
             return other.getAuctionID() == null;
         } else return this.auctionID.equals(other.getAuctionID());
+    }
+
+    public boolean hasWorkOfArt(String artID){
+        return this.hasSingularArtAuction(new WorkOfArtClass(artID, null, 0, null));
+    }
+
+    public void addBid(User bidder, WorkOfArt workOfArt, int value) throws BidBelowMinValueException {
+        this.findSingularArtAuction(workOfArt).addBid(bidder, value);
     }
 }

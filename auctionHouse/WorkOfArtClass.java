@@ -2,6 +2,8 @@ package auctionHouse;
 
 public class WorkOfArtClass implements WorkOfArt {
 
+    static final long serialVersionUID = 0L;
+
     private final String artID;
 
     // TODO guardar em obj author ou o login do author?
@@ -12,8 +14,6 @@ public class WorkOfArtClass implements WorkOfArt {
     private final String name;
 
     private int highestBid;
-
-    //private int lowestBid; // TODO guardar isto em cada Single art auction em vez de cada art ja q pd haver a 2 leiloes da msm art com lowestBids diferentes!
 
     public WorkOfArtClass(String artID, String author, int year, String name){
         this.artID = artID;
