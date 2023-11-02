@@ -24,4 +24,6 @@ public class Prints {
 
     public static final String WORK_ADDED_TO_AUCTION = "Obra adicionada ao leilao.";
 
+    public static final String BID_ADDED = "Proposta aceite.";
+
 }

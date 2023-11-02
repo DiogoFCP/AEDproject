@@ -232,7 +232,18 @@ public class Main {
         String login = in.next();
         int value = in.nextInt();
         System.out.println();
-        //TODO
+        try{
+            ah.addBid(auctionID, artID, login, value);
+            System.out.println(Prints.BID_ADDED);
+        } catch (BidBelowMinValueException e) {
+            System.out.println(e.getMessage());
+        } catch (ArtDoesNotExistInAuctionException e) {
+            System.out.println(e.getMessage());
+        } catch (AuctionDoesNotExistsException e) {
+            System.out.println(e.getMessage());
+        } catch (UserDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -305,12 +316,8 @@ public class Main {
             file.close();
             return ah;
         } catch (IOException e) {
-            // Ficheiro não existe: Criar um objeto vazio
-            // Mensagem para usar localmente, remover na submissão ao Mooshak
-
             return new AuctionHouseSystem();
         } catch (ClassNotFoundException e) {
-            // Situaçao anormal!!!
             throw new RuntimeException(e);
         }
     }

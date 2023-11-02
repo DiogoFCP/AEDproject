@@ -102,4 +102,12 @@ public interface AuctionHouse extends Serializable {
      * @param value the value being bid by the user.
      */
     void addBid(String auctionID, String artID, String login, int value) throws UserDoesNotExistException, AuctionDoesNotExistsException, ArtDoesNotExistInAuctionException, BidBelowMinValueException;
+
+    /**
+     * Closes the auction with the given auction ID.
+     * @param auctionID the auction being closed.
+     * @throws AuctionDoesNotExistsException if the auction does not exists in the system.
+     */
+    void closeAuction(String auctionID) throws AuctionDoesNotExistsException;
+
 }

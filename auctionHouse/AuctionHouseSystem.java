@@ -1,10 +1,7 @@
 package auctionHouse;
 
 import auctionHouse.exceptions.*;
-import dataStructures.DoubleList;
-import dataStructures.FindAndGetDoubleList;
-import dataStructures.FindAndGetList;
-import dataStructures.List;
+import dataStructures.*;
 
 public class AuctionHouseSystem implements AuctionHouse{
 
@@ -163,6 +160,19 @@ public class AuctionHouseSystem implements AuctionHouse{
         if(!auction.hasWorkOfArt(artID))
             throw new ArtDoesNotExistInAuctionException();
         auction.addBid(this.findUser(login), this.findArt(artID), value);
+    }
+
+    public void closeAuction(String auctionID) throws AuctionDoesNotExistsException {
+        if(!this.hasAuction(auctionID))
+            throw new AuctionDoesNotExistsException();
+        //TODO dipi
+    }
+
+    public Iterator<WorkOfArt> listAuctionWorks(String auctionID){
+
+
+        //TODO
+        return null;
     }
 
 }
