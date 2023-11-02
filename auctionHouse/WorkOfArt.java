@@ -12,9 +12,16 @@ public interface WorkOfArt extends Serializable {
 
     /**
      *
+     * @return the login of the author.
+     */
+    String getAuthorLogin();
+
+    /**
+     *
      * @return the name of the author.
      */
-    String getAuthor();
+
+    String getAuthorName();
 
     /**
      *

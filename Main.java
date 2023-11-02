@@ -176,12 +176,9 @@ public class Main {
         System.out.println();
         try{
             WorkOfArt w = ah.getWorkOfArt(artID);
-            User a = ah.getUser(w.getAuthor());
-            System.out.printf(Prints.INFO_WORK, w.getArtID(), w.getName(), w.getYear(), w.getHighestBid(), a.getLogin(), a.getName());
+            System.out.printf(Prints.INFO_WORK, w.getArtID(), w.getName(), w.getYear(), w.getHighestBid(), w.getAuthorLogin(), w.getAuthorName());
         } catch (ArtDoesNotExistException e) {
             System.out.println(e.getMessage());
-        } catch (UserDoesNotExistException ignored) {
-            // TODO n deviamos ter de tratar esta exception
         }
     }
 

@@ -113,7 +113,8 @@ public class AuctionHouseSystem implements AuctionHouse{
             throw new UserDoesNotExistException();
         if(!isArtist(artistLogin))
             throw new ArtistDoesNotExistException();
-        artList.addLast(new WorkOfArtClass(artID, artistLogin, year, artName));
+        Artist author = (Artist) this.findUser(artistLogin);
+        artList.addLast(new WorkOfArtClass(artID, author, year, artName));
     }
 
     public User getUser(String userLogin) throws UserDoesNotExistException{

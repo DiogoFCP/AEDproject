@@ -7,7 +7,7 @@ public class WorkOfArtClass implements WorkOfArt {
     private final String artID;
 
     // TODO guardar em obj author ou o login do author?
-    private final String author;
+    private Artist author;
 
     private final int year;
 
@@ -15,7 +15,7 @@ public class WorkOfArtClass implements WorkOfArt {
 
     private int highestBid;
 
-    public WorkOfArtClass(String artID, String author, int year, String name){
+    public WorkOfArtClass(String artID, Artist author, int year, String name){
         this.artID = artID;
         this.author = author;
         this.year = year;
@@ -27,8 +27,12 @@ public class WorkOfArtClass implements WorkOfArt {
         return this.artID;
     }
 
-    public String getAuthor(){
-        return this.author;
+    public String getAuthorLogin(){
+        return this.author.getLogin();
+    }
+
+    public String getAuthorName(){
+        return this.author.getName();
     }
 
     public int getYear(){
