@@ -1,6 +1,7 @@
 package auctionHouse;
 
 import auctionHouse.exceptions.BidBelowMinValueException;
+import dataStructures.Iterator;
 
 import java.io.Serializable;
 
@@ -30,8 +31,35 @@ public interface Auction extends Serializable {
     /**
      * Adds a bid to an art auction going on in this auction with its corresponding value.
      * @param bidder the user who made the bid.
-     * @param workOfArt the art being bidded on.
+     * @param workOfArt the art being bid on.
      * @param value the value of the bid.
      */
     void addBid(User bidder, WorkOfArt workOfArt, int value) throws BidBelowMinValueException;
+
+    /**
+     *
+     * @return true if the auction has no works registered.
+     */
+    boolean hasNoWorks();
+
+    /**
+     *
+     * @return an iterator with all the art works in the auction.
+     */
+    Iterator<WorkOfArt> getWorksIterator();
+
+    /**
+     * Verifies if the given work of art has no bids.
+     * @param workOfArt the work of art being verified for its bids.
+     * @return true if the work of art given has no bids.
+     */
+    boolean workHasNoBids(WorkOfArt workOfArt);
+
+    /**
+     * Returns an iterator with all the bids of a given work.
+     * @param workOfArt the given work of art.
+     * @return an iterator with all the bids on the given work.
+     */
+    Iterator<Bid> getWorksBidsIterator(WorkOfArt workOfArt);
+
 }

@@ -3,6 +3,7 @@ package auctionHouse;
 import auctionHouse.exceptions.BidBelowMinValueException;
 import dataStructures.FindAndGetDoubleList;
 import dataStructures.FindAndGetList;
+import dataStructures.Iterator;
 
 /**
  * An auction dedicated to a single work of art that resides inside an auction (implementation).
@@ -32,6 +33,14 @@ public class SingleArtAuctionClass implements SingleArtAuction{
     }
 
     public WorkOfArt getArt(){ return this.art; }
+
+    public boolean hasNoBids() {
+        return this.bidsList.size() == 0;
+    }
+
+    public Iterator<Bid> getBidsIterator() {
+        return this.bidsList.iterator();
+    }
 
     @Override
     public boolean equals(Object obj){

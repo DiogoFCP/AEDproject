@@ -4,6 +4,7 @@ import java.util.Scanner;
 import auctionHouse.*;
 import auctionHouse.exceptions.*;
 import constants.*;
+import dataStructures.Iterator;
 
 /**
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
@@ -249,7 +250,7 @@ public class Main {
      * @param in the input scanner.
      */
     private static void closeAuction(AuctionHouse ah, Scanner in){
-        //TODO
+        //TODO closeAuction
     }
 
     /**
@@ -258,7 +259,19 @@ public class Main {
      * @param in the input scanner.
      */
     private static void listAuctionWorks(AuctionHouse ah, Scanner in){
-        //TODO
+        String auctionID = in.next();
+        System.out.println();
+        try{
+            Iterator<WorkOfArt> it = ah.listAuctionWorks(auctionID);
+            while (it.hasNext()){
+                WorkOfArt a = it.next();
+                System.out.printf(Prints.AUCTION_WORKS_LISTING, a.getArtID(), a.getName(), a.getYear(), a.getHighestBid(), a.getAuthorLogin(), a.getAuthorName());
+            }
+        } catch (AuctionHasNoWorksException e) {
+            System.out.println(e.getMessage());
+        } catch (AuctionDoesNotExistsException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -276,7 +289,23 @@ public class Main {
      * @param in the input scanner.
      */
     private static void listBidsWork(AuctionHouse ah, Scanner in){
-        //TODO
+        String auctionID = in.next();
+        String artID = in.next();
+        System.out.println();
+        try{
+            Iterator<Bid> it = ah.listBidsWork(auctionID, artID);
+            while(it.hasNext()){
+                Bid b = it.next();
+                System.out.printf(Prints.BIDS_WORK_LISTING, b.getBidderLogin(), b.getBidderName(), b.getBidValue());
+            }
+            System.out.println();
+        } catch (ArtDoesNotExistInAuctionException e) {
+            System.out.println(e.getMessage());
+        } catch (AuctionDoesNotExistsException e) {
+            System.out.println(e.getMessage());
+        } catch (WorkHasNoBidsException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**

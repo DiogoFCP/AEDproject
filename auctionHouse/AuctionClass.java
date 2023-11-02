@@ -1,8 +1,7 @@
 package auctionHouse;
 
 import auctionHouse.exceptions.BidBelowMinValueException;
-import dataStructures.FindAndGetDoubleList;
-import dataStructures.FindAndGetList;
+import dataStructures.*;
 
 public class AuctionClass implements Auction{
 
@@ -62,5 +61,23 @@ public class AuctionClass implements Auction{
 
     public void addBid(User bidder, WorkOfArt workOfArt, int value) throws BidBelowMinValueException {
         this.findSingularArtAuction(workOfArt).addBid(bidder, value);
+    }
+
+    public boolean hasNoWorks(){ return artAuctionsList.size() == 0; }
+
+    public Iterator<WorkOfArt> getWorksIterator() {
+        Iterator<SingleArtAuction> it = artAuctionsList.iterator();
+        List<WorkOfArt> tmpList = new DoubleList<>();
+        while(it.hasNext())
+            tmpList.addLast(it.next().getArt());
+        return tmpList.iterator();
+    }
+
+    public boolean workHasNoBids(WorkOfArt workOfArt){
+        return findSingularArtAuction(workOfArt).hasNoBids();
+    }
+
+    public Iterator<Bid> getWorksBidsIterator(WorkOfArt workOfArt) {
+        return findSingularArtAuction(workOfArt).getBidsIterator();
     }
 }

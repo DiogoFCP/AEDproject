@@ -6,7 +6,6 @@ public class WorkOfArtClass implements WorkOfArt {
 
     private final String artID;
 
-    // TODO guardar em obj author ou o login do author?
     private Artist author;
 
     private final int year;

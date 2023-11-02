@@ -1,6 +1,7 @@
 package auctionHouse;
 
 import auctionHouse.exceptions.*;
+import dataStructures.Iterator;
 
 import java.io.Serializable;
 
@@ -106,8 +107,28 @@ public interface AuctionHouse extends Serializable {
     /**
      * Closes the auction with the given auction ID.
      * @param auctionID the auction being closed.
-     * @throws AuctionDoesNotExistsException if the auction does not exists in the system.
+     * @throws AuctionDoesNotExistsException if the auction does not exist in the system.
      */
     void closeAuction(String auctionID) throws AuctionDoesNotExistsException;
+
+    /**
+     * Lists all the works in the given auction.
+     * @param auctionID the id of the auction the works are being listed.
+     * @return An iterator with all the art works being listed.
+     * @throws AuctionDoesNotExistsException if the auction does not exist.
+     * @throws AuctionHasNoWorksException if the auction has no works registered.
+     */
+    Iterator<WorkOfArt> listAuctionWorks(String auctionID) throws AuctionDoesNotExistsException, AuctionHasNoWorksException;
+
+    /**
+     * Lists all the bids of a given work in a given auction.
+     * @param auctionID the id of the auction that contains the given work.
+     * @param artID the id of the work that contains the bids we want to list.
+     * @return An iterator with all the bids being listed.
+     * @throws AuctionDoesNotExistsException if the auction does not exist.
+     * @throws ArtDoesNotExistInAuctionException if the art does not exist in the given auction.
+     * @throws WorkHasNoBidsException if the given work in the given auction has no bids.
+     */
+    Iterator<Bid> listBidsWork(String auctionID, String artID) throws AuctionDoesNotExistsException, ArtDoesNotExistInAuctionException, WorkHasNoBidsException;
 
 }

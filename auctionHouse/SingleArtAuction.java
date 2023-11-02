@@ -1,6 +1,7 @@
 package auctionHouse;
 
 import auctionHouse.exceptions.BidBelowMinValueException;
+import dataStructures.Iterator;
 
 import java.io.Serializable;
 
@@ -25,5 +26,15 @@ public interface SingleArtAuction extends Serializable {
      */
     WorkOfArt getArt();
 
+    /**
+     *
+     * @return true if there are no bids in this single art auction.
+     */
+    boolean hasNoBids();
 
+    /**
+     *
+     * @return an iterator with all the bids of this single art auction.
+     */
+    Iterator<Bid> getBidsIterator();
 }

@@ -55,10 +55,28 @@ public class AuctionHouseSystem implements AuctionHouse{
     public void removeUser(String login) throws UserDoesNotExistException, UserHasBidsException, ArtistHasAuctionedArtException {
         if(!this.hasUser(login))
             throw new UserDoesNotExistException();
+
         // TODO outras exeçoes
+
+        User user = this.findUser(login);
+        if (user instanceof Artist && ((Artist) user).hasWorks())
+            this.removeWorksOfArtist((Artist) user);
+
+
+
 
         userList.remove(new UserClass(login, null, 0, null));
 
+    }
+
+    /**
+     *
+     * @param artist
+     */
+    private void removeWorksOfArtist(Artist artist){
+        Iterator<WorkOfArt> it = artist.getWorkIterator();
+        while(it.hasNext())
+            this.artList.remove(it.next());
     }
 
     /**
@@ -166,14 +184,28 @@ public class AuctionHouseSystem implements AuctionHouse{
     public void closeAuction(String auctionID) throws AuctionDoesNotExistsException {
         if(!this.hasAuction(auctionID))
             throw new AuctionDoesNotExistsException();
-        //TODO dipi
+        //TODO FINAL BOSS
     }
 
-    public Iterator<WorkOfArt> listAuctionWorks(String auctionID){
+    public Iterator<WorkOfArt> listAuctionWorks(String auctionID) throws AuctionDoesNotExistsException, AuctionHasNoWorksException {
+        if(!this.hasAuction(auctionID))
+            throw new AuctionDoesNotExistsException();
+        Auction auction = findAuction(auctionID);
+        if(auction.hasNoWorks())
+            throw new AuctionHasNoWorksException();
+        return auction.getWorksIterator();
+    }
 
-
-        //TODO
-        return null;
+    public Iterator<Bid> listBidsWork(String auctionID, String artID) throws AuctionDoesNotExistsException, ArtDoesNotExistInAuctionException, WorkHasNoBidsException {
+        if(!this.hasAuction(auctionID))
+            throw new AuctionDoesNotExistsException();
+        Auction auction = this.findAuction(auctionID);
+        if(!auction.hasWorkOfArt(artID))
+            throw new ArtDoesNotExistInAuctionException();
+        WorkOfArt workOfArt = this.findArt(artID);
+        if(auction.workHasNoBids(workOfArt))
+            throw new WorkHasNoBidsException();
+        return auction.getWorksBidsIterator(workOfArt);
     }
 
 }

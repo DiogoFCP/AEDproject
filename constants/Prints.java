@@ -26,4 +26,8 @@ public class Prints {
 
     public static final String BID_ADDED = "Proposta aceite.";
 
+    public static final String AUCTION_WORKS_LISTING = "%s %s %d %d %s %s\n";
+
+    public static final String BIDS_WORK_LISTING = "%s %s %d\n";
+
 }
