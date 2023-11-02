@@ -65,7 +65,7 @@ public class AuctionHouseSystem implements AuctionHouse{
 
 
 
-        userList.remove(new UserClass(login, null, 0, null));
+        userList.remove(user);
 
     }
 
@@ -132,7 +132,9 @@ public class AuctionHouseSystem implements AuctionHouse{
         if(!isArtist(artistLogin))
             throw new ArtistDoesNotExistException();
         Artist author = (Artist) this.findUser(artistLogin);
-        artList.addLast(new WorkOfArtClass(artID, author, year, artName));
+        WorkOfArt workToAdd = new WorkOfArtClass(artID, author, year, artName);
+        artList.addLast(workToAdd);
+        author.addWork(workToAdd);
     }
 
     public User getUser(String userLogin) throws UserDoesNotExistException{
