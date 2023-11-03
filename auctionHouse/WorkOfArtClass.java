@@ -58,5 +58,9 @@ public class WorkOfArtClass implements WorkOfArt {
         } else return this.artID.equals(other.getArtID());
     }
 
+    public void removeFromSelling(){
+        this.author.decSellingWorks();
+    }
+
 
 }

@@ -33,4 +33,8 @@ public class BidClass implements Bid{
     public String getArtName() {
         return this.art.getName();
     }
+
+    public void removeBidFromUser(){
+        this.bidder.decNumbOfBids();
+    }
 }

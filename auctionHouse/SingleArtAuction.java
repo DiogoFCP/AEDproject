@@ -21,6 +21,12 @@ public interface SingleArtAuction extends Serializable {
     void addBid(User bidder, int value) throws BidBelowMinValueException;
 
     /**
+     * gives the art name of the auction
+     * @return art name
+     */
+    String getArtName();
+
+    /**
      *
      * @return the art being auctioned on this single art auction.
      */

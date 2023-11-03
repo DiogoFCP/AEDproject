@@ -20,10 +20,13 @@ public class SingleArtAuctionClass implements SingleArtAuction{
 
     private FindAndGetList<Bid> bidsList;
 
+    private Bid winningBid;
+
     public SingleArtAuctionClass(WorkOfArt art, int minimumBidRequired){
         this.art = art;
         this.minimumBidRequired = minimumBidRequired;
         this.bidsList = new FindAndGetDoubleList<>();
+        this.winningBid = null;
     }
 
     public void addBid(User bidder, int value) throws BidBelowMinValueException {
@@ -34,8 +37,35 @@ public class SingleArtAuctionClass implements SingleArtAuction{
 
     public WorkOfArt getArt(){ return this.art; }
 
+    public String getArtName(){
+        return this.art.getName();
+    }
+
     public boolean hasNoBids() {
         return this.bidsList.isEmpty();
+    }
+
+    /**
+     * It's called on getWinningBid, because the funcion is called only once, when the auction is closed,
+     * to decide the winner.
+     */
+    private void decideWinner(){
+        Iterator<Bid> it = getBidsIterator();
+        Bid bid = bidsList.getFirst();
+        while (it.hasNext()) {
+            Bid toCheck = it.next();
+            toCheck.removeBidFromUser();
+            if (toCheck.getBidValue() > bid.getBidValue()) {
+                bid = toCheck;
+            }
+        }
+        this.art.removeFromSelling();
+        winningBid = bid;
+    }
+
+    public Bid getWinningBid() {
+        this.decideWinner();
+        return winningBid;
     }
 
     public Iterator<Bid> getBidsIterator() {

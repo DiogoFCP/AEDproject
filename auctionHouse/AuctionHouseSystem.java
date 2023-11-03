@@ -187,6 +187,9 @@ public class AuctionHouseSystem implements AuctionHouse{
         if(!this.hasAuction(auctionID))
             throw new AuctionDoesNotExistsException();
         //TODO FINAL BOSS
+
+        Auction auction = this.findAuction(auctionID);
+        Iterator closed =
     }
 
     public Iterator<WorkOfArt> listAuctionWorks(String auctionID) throws AuctionDoesNotExistsException, AuctionHasNoWorksException {

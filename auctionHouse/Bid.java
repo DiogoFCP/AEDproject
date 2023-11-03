@@ -33,4 +33,9 @@ public interface Bid extends Serializable {
      * @return the name of the art bid on.
      */
     String getArtName();
+
+    /**
+     *
+     */
+    void removeBidFromUser();
 }

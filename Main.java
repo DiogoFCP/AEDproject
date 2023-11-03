@@ -265,7 +265,8 @@ public class Main {
             Iterator<WorkOfArt> it = ah.listAuctionWorks(auctionID);
             while (it.hasNext()){
                 WorkOfArt a = it.next();
-                System.out.printf(Prints.AUCTION_WORKS_LISTING, a.getArtID(), a.getName(), a.getYear(), a.getHighestBid(), a.getAuthorLogin(), a.getAuthorName());
+                System.out.printf(Prints.AUCTION_WORKS_LISTING, a.getArtID(), a.getName(),
+                        a.getYear(), a.getHighestBid(), a.getAuthorLogin(), a.getAuthorName());
             }
         } catch (AuctionHasNoWorksException e) {
             System.out.println(e.getMessage());

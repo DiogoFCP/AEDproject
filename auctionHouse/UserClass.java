@@ -12,11 +12,14 @@ public class UserClass implements User {
 
     private final String email;
 
+    private int numbOfBids;
+
     public UserClass(String login, String name, int age, String email){
         this.login = login;
         this.name = name;
         this.age = age;
         this.email = email;
+        this.numbOfBids = 0;
     }
 
     public String getLogin(){
@@ -43,5 +46,15 @@ public class UserClass implements User {
         if (this.login == null) {
             return other.getLogin() == null;
         } else return this.login.equals(other.getLogin());
+    }
+
+    public void incNumbOfBids(){
+        numbOfBids++;
+    }
+    public void decNumbOfBids(){
+        numbOfBids--;
+    }
+    public boolean hasBids(){
+        return numbOfBids>0;
     }
 }

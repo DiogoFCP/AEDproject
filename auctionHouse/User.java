@@ -29,6 +29,22 @@ public interface User extends Serializable {
     String getEmail();
 
     /**
+     *
+     */
+    void incNumbOfBids();
+
+    /**
+     *
+     */
+    void decNumbOfBids();
+
+    /**
+     *
+     * @return
+     */
+    boolean hasBids();
+
+    /**
      * Compares both users based on their login (unique ID).
      * @param obj the other user.
      * @return true if they are the same user (same login ID).

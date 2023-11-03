@@ -40,4 +40,9 @@ public interface WorkOfArt extends Serializable {
      * @return highest bid the art went for.
      */
     int getHighestBid();
+
+    /**
+     *
+     */
+    void removeFromSelling();
 }

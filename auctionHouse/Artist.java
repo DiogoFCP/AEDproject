@@ -24,6 +24,22 @@ public interface Artist extends User{
     boolean hasWorks();
 
     /**
+     *
+     */
+    void incSellingWorks();
+
+    /**
+     *
+     */
+    void decSellingWorks();
+
+    /**
+     *
+     * @return
+     */
+
+    boolean hasWorksSelling();
+    /**
      * Gives all the works the artist has, only is casted if hasWorks
      * @return Iterator copy of all works
      */
