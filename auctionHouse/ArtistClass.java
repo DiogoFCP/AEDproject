@@ -25,7 +25,7 @@ public class ArtistClass extends UserClass implements Artist{
     }
 
     public boolean hasWorks(){
-        return artistWorks.size() != 0;
+        return !artistWorks.isEmpty();
     }
 
     public Iterator<WorkOfArt> getWorkIterator(){

@@ -63,7 +63,7 @@ public class AuctionClass implements Auction{
         this.findSingularArtAuction(workOfArt).addBid(bidder, value);
     }
 
-    public boolean hasNoWorks(){ return artAuctionsList.size() == 0; }
+    public boolean hasNoWorks(){ return artAuctionsList.isEmpty(); }
 
     public Iterator<WorkOfArt> getWorksIterator() {
         Iterator<SingleArtAuction> it = artAuctionsList.iterator();

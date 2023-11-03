@@ -35,7 +35,7 @@ public class SingleArtAuctionClass implements SingleArtAuction{
     public WorkOfArt getArt(){ return this.art; }
 
     public boolean hasNoBids() {
-        return this.bidsList.size() == 0;
+        return this.bidsList.isEmpty();
     }
 
     public Iterator<Bid> getBidsIterator() {
