@@ -38,4 +38,10 @@ public interface Bid extends Serializable {
      *
      */
     void removeBidFromUser();
+
+    /**
+     *
+     * @return
+     */
+    boolean isFailedBid();
 }

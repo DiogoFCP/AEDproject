@@ -1,6 +1,7 @@
 package auctionHouse;
 
 import auctionHouse.exceptions.BidBelowMinValueException;
+import dataStructures.FindAndGetList;
 import dataStructures.Iterator;
 
 import java.io.Serializable;
@@ -61,5 +62,11 @@ public interface Auction extends Serializable {
      * @return an iterator with all the bids on the given work.
      */
     Iterator<Bid> getWorksBidsIterator(WorkOfArt workOfArt);
+
+    /**
+     *
+     * @return
+     */
+    Iterator<Bid> closeAllSingularAuctions();
 
 }

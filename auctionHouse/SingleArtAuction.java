@@ -40,6 +40,12 @@ public interface SingleArtAuction extends Serializable {
 
     /**
      *
+     * @return
+     */
+    Bid getWinningBid();
+
+    /**
+     *
      * @return an iterator with all the bids of this single art auction.
      */
     Iterator<Bid> getBidsIterator();

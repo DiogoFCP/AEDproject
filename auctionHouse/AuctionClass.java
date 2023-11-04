@@ -80,4 +80,13 @@ public class AuctionClass implements Auction{
     public Iterator<Bid> getWorksBidsIterator(WorkOfArt workOfArt) {
         return findSingularArtAuction(workOfArt).getBidsIterator();
     }
+
+    public Iterator<Bid> closeAllSingularAuctions(){
+        List<Bid> winners = new DoubleList<>();
+        Iterator<SingleArtAuction> it = artAuctionsList.iterator();
+        while (it.hasNext()){
+            winners.addLast(it.next().getWinningBid());
+        }
+        return winners.iterator();
+    }
 }

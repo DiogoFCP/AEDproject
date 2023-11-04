@@ -22,6 +22,7 @@ public class SingleArtAuctionClass implements SingleArtAuction{
 
     public SingleArtAuctionClass(WorkOfArt art, int minimumBidRequired){
         this.art = art;
+        art.addFromSelling();
         this.minimumBidRequired = minimumBidRequired;
         this.bidsList = new FindAndGetDoubleList<>();
     }
@@ -44,8 +45,20 @@ public class SingleArtAuctionClass implements SingleArtAuction{
     }
 
     public Bid getWinningBid() {
-        this.decideWinner();
-        return winningBid;
+        if (hasNoBids())
+            return new BidClass(null,-1,this.art);
+        Iterator<Bid> it = getBidsIterator();
+        Bid bid = bidsList.getFirst();
+        while (it.hasNext()) {
+            Bid toCheck = it.next();
+            toCheck.removeBidFromUser();
+            if (toCheck.getBidValue() > bid.getBidValue()) {
+                bid = toCheck;
+            }
+        }
+        this.art.updateHighestBid(bid.getBidValue());
+        this.art.removeFromSelling();
+        return bid;
     }
 
     public Iterator<Bid> getBidsIterator() {

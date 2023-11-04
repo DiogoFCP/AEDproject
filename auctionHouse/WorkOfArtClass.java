@@ -62,6 +62,10 @@ public class WorkOfArtClass implements WorkOfArt {
         this.author.decSellingWorks();
     }
 
+    public void addFromSelling(){
+        this.author.incSellingWorks();
+    }
+
     public void updateHighestBid(int value){
         if(value > this.highestBid)
             this.highestBid = value;

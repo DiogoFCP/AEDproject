@@ -37,4 +37,8 @@ public class BidClass implements Bid{
     public void removeBidFromUser(){
         this.bidder.decNumbOfBids();
     }
+
+    public boolean isFailedBid(){
+        return value < 0;
+    }
 }

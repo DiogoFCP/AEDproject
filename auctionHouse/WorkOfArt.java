@@ -45,4 +45,16 @@ public interface WorkOfArt extends Serializable {
      *
      */
     void removeFromSelling();
+
+    /**
+     *
+     */
+    void addFromSelling();
+
+    /**
+     * Updates the highest bid value of the art if the given
+     * value is bigger than the highest bid of the art.
+     * @param value the value being verified.
+     */
+    void updateHighestBid(int value);
 }
