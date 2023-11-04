@@ -7,11 +7,15 @@ import constants.*;
 import dataStructures.Iterator;
 
 /**
+ * TODO
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
 public class Main {
 
+    /**
+     * TODO
+     */
     private static final String DATA_FILE = "auctionHouseData.dat";
 
     public static void main(String[] args) {
@@ -32,9 +36,9 @@ public class Main {
                 case Commands.BID -> bid(ah, in);
                 case Commands.CLOSE_AUCTION -> closeAuction(ah, in);
                 case Commands.LIST_AUCTION_WORKS -> listAuctionWorks(ah, in);
-                //case Commands.LIST_ARTIST_WORKS -> listArtistWorks(ah, in);
+                case Commands.LIST_ARTIST_WORKS -> listArtistWorks(ah, in);
                 case Commands.LIST_BIDS_WORK -> listBidsWork(ah, in);
-                //case Commands.LIST_WORKS_BY_VALUE -> listWorksByValue(ah, in);
+                case Commands.LIST_WORKS_BY_VALUE -> listWorksByValue(ah, in);
                 default -> System.out.println(Prints.UNKNOWN_CMD);
             }
             System.out.println();
@@ -91,7 +95,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -111,7 +115,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -134,7 +138,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -150,7 +154,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -168,7 +172,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -184,7 +188,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -200,7 +204,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -220,7 +224,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -245,7 +249,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -269,7 +273,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -291,7 +295,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -300,7 +304,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -324,7 +328,7 @@ public class Main {
     }
 
     /**
-     *
+     * TODO
      * @param ah the system interface.
      * @param in the input scanner.
      */

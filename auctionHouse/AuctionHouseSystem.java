@@ -3,16 +3,36 @@ package auctionHouse;
 import auctionHouse.exceptions.*;
 import dataStructures.*;
 
+/**
+ * TODO
+ * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
+ * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
+ */
 public class AuctionHouseSystem implements AuctionHouse{
 
+    /**
+     * Serial Version UID of the Class
+     */
     static final long serialVersionUID = 0L;
 
+    /**
+     * TODO
+     */
     private final FindAndGetList<User> userList;
 
+    /**
+     * TODO
+     */
     private final FindAndGetList<WorkOfArt> artList;
 
+    /**
+     * TODO
+     */
     private final FindAndGetList<Auction> auctionList;
 
+    /**
+     * TODO
+     */
     public AuctionHouseSystem(){
         userList = new FindAndGetDoubleList<>();
         artList = new FindAndGetDoubleList<>();
@@ -37,38 +57,8 @@ public class AuctionHouseSystem implements AuctionHouse{
         return userList.findAndGet(new UserClass(userID, null, 0, null));
     }
 
-    public void addUser(String login, String name, int age, String email) throws InvalidAgeException, UserAlreadyExistsException {
-        if(age < 18)
-            throw new InvalidAgeException();
-        if(this.hasUser(login))
-            throw new UserAlreadyExistsException();
-        userList.addLast(new UserClass(login, name, age, email));
-    }
-
-    public void addArtist(String login, String name, String artisticName, int age, String email) throws InvalidAgeException, UserAlreadyExistsException {
-        if(age < 18)
-            throw new InvalidAgeException();
-        if(this.hasUser(login))
-            throw new UserAlreadyExistsException();
-        userList.addLast(new ArtistClass(login, name, artisticName, age, email));
-    }
-
-    public void removeUser(String login) throws UserDoesNotExistException, UserHasBidsException, ArtistHasAuctionedArtException {
-        if(!this.hasUser(login))
-            throw new UserDoesNotExistException();
-        User user = this.findUser(login);
-        if(user.hasBids())
-            throw new UserHasBidsException();
-        if (user instanceof Artist artist && ((Artist) user).hasWorks()) {
-            if(artist.hasWorksSelling())
-                throw new ArtistHasAuctionedArtException();
-            this.removeWorksOfArtist(artist);
-        }
-        userList.remove(user);
-    }
-
     /**
-     *
+     * TODO
      * @param artist
      */
     private void removeWorksOfArtist(Artist artist){
@@ -120,6 +110,36 @@ public class AuctionHouseSystem implements AuctionHouse{
      */
     private boolean isArtist(String artistLogin){
         return findUser(artistLogin) instanceof ArtistClass;
+    }
+
+    public void addUser(String login, String name, int age, String email) throws InvalidAgeException, UserAlreadyExistsException {
+        if(age < 18)
+            throw new InvalidAgeException();
+        if(this.hasUser(login))
+            throw new UserAlreadyExistsException();
+        userList.addLast(new UserClass(login, name, age, email));
+    }
+
+    public void addArtist(String login, String name, String artisticName, int age, String email) throws InvalidAgeException, UserAlreadyExistsException {
+        if(age < 18)
+            throw new InvalidAgeException();
+        if(this.hasUser(login))
+            throw new UserAlreadyExistsException();
+        userList.addLast(new ArtistClass(login, name, artisticName, age, email));
+    }
+
+    public void removeUser(String login) throws UserDoesNotExistException, UserHasBidsException, ArtistHasAuctionedArtException {
+        if(!this.hasUser(login))
+            throw new UserDoesNotExistException();
+        User user = this.findUser(login);
+        if(user.hasBids())
+            throw new UserHasBidsException();
+        if (user instanceof Artist artist && ((Artist) user).hasWorks()) {
+            if(artist.hasWorksSelling())
+                throw new ArtistHasAuctionedArtException();
+            this.removeWorksOfArtist(artist);
+        }
+        userList.remove(user);
     }
 
     public void addWork(String artID, String artistLogin, int year, String artName) throws ArtAlreadyExistsException, UserDoesNotExistException, ArtistDoesNotExistException {
@@ -209,5 +229,4 @@ public class AuctionHouseSystem implements AuctionHouse{
             throw new WorkHasNoBidsException();
         return auction.getWorksBidsIterator(workOfArt);
     }
-
 }

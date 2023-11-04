@@ -5,6 +5,11 @@ import dataStructures.Iterator;
 
 import java.io.Serializable;
 
+/**
+ * TODO
+ * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
+ * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
+ */
 public interface AuctionHouse extends Serializable {
 
     /**

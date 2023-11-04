@@ -1,19 +1,49 @@
 package auctionHouse;
 
+/**
+ * TODO
+ * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
+ * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
+ */
 public class WorkOfArtClass implements WorkOfArt {
 
+    /**
+     * Serial Version UID of the Class
+     */
     static final long serialVersionUID = 0L;
 
+    /**
+     * TODO
+     */
     private final String artID;
 
+    /**
+     * TODO
+     */
     private Artist author;
 
+    /**
+     * TODO
+     */
     private final int year;
 
+    /**
+     * TODO
+     */
     private final String name;
 
+    /**
+     * TODO
+     */
     private int highestBid;
 
+    /**
+     * TODO
+     * @param artID
+     * @param author
+     * @param year
+     * @param name
+     */
     public WorkOfArtClass(String artID, Artist author, int year, String name){
         this.artID = artID;
         this.author = author;

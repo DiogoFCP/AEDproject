@@ -2,10 +2,15 @@ package auctionHouse;
 
 import dataStructures.Iterator;
 
+/**
+ * TODO
+ * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
+ * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
+ */
 public interface Artist extends User{
 
     /**
-     *
+     * TODO
      * @return the artistic name of the artist.
      */
     String getArtisticName();
@@ -24,17 +29,17 @@ public interface Artist extends User{
     boolean hasWorks();
 
     /**
-     *
+     * TODO
      */
     void incSellingWorks();
 
     /**
-     *
+     * TODO
      */
     void decSellingWorks();
 
     /**
-     *
+     * TODO
      * @return
      */
 

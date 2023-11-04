@@ -1,15 +1,38 @@
 package auctionHouse;
 
+/**
+ * TODO
+ * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
+ * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
+ */
 public class BidClass implements Bid{
 
+    /**
+     * Serial Version UID of the Class
+     */
     static final long serialVersionUID = 0L;
 
+    /**
+     * TODO
+     */
     private int value;
 
+    /**
+     * TODO
+     */
     private User bidder;
 
+    /**
+     * TODO
+     */
     private WorkOfArt art;
 
+    /**
+     * TODO
+     * @param bidder
+     * @param value
+     * @param art
+     */
     public BidClass(User bidder, int value, WorkOfArt art){
         this.value = value;
         this.bidder = bidder;

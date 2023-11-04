@@ -3,14 +3,32 @@ package auctionHouse;
 import auctionHouse.exceptions.BidBelowMinValueException;
 import dataStructures.*;
 
+/**
+ * TODO
+ * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
+ * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
+ */
 public class AuctionClass implements Auction{
 
+    /**
+     * Serial Version UID of the Class
+     */
     static final long serialVersionUID = 0L;
 
+    /**
+     * TODO
+     */
     private final String auctionID;
 
+    /**
+     * TODO
+     */
     private final FindAndGetList<SingleArtAuction> artAuctionsList;
 
+    /**
+     * TODO
+     * @param auctionID
+     */
     public AuctionClass(String auctionID){
         this.auctionID = auctionID;
         this.artAuctionsList = new FindAndGetDoubleList<>();

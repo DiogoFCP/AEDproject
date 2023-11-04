@@ -12,14 +12,31 @@ import dataStructures.Iterator;
  */
 public class SingleArtAuctionClass implements SingleArtAuction{
 
+    /**
+     * Serial Version UID of the Class
+     */
     static final long serialVersionUID = 0L;
 
+    /**
+     * TODO
+     */
     private WorkOfArt art;
 
+    /**
+     * TODO
+     */
     private int minimumBidRequired;
 
+    /**
+     * TODO
+     */
     private FindAndGetList<Bid> bidsList;
 
+    /**
+     * TODO
+     * @param art
+     * @param minimumBidRequired
+     */
     public SingleArtAuctionClass(WorkOfArt art, int minimumBidRequired){
         this.art = art;
         art.addFromSelling();

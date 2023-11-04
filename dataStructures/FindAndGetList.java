@@ -4,7 +4,7 @@ package dataStructures;
  * List but with a method that finds and returns an element in a single search.
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
- * @param <E>
+ * @param <E> Generic Element
  *
  */
 public interface FindAndGetList<E> extends List<E>{
