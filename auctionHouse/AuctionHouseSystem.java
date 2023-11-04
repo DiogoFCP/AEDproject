@@ -36,6 +36,7 @@ public class AuctionHouseSystem implements AuctionHouse{
     private User findUser(String userID){
         return userList.findAndGet(new UserClass(userID, null, 0, null));
     }
+
     public void addUser(String login, String name, int age, String email) throws InvalidAgeException, UserAlreadyExistsException {
         if(age < 18)
             throw new InvalidAgeException();
@@ -55,18 +56,15 @@ public class AuctionHouseSystem implements AuctionHouse{
     public void removeUser(String login) throws UserDoesNotExistException, UserHasBidsException, ArtistHasAuctionedArtException {
         if(!this.hasUser(login))
             throw new UserDoesNotExistException();
-
-        // TODO outras exeçoes
-
         User user = this.findUser(login);
-        if (user instanceof Artist && ((Artist) user).hasWorks())
-            this.removeWorksOfArtist((Artist) user);
-
-
-
-
+        if(user.hasBids())
+            throw new UserHasBidsException();
+        if (user instanceof Artist artist && ((Artist) user).hasWorks()) {
+            if(artist.hasWorksSelling())
+                throw new ArtistHasAuctionedArtException();
+            this.removeWorksOfArtist(artist);
+        }
         userList.remove(user);
-
     }
 
     /**
@@ -183,13 +181,12 @@ public class AuctionHouseSystem implements AuctionHouse{
         auction.addBid(this.findUser(login), this.findArt(artID), value);
     }
 
-    public void closeAuction(String auctionID) throws AuctionDoesNotExistsException {
+    public Iterator<Bid> closeAuction(String auctionID) throws AuctionDoesNotExistsException {
         if(!this.hasAuction(auctionID))
             throw new AuctionDoesNotExistsException();
-        //TODO FINAL BOSS
-
         Auction auction = this.findAuction(auctionID);
-        Iterator closed =
+        this.auctionList.remove(auction);
+        return auction.closeAllSingularAuctions();
     }
 
     public Iterator<WorkOfArt> listAuctionWorks(String auctionID) throws AuctionDoesNotExistsException, AuctionHasNoWorksException {

@@ -250,7 +250,22 @@ public class Main {
      * @param in the input scanner.
      */
     private static void closeAuction(AuctionHouse ah, Scanner in){
-        //TODO closeAuction
+        String auctionID = in.next();
+        System.out.println();
+        try{
+            Iterator<Bid> it = ah.closeAuction(auctionID);
+            System.out.println(Prints.CLOSE_AUCTION_HEADER);
+            while(it.hasNext()){
+                Bid b = it.next();
+                if(b.isFailedBid())
+                    System.out.printf(Prints.NOT_SOLD_ART_LISTING, b.getArtID(), b.getArtName());
+                else
+                    System.out.printf(Prints.SOLD_ART_LISTING, b.getArtID(), b.getArtName(), b.getBidderLogin(), b.getBidderName(), b.getBidValue());
+            }
+        } catch (AuctionDoesNotExistsException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     /**

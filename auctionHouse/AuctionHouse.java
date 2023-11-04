@@ -107,9 +107,10 @@ public interface AuctionHouse extends Serializable {
     /**
      * Closes the auction with the given auction ID.
      * @param auctionID the auction being closed.
+     * @return an iterator with all the winning bids of this auction.
      * @throws AuctionDoesNotExistsException if the auction does not exist in the system.
      */
-    void closeAuction(String auctionID) throws AuctionDoesNotExistsException;
+    Iterator<Bid> closeAuction(String auctionID) throws AuctionDoesNotExistsException;
 
     /**
      * Lists all the works in the given auction.

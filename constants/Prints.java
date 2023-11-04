@@ -30,4 +30,9 @@ public class Prints {
 
     public static final String BIDS_WORK_LISTING = "%s %s %d\n";
 
+    public static final String CLOSE_AUCTION_HEADER = "Leilao encerrado.";
+
+    public static final String SOLD_ART_LISTING = "%s %s %s %s %d\n";
+
+    public static final String NOT_SOLD_ART_LISTING = "%s %s sem propostas de venda.\n";
 }
