@@ -63,7 +63,8 @@ public class WorkOfArtClass implements WorkOfArt {
     }
 
     public void addFromSelling(){
-        this.author.incSellingWorks();
+        if(this.author != null) //TODO EXPLAIN WHY THIS IF!!!!
+            this.author.incSellingWorks();
     }
 
     public void updateHighestBid(int value){

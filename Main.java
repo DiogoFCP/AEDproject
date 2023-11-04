@@ -314,7 +314,6 @@ public class Main {
                 Bid b = it.next();
                 System.out.printf(Prints.BIDS_WORK_LISTING, b.getBidderLogin(), b.getBidderName(), b.getBidValue());
             }
-            System.out.println();
         } catch (ArtDoesNotExistInAuctionException e) {
             System.out.println(e.getMessage());
         } catch (AuctionDoesNotExistsException e) {
