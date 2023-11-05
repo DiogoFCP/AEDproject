@@ -1,7 +1,7 @@
 package auctionHouse;
 
 /**
- * TODO
+ * A collector who can bid on arts that are in auctions.
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
@@ -13,36 +13,36 @@ public class UserClass implements User {
     static final long serialVersionUID = 0L;
 
     /**
-     * TODO
+     * Unique identifier of the user.
      */
     private final String login;
 
     /**
-     * TODO
+     * The name of the user.
      */
     private final String name;
 
     /**
-     * TODO
+     * The age of the user.
      */
     private final int age;
 
     /**
-     * TODO
+     * The email of the user.
      */
     private final String email;
 
     /**
-     * TODO
+     * The number of bids created by the user.
      */
     private int numbOfBids;
 
     /**
-     * TODO
-     * @param login
-     * @param name
-     * @param age
-     * @param email
+     * Constructor of the UserClass that initializes all the variables.
+     * @param login the login of the user (unique ID).
+     * @param name the name of the user.
+     * @param age the age of the user.
+     * @param email the email of the user.
      */
     public UserClass(String login, String name, int age, String email){
         this.login = login;

@@ -3,49 +3,49 @@ package auctionHouse;
 import java.io.Serializable;
 
 /**
- * TODO
+ * A collector who can bid on arts that are in auctions.
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
 public interface User extends Serializable {
 
     /**
-     * TODO
+     * Gets the login (unique ID) of the user.
      * @return the login (unique ID) of the user.
      */
     String getLogin();
 
     /**
-     * TODO
+     * Gets the full name of the user.
      * @return the full name of the user.
      */
     String getName();
 
     /**
-     * TODO
+     * Gets the age of the user.
      * @return the age of the user.
      */
     int getAge();
 
     /**
-     * TODO
+     * Gets the email of the user.
      * @return the email of the user.
      */
     String getEmail();
 
     /**
-     * TODO
+     * Increments the number of bids done by the user.
      */
     void incNumbOfBids();
 
     /**
-     * TODO
+     * Decrements the number of bids done by the user.
      */
     void decNumbOfBids();
 
     /**
-     * TODO
-     * @return
+     * Verifies if the user has made any bids.
+     * @return true if the user made any bids.
      */
     boolean hasBids();
 

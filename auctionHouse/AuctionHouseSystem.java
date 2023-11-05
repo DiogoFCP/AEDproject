@@ -4,7 +4,8 @@ import auctionHouse.exceptions.*;
 import dataStructures.*;
 
 /**
- * TODO
+ * Implementation of the Auction House System that manages all the required
+ * operations for the program to function.
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
@@ -16,22 +17,23 @@ public class AuctionHouseSystem implements AuctionHouse{
     static final long serialVersionUID = 0L;
 
     /**
-     * TODO
+     * A collection of all the users in the system (Users and Artists(also Users)).
      */
     private final FindAndGetList<User> userList;
 
     /**
-     * TODO
+     * A collection of all the works of art in the system.
      */
     private final FindAndGetList<WorkOfArt> artList;
 
     /**
-     * TODO
+     * A collection of all the auctions in the system.
      */
     private final FindAndGetList<Auction> auctionList;
 
     /**
-     * TODO
+     * Constructor of the AuctionHouseSystem that
+     * initializes its data structures and variables.
      */
     public AuctionHouseSystem(){
         userList = new FindAndGetDoubleList<>();
@@ -58,8 +60,8 @@ public class AuctionHouseSystem implements AuctionHouse{
     }
 
     /**
-     * TODO
-     * @param artist
+     * Removes all the works of art in the system created by the given artist.
+     * @param artist the artist that created all the works of art being removed.
      */
     private void removeWorksOfArtist(Artist artist){
         Iterator<WorkOfArt> it = artist.getWorkIterator();

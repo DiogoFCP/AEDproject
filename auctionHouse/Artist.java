@@ -3,14 +3,14 @@ package auctionHouse;
 import dataStructures.Iterator;
 
 /**
- * TODO
+ * An artist is also a user but can add works of art and has an artistic name.
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
 public interface Artist extends User{
 
     /**
-     * TODO
+     * Gets the artistic name of the artist.
      * @return the artistic name of the artist.
      */
     String getArtisticName();
@@ -29,23 +29,24 @@ public interface Artist extends User{
     boolean hasWorks();
 
     /**
-     * TODO
+     * Increments the number of works from this artist being sold.
      */
     void incSellingWorks();
 
     /**
-     * TODO
+     * Decrements the number of works from this artist being sold.
      */
     void decSellingWorks();
 
     /**
-     * TODO
-     * @return
+     * Verifies if the artist has works being sold or not.
+     * @return true if the artist has works being sold.
      */
 
     boolean hasWorksSelling();
     /**
-     * Gives all the works the artist has, only is casted if hasWorks
+     * Gives all the works the artist has.
+     * Only is cast if hasWorks.
      * @return Iterator copy of all works
      */
     Iterator<WorkOfArt> getWorkIterator();

@@ -5,7 +5,7 @@ import dataStructures.FindAndGetList;
 import dataStructures.Iterator;
 
 /**
- * TODO
+ * An artist is also a user but can add works of art and has an artistic name.
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
@@ -17,27 +17,27 @@ public class ArtistClass extends UserClass implements Artist{
     static final long serialVersionUID = 0L;
 
     /**
-     * TODO
+     * The artistic name of the artist.
      */
     private final String artisticName;
 
     /**
-     * TODO
+     * The number of works of art being currently sold.
      */
     private int numbOfWorksSelling;
 
     /**
-     * TODO
+     * A collection of all the works done by the artist.
      */
     private FindAndGetList<WorkOfArt> artistWorks;
 
     /**
-     * TODO
-     * @param login
-     * @param name
-     * @param artisticName
-     * @param age
-     * @param email
+     * Constructor of the class ArtistClass, that initializes its variables.
+     * @param login the login of the artist.
+     * @param name the name of the artist.
+     * @param artisticName the artistic name of the artist.
+     * @param age the age of the artist.
+     * @param email the email of the artist.
      */
     public ArtistClass(String login, String name, String artisticName, int age, String email) {
         super(login, name, age, email);

@@ -27,25 +27,25 @@ public interface SingleArtAuction extends Serializable {
     String getArtName();
 
     /**
-     * TODO
+     * Gets the object of the art being auctioned in this single art auction.
      * @return the art being auctioned on this single art auction.
      */
     WorkOfArt getArt();
 
     /**
-     * TODO
+     * Verifies if the there are no bids in this single art auction.
      * @return true if there are no bids in this single art auction.
      */
     boolean hasNoBids();
 
     /**
-     * TODO
-     * @return
+     * Decides and gets the winning bid in this single art auction.
+     * @return the winning bid in this single art auction.
      */
     Bid getWinningBid();
 
     /**
-     * TODO
+     * Gets an iterator with all the bids of this single art auction.
      * @return an iterator with all the bids of this single art auction.
      */
     Iterator<Bid> getBidsIterator();

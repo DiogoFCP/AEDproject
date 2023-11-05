@@ -3,56 +3,57 @@ package auctionHouse;
 import java.io.Serializable;
 
 /**
- * TODO
+ * A work of art created by an artist in the system,
+ * identified by a unique identifier (artID).
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
 public interface WorkOfArt extends Serializable {
 
     /**
-     * TODO
+     * Gets the art id.
      * @return the art id.
      */
     String getArtID();
 
     /**
-     * TODO
+     * Gets the login of the author.
      * @return the login of the author.
      */
     String getAuthorLogin();
 
     /**
-     * TODO
+     * Gets the name of the author.
      * @return the name of the author.
      */
 
     String getAuthorName();
 
     /**
-     * TODO
+     * Gets the year of release.
      * @return the year of release.
      */
     int getYear();
 
     /**
-     * TODO
+     * Gets the name of the art.
      * @return the name of the art.
      */
     String getName();
 
     /**
-     * TODO
+     * Gets the highest bid the art went for.
      * @return highest bid the art went for.
      */
     int getHighestBid();
 
     /**
-     * TODO
+     * Decrements the number of arts made by the author of this art.
      */
     void removeFromSelling();
 
     /**
-     * TODO
+     * Increments the number of arts made by the author of this art.
      */
     void addFromSelling();
 

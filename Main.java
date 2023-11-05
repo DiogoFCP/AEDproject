@@ -7,14 +7,13 @@ import constants.*;
 import dataStructures.Iterator;
 
 /**
- * TODO
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
 public class Main {
 
     /**
-     * TODO
+     * Name of the file where all the data from the system is stored.
      */
     private static final String DATA_FILE = "auctionHouseData.dat";
 
@@ -95,7 +94,8 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Removes a user with the given login from the system, if the user
+     * is an artist also removes all the works the artist created.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -115,7 +115,8 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Adds a work of art to the system, with a given art ID, login of the artist,
+     * the year the art was created and the name of the art.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -138,7 +139,7 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Lists all the known info about a user that exists in the system.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -154,7 +155,7 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Lists all the known info about an artist that exists in the system.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -172,7 +173,7 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Lists all the known info about a work of art that exists in the system.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -188,7 +189,7 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Creates a new auction in the system with the given auction ID.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -204,7 +205,7 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Adds a work of art to a given auction in the system.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -224,7 +225,7 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Adds a bid to a given work of art in a given auction in the system.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -249,7 +250,8 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Closes the auction deciding the winners of said auction and lists
+     * the status of every single art piece in the said auction.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -264,7 +266,8 @@ public class Main {
                 if(b.isFailedBid())
                     System.out.printf(Prints.NOT_SOLD_ART_LISTING, b.getArtID(), b.getArtName());
                 else
-                    System.out.printf(Prints.SOLD_ART_LISTING, b.getArtID(), b.getArtName(), b.getBidderLogin(), b.getBidderName(), b.getBidValue());
+                    System.out.printf(Prints.SOLD_ART_LISTING, b.getArtID(), b.getArtName(),
+                            b.getBidderLogin(), b.getBidderName(), b.getBidValue());
             }
         } catch (AuctionDoesNotExistsException e) {
             System.out.println(e.getMessage());
@@ -273,7 +276,7 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Lists all the works of art in a given auction.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -295,7 +298,7 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Lists all the art works an artist has added to the system.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -304,7 +307,7 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Lists all the bids associated to a given work in a given auction.
      * @param ah the system interface.
      * @param in the input scanner.
      */
@@ -316,7 +319,8 @@ public class Main {
             Iterator<Bid> it = ah.listBidsWork(auctionID, artID);
             while(it.hasNext()){
                 Bid b = it.next();
-                System.out.printf(Prints.BIDS_WORK_LISTING, b.getBidderLogin(), b.getBidderName(), b.getBidValue());
+                System.out.printf(Prints.BIDS_WORK_LISTING, b.getBidderLogin(),
+                        b.getBidderName(), b.getBidValue());
             }
         } catch (ArtDoesNotExistInAuctionException e) {
             System.out.println(e.getMessage());
@@ -328,7 +332,8 @@ public class Main {
     }
 
     /**
-     * TODO
+     * Lists all the works in the system by descending order of the highest bid value of
+     * the works that already have been sold.
      * @param ah the system interface.
      * @param in the input scanner.
      */

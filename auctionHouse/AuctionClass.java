@@ -4,7 +4,8 @@ import auctionHouse.exceptions.BidBelowMinValueException;
 import dataStructures.*;
 
 /**
- * TODO
+ * A system event identified by a unique ID, when created works of art
+ * can be added to the auction, being able to then be auctioned and sold.
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
@@ -16,18 +17,19 @@ public class AuctionClass implements Auction{
     static final long serialVersionUID = 0L;
 
     /**
-     * TODO
+     * Unique identifier of the auction.
      */
     private final String auctionID;
 
     /**
-     * TODO
+     * A collection of structures that represent a single
+     * art being auctioned inside this auction.
      */
     private final FindAndGetList<SingleArtAuction> artAuctionsList;
 
     /**
-     * TODO
-     * @param auctionID
+     * Constructor of the AuctionClass that initializes all the variables.
+     * @param auctionID the unique ID of the auction.
      */
     public AuctionClass(String auctionID){
         this.auctionID = auctionID;

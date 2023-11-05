@@ -6,7 +6,7 @@ import dataStructures.Iterator;
 import java.io.Serializable;
 
 /**
- * TODO
+ * Interface of the Auction house system that enables all operations to happen.
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */

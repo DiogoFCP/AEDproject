@@ -6,14 +6,15 @@ import dataStructures.Iterator;
 import java.io.Serializable;
 
 /**
- * TODO
+ * A system event identified by a unique ID, when created works of art
+ * can be added to the auction, being able to then be auctioned and sold.
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
 public interface Auction extends Serializable {
 
     /**
-     * TODO
+     * Gets the unique identifier of this auction.
      * @return the unique identifier of this auction.
      */
     String getAuctionID();
@@ -42,13 +43,13 @@ public interface Auction extends Serializable {
     void addBid(User bidder, WorkOfArt workOfArt, int value) throws BidBelowMinValueException;
 
     /**
-     * TODO
+     * Verifies if the auction has no works of art registered.
      * @return true if the auction has no works registered.
      */
     boolean hasNoWorks();
 
     /**
-     * TODO
+     * Gets an iterator with all the art works in the auction.
      * @return an iterator with all the art works in the auction.
      */
     Iterator<WorkOfArt> getWorksIterator();
@@ -68,8 +69,8 @@ public interface Auction extends Serializable {
     Iterator<Bid> getWorksBidsIterator(WorkOfArt workOfArt);
 
     /**
-     * TODO
-     * @return
+     * Gets an iterator with all the winning bids in the auction once it is closed.
+     * @return an iterator with all the winning bids in the auction once it is closed.
      */
     Iterator<Bid> closeAllSingularAuctions();
 
