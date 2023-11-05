@@ -45,8 +45,8 @@ public interface Bid extends Serializable {
     void removeBidFromUser();
 
     /**
-     * TODO IMPORTANTE EXPLICAR ISTO!!!
-     * @return
+     * Used on dummy bids that are created when an art in an auction does not sell.
+     * @return true if the art the bid contains failed (price==-1).
      */
     boolean isFailedBid();
 }

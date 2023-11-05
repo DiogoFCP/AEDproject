@@ -94,7 +94,11 @@ public class WorkOfArtClass implements WorkOfArt {
     }
 
     public void addFromSelling(){
-        if(this.author != null) //TODO EXPLAIN WHY THIS IF!!!!
+        // this if is needed because in some cases this method
+        // is called on a constructor of a dummy, so we need to
+        // verify if the author is null, because if not inside a
+        // dummy we will get a null pointer exception.
+        if(this.author != null)
             this.author.incSellingWorks();
     }
 
