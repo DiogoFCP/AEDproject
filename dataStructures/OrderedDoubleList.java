@@ -117,9 +117,7 @@ class OrderedDoubleList<K extends Comparable<K>, V>
 	
     @Override
 	public V find(K key) {
-		DoubleListNode<Entry<K,V>> node = findNode(key);
-		//TODO: Left as an exercise.
-        return null;
+		return findNode(key).getElement().getValue();
 	}
 
 
@@ -146,7 +144,7 @@ class OrderedDoubleList<K extends Comparable<K>, V>
 
     @Override
 	public Iterator<Entry<K, V>> iterator() {
-		return new DoubleListIterator<Entry<K,V>>(head,tail);
+		return new DoubleListIterator<Entry<K,V>>(head, tail);
 	}
 
     /**
@@ -210,10 +208,11 @@ class OrderedDoubleList<K extends Comparable<K>, V>
      * Pre-condition: the node is neither the head nor the tail of the list.
      * @param node - middle node to be removed
      */
-    protected void removeMiddleNode( DoubleListNode<Entry<K,V>> node )
-    {
-        //TODO: Left as an exercise.
-
+    protected void removeMiddleNode( DoubleListNode<Entry<K,V>> node ) {
+        DoubleListNode<Entry<K,V>> next = node.getNext();
+        DoubleListNode<Entry<K,V>> previous = node.getPrevious();
+        next.setPrevious(previous);
+        previous.setNext(next);
     }
 
     @Override
