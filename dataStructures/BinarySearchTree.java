@@ -1,4 +1,6 @@
-package dataStructures;                                         
+package dataStructures;
+
+import dataStructures.exceptions.EmptyDictionaryException;
 
 /**
  * BinarySearchTree implementation

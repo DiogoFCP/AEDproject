@@ -30,22 +30,18 @@ public class SepChainHashTable<K extends Comparable<K>, V>
      * @param capacity defines the table capacity.
      */
     @SuppressWarnings("unchecked")
-    public SepChainHashTable( int capacity )
-    {
+    public SepChainHashTable( int capacity ) {
         int arraySize = HashTable.nextPrime((int) (1.1 * capacity));
-        // Compiler gives a warning.
+
         table = (Dictionary<K,V>[]) new Dictionary[arraySize];
         for ( int i = 0; i < arraySize; i++ )
-            //TODO: Original comentado para nao dar erro de compilacao.
             table[i] = new OrderedDoubleList<K,V>();
-            //table[i] = null;
         maxSize = capacity;
         currentSize = 0;
     }                                      
 
 
-    public SepChainHashTable( )
-    {
+    public SepChainHashTable( ) {
         this(DEFAULT_CAPACITY);
     }                                                                
 
@@ -65,17 +61,33 @@ public class SepChainHashTable<K extends Comparable<K>, V>
         return table[ this.hash(key) ].find(key);
     }
 
+    @SuppressWarnings("unchecked")
+    protected void rehash(){
+        // Creates new table
+        int newSize = HashTable.nextPrime((int) (1.1 * table.length));
+        Dictionary<K,V>[] newTable = (Dictionary<K,V>[]) new Dictionary[newSize];
+        for ( int i = 0; i < newSize; i++ )
+            newTable[i] = new OrderedDoubleList<K,V>();
+        maxSize = newSize;
+
+        // Transfers all entry to new table
+        for(int i=0; i< table.length; i++){
+            Iterator<Entry<K,V>> it = table[i].iterator();
+            while(it.hasNext()) {
+                Entry<K,V> entry = it.next();
+                newTable[this.hash(entry.getKey())].insert(entry.getKey(), entry.getValue());
+            }
+        }
+        this.table = newTable;
+    }
+
     @Override
     public V insert( K key, V value )
     {
-        if ( this.isFull() )
-            //TODO: left as an exercise.
-        	//Original commented, to compile.
-            // this.rehash();
-            return null;
-
-        //TODO: Left as an exercise.
-        return null;
+        if ( this.isFull() ) {
+            this.rehash();
+        }
+        return table[this.hash(key)].insert(key, value);
     }
 
     @Override

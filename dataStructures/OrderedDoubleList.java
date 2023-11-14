@@ -1,6 +1,8 @@
 package dataStructures;
 
 
+import dataStructures.exceptions.EmptyDictionaryException;
+
 /**
  * Doubly linked list Implementation
  *
@@ -127,20 +129,19 @@ class OrderedDoubleList<K extends Comparable<K>, V>
     public V insert(K key, V value) {
         DoubleListNode<Entry<K, V>> node = findNode(key);
         if ((node != null) && (node.getElement().getKey().compareTo(key) == 0)) {
-            DoubleListNode<Entry<K, V>> oldNode = node;
+            V oldValue = node.getElement().getValue();
             node.setElement(new EntryClass<K, V>(key, value));
-            return oldNode.getElement().getValue();
+            return oldValue;
         } else {
-            Entry<K, V> newNode = new EntryClass<K, V>(key, value);
-            //recommended: re-use addFirst, addLast and addBeforeNode
+            Entry<K, V> newEntry = new EntryClass<K, V>(key, value);
             if (this.isEmpty())
-                addFirst(newNode);
-            else if (this.size() == 1 & this.head.getElement().getKey().compareTo(key) < 0)
-                addLast(newNode);
+                addFirst(newEntry);
+            else if (this.size() == 1 && this.head.getElement().getKey().compareTo(key) < 0)
+                addLast(newEntry);
             else {
 
-                DoubleListNode<Entry<K, V>> next = head.getNext();
-                while (next.getElement().getKey().compareTo(key) < 0) {
+                DoubleListNode<Entry<K, V>> next = this.head;
+                while ((next != null) && (next.getElement().getKey().compareTo(key) < 0)) {
                     next = next.getNext();
                 }
                 addBeforeNode(next.getElement(),node);
