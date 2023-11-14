@@ -144,7 +144,10 @@ class OrderedDoubleList<K extends Comparable<K>, V>
                 while ((next != null) && (next.getElement().getKey().compareTo(key) < 0)) {
                     next = next.getNext();
                 }
-                addBeforeNode(next.getElement(),node);
+                if (next == null)
+                    addLast(newEntry);
+                else
+                    addBeforeNode(next.getElement(),new DoubleListNode<>(newEntry));
             }
             return null;
         }

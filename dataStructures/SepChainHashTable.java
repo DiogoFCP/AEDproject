@@ -91,48 +91,19 @@ public class SepChainHashTable<K extends Comparable<K>, V>
     }
 
     @Override
-    public V remove( K key )
-    {
-        //TODO: Left as an exercise.
-        return null;
+    public V remove( K key ) {
+        return table[this.hash(key)].remove(key);
     }
 
     @Override
     public Iterator<Entry<K,V>> iterator( )
     {
-        //TODO: Left as an exercise.
-        return null;
+        List<Entry<K,V>> tmp = new DoubleList<>();
+        for (int i = 0; i < this.table.length; i++) {
+            Iterator<Entry<K,V>> it = table[i].iterator();
+            while (it.hasNext())
+                tmp.addLast(it.next());
+        }
+        return tmp.iterator();
     } 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
