@@ -37,8 +37,8 @@ public class SepChainHashTable<K extends Comparable<K>, V>
         table = (Dictionary<K,V>[]) new Dictionary[arraySize];
         for ( int i = 0; i < arraySize; i++ )
             //TODO: Original comentado para nao dar erro de compilacao.
-            // table[i] = new OrderedDoubleList<K,V>();
-            table[i] = null;
+            table[i] = new OrderedDoubleList<K,V>();
+            //table[i] = null;
         maxSize = capacity;
         currentSize = 0;
     }                                      

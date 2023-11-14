@@ -25,4 +25,16 @@ public interface Entry<K,V> extends Serializable
 	 */
     V getValue( );
 
+	/**
+	 * Sets the key to the given key.
+	 * @param newKey the key being changed.
+	 */
+	void setKey(K newKey);
+
+	/**
+	 * Sets the value to the given value.
+	 * @param newValue the value being changed.
+	 */
+	void setValue(V newValue);
+
 }

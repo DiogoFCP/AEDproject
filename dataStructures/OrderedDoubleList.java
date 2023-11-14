@@ -88,11 +88,15 @@ class OrderedDoubleList<K extends Comparable<K>, V>
 
 	@Override
     public Entry<K, V> maxEntry() throws EmptyDictionaryException {
+        if(this.isEmpty())
+            throw new EmptyDictionaryException();
         return this.tail.getElement();
 	}
 
     @Override
 	public Entry<K, V> minEntry() throws EmptyDictionaryException {
+        if(this.isEmpty())
+            throw new EmptyDictionaryException();
         return this.head.getElement();
 	}
 
@@ -104,8 +108,11 @@ class OrderedDoubleList<K extends Comparable<K>, V>
      * @return DoubleListNode<E> where the Entry with key was found, or the one with the key immmediately after 
      */
 	protected DoubleListNode<Entry<K,V>> findNode (K key){
-		//TODO: Left as an exercise.
-        return null;
+		DoubleListNode<Entry<K,V>> node = this.head;
+        while((node!=null) && (node.getElement().getKey().compareTo(key)!=0)){
+            node = node.getNext();
+        }
+        return node;
 	}
 	
     @Override
@@ -215,8 +222,12 @@ class OrderedDoubleList<K extends Comparable<K>, V>
 		if ((node == null) || (node.getElement().getKey().compareTo(key)!=0))
 			return null;
 		else {
-			  	//TODO: Left as an exercise.
-			return null;
+			if(node.equals(this.head))
+                return this.removeFirst();
+            if(node.equals(this.tail))
+                return this.removeLast();
+            this.removeMiddleNode(node);
+            return node.getElement().getValue();
 		}
 	}
 
