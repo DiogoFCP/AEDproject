@@ -18,28 +18,47 @@ public class AuctionHouseSystem implements AuctionHouse {
     static final long serialVersionUID = 0L;
 
     /**
-     * A collection of all the users in the system (Users and Artists(also Users)).
+     * Expected base level number of users.
      */
-    private final FindAndGetList<User> userList;
+    private static final int DEFAULT_USER_CAPACITY = 20000;
 
     /**
-     * A collection of all the works of art in the system.
+     * Expected base level number of arts.
      */
-    private final FindAndGetList<WorkOfArt> artList;
+    private static final int DEFAULT_ART_CAPACITY = 10000;
 
     /**
-     * A collection of all the auctions in the system.
+     * Expected base level number of auctions.
      */
-    private final FindAndGetList<Auction> auctionList;
+    private static final int DEFAULT_AUCTION_CAPACITY = 500;
+
+
+    /**
+     * A collection of all the users in the system (Users and Artists(also Users))
+     * with the login of the user as the key.
+     */
+    private final Dictionary<String, User> userMap;
+
+    /**
+     * A collection of all the works of art in the system,
+     * with the artID of the art as a key.
+     */
+    private final Dictionary<String, WorkOfArt> artMap;
+
+    /**
+     * A collection of all the auctions in the system,
+     * with the auctionID of the auction as a key.
+     */
+    private final Dictionary<String, Auction> auctionMap;
 
     /**
      * Constructor of the AuctionHouseSystem that
      * initializes its data structures and variables.
      */
     public AuctionHouseSystem() {
-        userList = new FindAndGetDoubleList<>();
-        artList = new FindAndGetDoubleList<>();
-        auctionList = new FindAndGetDoubleList<>();
+        userMap = new SepChainHashTable<>(DEFAULT_USER_CAPACITY);
+        artMap = new SepChainHashTable<>(DEFAULT_ART_CAPACITY);
+        auctionMap = new SepChainHashTable<>(DEFAULT_AUCTION_CAPACITY);
     }
 
     /**
@@ -59,7 +78,7 @@ public class AuctionHouseSystem implements AuctionHouse {
      * @return wanted user
      */
     private User findUser(String userID) {
-        return userList.findAndGet(new UserClass(userID, null, 0, null));
+        return userMap.find(userID);
     }
 
     /**
@@ -70,7 +89,7 @@ public class AuctionHouseSystem implements AuctionHouse {
     private void removeWorksOfArtist(Artist artist) {
         Iterator<WorkOfArt> it = artist.getWorkIterator();
         while (it.hasNext())
-            this.artList.remove(it.next());
+            this.artMap.remove(it.next().getArtID());
     }
 
     /**
@@ -100,7 +119,7 @@ public class AuctionHouseSystem implements AuctionHouse {
      * @return wanted art
      */
     private WorkOfArt findArt(String artName) {
-        return artList.findAndGet(new WorkOfArtClass(artName, null, 0, null));
+        return artMap.find(artName);
     }
 
     /**
@@ -110,7 +129,7 @@ public class AuctionHouseSystem implements AuctionHouse {
      * @return wanted auction
      */
     private Auction findAuction(String auctionID) {
-        return auctionList.findAndGet(new AuctionClass(auctionID));
+        return auctionMap.find(auctionID);
     }
 
     /**
@@ -128,7 +147,7 @@ public class AuctionHouseSystem implements AuctionHouse {
             throw new InvalidAgeException();
         if (this.hasUser(login))
             throw new UserAlreadyExistsException();
-        userList.addLast(new UserClass(login, name, age, email));
+        userMap.insert(login, new UserClass(login, name, age, email));
     }
 
     public void addArtist(String login, String name, String artisticName, int age, String email) throws InvalidAgeException, UserAlreadyExistsException {
@@ -136,7 +155,7 @@ public class AuctionHouseSystem implements AuctionHouse {
             throw new InvalidAgeException();
         if (this.hasUser(login))
             throw new UserAlreadyExistsException();
-        userList.addLast(new ArtistClass(login, name, artisticName, age, email));
+        userMap.insert(login, new ArtistClass(login, name, artisticName, age, email));
     }
 
     public void removeUser(String login) throws UserDoesNotExistException, UserHasBidsException, ArtistHasAuctionedArtException {
@@ -150,7 +169,7 @@ public class AuctionHouseSystem implements AuctionHouse {
                 throw new ArtistHasAuctionedArtException();
             this.removeWorksOfArtist(artist);
         }
-        userList.remove(user);
+        userMap.remove(login);
     }
 
     public void addWork(String artID, String artistLogin, int year, String artName) throws ArtAlreadyExistsException, UserDoesNotExistException, ArtistDoesNotExistException {
@@ -162,7 +181,7 @@ public class AuctionHouseSystem implements AuctionHouse {
             throw new ArtistDoesNotExistException();
         Artist author = (Artist) this.findUser(artistLogin);
         WorkOfArt workToAdd = new WorkOfArtClass(artID, author, year, artName);
-        artList.addLast(workToAdd);
+        artMap.insert(artID, workToAdd);
         author.addWork(workToAdd);
     }
 
@@ -189,7 +208,7 @@ public class AuctionHouseSystem implements AuctionHouse {
     public void createAuction(String auctionID) throws AuctionAlreadyExistsException {
         if (this.hasAuction(auctionID))
             throw new AuctionAlreadyExistsException();
-        auctionList.addLast(new AuctionClass(auctionID));
+        auctionMap.insert(auctionID, new AuctionClass(auctionID));
     }
 
     public void addWorkAuction(String auctionID, String artID, int lowestBid) throws AuctionDoesNotExistsException, ArtDoesNotExistException {
@@ -216,7 +235,7 @@ public class AuctionHouseSystem implements AuctionHouse {
         if (!this.hasAuction(auctionID))
             throw new AuctionDoesNotExistsException();
         Auction auction = this.findAuction(auctionID);
-        this.auctionList.remove(auction);
+        auctionMap.remove(auctionID);
         return auction.closeAllSingularAuctions();
     }
 
