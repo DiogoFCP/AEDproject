@@ -121,6 +121,8 @@ class OrderedDoubleList<K extends Comparable<K>, V>
 
     @Override
     public V find(K key) {
+        if  (findNode(key) == null)
+            return null;
         return findNode(key).getElement().getValue();
     }
 
