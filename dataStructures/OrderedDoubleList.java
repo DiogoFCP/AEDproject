@@ -163,7 +163,7 @@ class OrderedDoubleList<K extends Comparable<K>, V>
 
     @Override
     public Iterator<Entry<K, V>> iterator() {
-        return new DoubleListIterator<Entry<K, V>>(head, tail);
+        return new DoubleListIterator<>(head, tail);
     }
 
     /**
