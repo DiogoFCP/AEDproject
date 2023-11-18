@@ -56,8 +56,7 @@ public class SepChainHashTable<K extends Comparable<K>, V>
     }
 
     @Override
-    public V find( K key )
-    {
+    public V find( K key ) {
         return table[ this.hash(key) ].find(key);
     }
 
@@ -82,12 +81,12 @@ public class SepChainHashTable<K extends Comparable<K>, V>
     }
 
     @Override
-    public V insert( K key, V value )
-    {
+    public V insert( K key, V value ) {
         if ( this.isFull() ) {
             this.rehash();
         }
-        return table[this.hash(key)].insert(key, value);
+        table[this.hash(key)].insert(key, value);
+        return table[this.hash(key)].find(key);
     }
 
     @Override
