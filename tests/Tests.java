@@ -54,6 +54,7 @@ public class Tests {
     @Test public void test05() { test("5_in.txt","5_out.txt"); }
     @Test public void test06() { test("6_in.txt","6_out.txt"); }
     @Test public void test07() { test("7_in.txt","7_out.txt"); }
+    @Test public void gigaTest() { test("input.txt","output.txt"); }
 
     /**
      * The BASE constant specifies the directory where the test files are located.

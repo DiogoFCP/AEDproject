@@ -51,9 +51,10 @@ class OrderedDoubleList<K extends Comparable<K>, V>
      * @param element - Entry to be inserted
      * @param after   - Node to be next to the new node
      */
-    protected void addBeforeNode(Entry<K, V> element, DoubleListNode<Entry<K, V>> after) {
+    protected void addBeforeNode(DoubleListNode<Entry<K, V>> after, Entry<K, V> element) {
         DoubleListNode<Entry<K, V>> before = after.getPrevious();
         DoubleListNode<Entry<K, V>> newNode = new DoubleListNode<>(element, before, after);
+        if (before != null)
         before.setNext(newNode);
         after.setPrevious(newNode);
         currentSize++;
@@ -159,7 +160,7 @@ class OrderedDoubleList<K extends Comparable<K>, V>
                 if (next == null)
                     addLast(newEntry);
                 else
-                    addBeforeNode(next.getElement(),new DoubleListNode<>(newEntry));
+                    addBeforeNode(next,newEntry);
             }
             return null;
         }
