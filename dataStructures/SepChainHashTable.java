@@ -86,11 +86,13 @@ public class SepChainHashTable<K extends Comparable<K>, V>
             this.rehash();
         }
         table[this.hash(key)].insert(key, value);
-        return table[this.hash(key)].find(key);
+        currentSize++;
+        return this.find(key);
     }
 
     @Override
     public V remove( K key ) {
+        currentSize--;
         return table[this.hash(key)].remove(key);
     }
 

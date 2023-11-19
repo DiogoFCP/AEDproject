@@ -132,24 +132,30 @@ class OrderedDoubleList<K extends Comparable<K>, V>
     @Override
     public V insert(K key, V value) {
         DoubleListNode<Entry<K, V>> node = findNode(key);
-        if ((node != null) && (node.getElement().getKey().compareTo(key) == 0)) {
+
+        if (node != null) {
             V oldValue = node.getElement().getValue();
             node.setElement(new EntryClass<K, V>(key, value));
             return oldValue;
+
         } else {
             Entry<K, V> newEntry = new EntryClass<K, V>(key, value);
+
             if (this.isEmpty())
                 addFirst(newEntry);
+
             else if (this.size() == 1)
                 if (this.head.getElement().getKey().compareTo(key) < 0)
                     addLast(newEntry);
                 else addFirst(newEntry);
+
             else {
 
                 DoubleListNode<Entry<K, V>> next = this.head;
                 while ((next != null) && (next.getElement().getKey().compareTo(key) < 0)) {
                     next = next.getNext();
                 }
+
                 if (next == null)
                     addLast(newEntry);
                 else
