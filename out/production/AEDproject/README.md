@@ -1,10 +1,7 @@
 # AEDproject
 ## TODO
--> Stack
--> StackInArray
--> Queue
--> QueueInArray
--> List
--> Iterator
--> TwoWayIterator
--> DoubleList
+duvidas:
+-> perguntar utilidade de HashMap
+-> quando AVL
+-> quando testes
+-> perguntar utilidade de Ordered queue
