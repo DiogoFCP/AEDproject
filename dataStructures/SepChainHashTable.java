@@ -64,21 +64,22 @@ public class SepChainHashTable<K extends Comparable<K>, V>
     protected void rehash(){
         // TODO refazer com o construtor para otimizar
         // Creates new table
+        Dictionary<K,V>[] oldTable = this.table;
+
         int newSize = HashTable.nextPrime((int) (1.1 * table.length));
-        Dictionary<K,V>[] newTable = (Dictionary<K,V>[]) new Dictionary[newSize];
+        table = (Dictionary<K,V>[]) new Dictionary[newSize];
         for ( int i = 0; i < newSize; i++ )
-            newTable[i] = new OrderedDoubleList<K,V>();
+            table[i] = new OrderedDoubleList<K,V>();
         maxSize = newSize;
 
         // Transfers all entry to new table
-        for(int i=0; i< table.length; i++){
-            Iterator<Entry<K,V>> it = table[i].iterator();
+        for(int i=0; i< oldTable.length; i++){
+            Iterator<Entry<K,V>> it = oldTable[i].iterator();
             while(it.hasNext()) {
                 Entry<K,V> entry = it.next();
-                newTable[this.hash(entry.getKey())].insert(entry.getKey(), entry.getValue());
+                table[this.hash(entry.getKey())].insert(entry.getKey(), entry.getValue());
             }
         }
-        this.table = newTable;
     }
 
     @Override

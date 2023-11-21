@@ -62,13 +62,17 @@ public class AuctionHouseSystem implements AuctionHouse {
     }
 
     /**
-     * Checks if there is a user with the given login in the system.
+     * Converts the id given to a key used on the
+     * datastructures that use keys such as Dictionary.
+     * Since the id aBc is equal in the system to AbC
+     * it converts all ids to uppercase so aBc and AbC
+     * refer to the same value in the system.
      *
-     * @param login the same login (unique ID) as the user we are looking for.
-     * @return true if the user already exists in the system.
+     * @param id the id being converted.
+     * @return the id in a key form (in upper case).
      */
-    private boolean hasUser(String login) {
-        return this.findUser(login) != null;
+    private String convertToKey(String id){
+        return id.toUpperCase();
     }
 
     /**
@@ -78,7 +82,67 @@ public class AuctionHouseSystem implements AuctionHouse {
      * @return wanted user
      */
     private User findUser(String userID) {
-        return userMap.find(userID);
+        return userMap.find(convertToKey(userID));
+    }
+
+    /**
+     * Checks if there is a user with the given login in the system.
+     *
+     * @param login the same login (unique ID) as the user we are looking for.
+     * @return true if the user already exists in the system.
+     */
+    private boolean hasUser(String login) {
+        return this.findUser(convertToKey(login)) != null;
+    }
+
+    /**
+     * Finds the art with the given name
+     *
+     * @param artID id of the art we want to find
+     * @return wanted art
+     */
+    private WorkOfArt findArt(String artID) {
+        return artMap.find(convertToKey(artID));
+    }
+
+    /**
+     * Checks if there is a work of art with the given art ID in the system.
+     *
+     * @param artID the same ID of the art (unique ID) we are looking for.
+     * @return true if the art exists
+     */
+    private boolean hasArt(String artID) {
+        return findArt(convertToKey(artID)) != null;
+    }
+
+    /**
+     * Finds the auction with the given name
+     *
+     * @param auctionID name of the auction we want to find
+     * @return wanted auction
+     */
+    private Auction findAuction(String auctionID) {
+        return auctionMap.find(convertToKey(auctionID));
+    }
+
+    /**
+     * Checks if there is an auction with the given auction ID in the system.
+     *
+     * @param auctionID the same ID of the auction (unique ID) we are looking for.
+     * @return true if the auction exists.
+     */
+    private boolean hasAuction(String auctionID) {
+        return findAuction(convertToKey(auctionID)) != null;
+    }
+
+    /**
+     * Verifies if the given artist login corresponds to a user in the system that is an instance of the artist class.
+     *
+     * @param artistLogin the login of the artist we are verifying.
+     * @return true if the login corresponds to an instance of an artist class.
+     */
+    private boolean isArtist(String artistLogin) {
+        return findUser(convertToKey(artistLogin)) instanceof ArtistClass;
     }
 
     /**
@@ -92,62 +156,12 @@ public class AuctionHouseSystem implements AuctionHouse {
             this.artMap.remove(it.next().getArtID());
     }
 
-    /**
-     * Checks if there is a work of art with the given art ID in the system.
-     *
-     * @param artID the same ID of the art (unique ID) we are looking for.
-     * @return true if the art exists
-     */
-    private boolean hasArt(String artID) {
-        return findArt(artID) != null;
-    }
-
-    /**
-     * Checks if there is an auction with the given auction ID in the system.
-     *
-     * @param auctionID the same ID of the auction (unique ID) we are looking for.
-     * @return true if the auction exists.
-     */
-    private boolean hasAuction(String auctionID) {
-        return findAuction(auctionID) != null;
-    }
-
-    /**
-     * Finds the art with the given name
-     *
-     * @param artName name of the art we want to find
-     * @return wanted art
-     */
-    private WorkOfArt findArt(String artName) {
-        return artMap.find(artName);
-    }
-
-    /**
-     * Finds the auction with the given name
-     *
-     * @param auctionID name of the auction we want to find
-     * @return wanted auction
-     */
-    private Auction findAuction(String auctionID) {
-        return auctionMap.find(auctionID);
-    }
-
-    /**
-     * Verifies if the given artist login corresponds to a user in the system that is an instance of the artist class.
-     *
-     * @param artistLogin the login of the artist we are verifying.
-     * @return true if the login corresponds to an instance of an artist class.
-     */
-    private boolean isArtist(String artistLogin) {
-        return findUser(artistLogin) instanceof ArtistClass;
-    }
-
     public void addUser(String login, String name, int age, String email) throws InvalidAgeException, UserAlreadyExistsException {
         if (age < 18)
             throw new InvalidAgeException();
         if (this.hasUser(login))
             throw new UserAlreadyExistsException();
-        userMap.insert(login, new UserClass(login, name, age, email));
+        userMap.insert(convertToKey(login), new UserClass(login, name, age, email));
     }
 
     public void addArtist(String login, String name, String artisticName, int age, String email) throws InvalidAgeException, UserAlreadyExistsException {
@@ -155,7 +169,7 @@ public class AuctionHouseSystem implements AuctionHouse {
             throw new InvalidAgeException();
         if (this.hasUser(login))
             throw new UserAlreadyExistsException();
-        userMap.insert(login, new ArtistClass(login, name, artisticName, age, email));
+        userMap.insert(convertToKey(login), new ArtistClass(login, name, artisticName, age, email));
     }
 
     public void removeUser(String login) throws UserDoesNotExistException, UserHasBidsException, ArtistHasAuctionedArtException {
@@ -169,7 +183,7 @@ public class AuctionHouseSystem implements AuctionHouse {
                 throw new ArtistHasAuctionedArtException();
             this.removeWorksOfArtist(artist);
         }
-        userMap.remove(login);
+        userMap.remove(convertToKey(login));
     }
 
     public void addWork(String artID, String artistLogin, int year, String artName) throws ArtAlreadyExistsException, UserDoesNotExistException, ArtistDoesNotExistException {
@@ -181,7 +195,7 @@ public class AuctionHouseSystem implements AuctionHouse {
             throw new ArtistDoesNotExistException();
         Artist author = (Artist) this.findUser(artistLogin);
         WorkOfArt workToAdd = new WorkOfArtClass(artID, author, year, artName);
-        artMap.insert(artID, workToAdd);
+        artMap.insert(convertToKey(artID), workToAdd);
         author.addWork(workToAdd);
     }
 
@@ -208,7 +222,7 @@ public class AuctionHouseSystem implements AuctionHouse {
     public void createAuction(String auctionID) throws AuctionAlreadyExistsException {
         if (this.hasAuction(auctionID))
             throw new AuctionAlreadyExistsException();
-        auctionMap.insert(auctionID, new AuctionClass(auctionID));
+        auctionMap.insert(convertToKey(auctionID), new AuctionClass(auctionID));
     }
 
     public void addWorkAuction(String auctionID, String artID, int lowestBid) throws AuctionDoesNotExistsException, ArtDoesNotExistException {
@@ -235,7 +249,7 @@ public class AuctionHouseSystem implements AuctionHouse {
         if (!this.hasAuction(auctionID))
             throw new AuctionDoesNotExistsException();
         Auction auction = this.findAuction(auctionID);
-        auctionMap.remove(auctionID);
+        auctionMap.remove(convertToKey(auctionID));
         return auction.closeAllSingularAuctions();
     }
 

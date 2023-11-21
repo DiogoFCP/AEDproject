@@ -112,7 +112,7 @@ class OrderedDoubleList<K extends Comparable<K>, V>
      */
     protected DoubleListNode<Entry<K, V>> findNode(K key) {
         DoubleListNode<Entry<K, V>> node = this.head;
-        while ((node != null) && (node.getElement().getKey().compareTo(key) >= 0)) {
+        while ((node != null) && (node.getElement().getKey().compareTo(key) < 0)) {
             node = node.getNext();
         }
         return node;
@@ -123,7 +123,10 @@ class OrderedDoubleList<K extends Comparable<K>, V>
         DoubleListNode<Entry<K, V>> node = findNode(key);
         if  (node == null)
             return null;
-        return node.getElement().getValue();
+        if  (node.getElement().getKey().equals(key))
+            return node.getElement().getValue();
+        else
+            return null;
     }
 
 
