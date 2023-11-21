@@ -62,6 +62,7 @@ public class SepChainHashTable<K extends Comparable<K>, V>
 
     @SuppressWarnings("unchecked")
     protected void rehash(){
+        // TODO refazer com o construtor para otimizar
         // Creates new table
         int newSize = HashTable.nextPrime((int) (1.1 * table.length));
         Dictionary<K,V>[] newTable = (Dictionary<K,V>[]) new Dictionary[newSize];
