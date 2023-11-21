@@ -19,6 +19,6 @@ public class BSTKeyOrderIterator<K, V> implements Iterator<Entry<K,V>>{
     }
 
     public void rewind() {
-
+        //TODO fazer o rewind
     }
 }

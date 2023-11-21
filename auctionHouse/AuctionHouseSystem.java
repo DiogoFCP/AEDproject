@@ -56,9 +56,9 @@ public class AuctionHouseSystem implements AuctionHouse {
      * initializes its data structures and variables.
      */
     public AuctionHouseSystem() {
-        userMap = new SepChainHashTable<>(DEFAULT_USER_CAPACITY);
-        artMap = new SepChainHashTable<>(DEFAULT_ART_CAPACITY);
-        auctionMap = new SepChainHashTable<>(DEFAULT_ART_CAPACITY);
+        userMap = new SepChainHashTable<>();
+        artMap = new SepChainHashTable<>();
+        auctionMap = new SepChainHashTable<>();
     }
 
     /**

@@ -55,7 +55,7 @@ class OrderedDoubleList<K extends Comparable<K>, V>
         DoubleListNode<Entry<K, V>> before = after.getPrevious();
         DoubleListNode<Entry<K, V>> newNode = new DoubleListNode<>(element, before, after);
         if (before != null)
-        before.setNext(newNode);
+            before.setNext(newNode);
         after.setPrevious(newNode);
         currentSize++;
     }
@@ -108,11 +108,11 @@ class OrderedDoubleList<K extends Comparable<K>, V>
     /**
      * TODO REFAZER ESTE COMMENT PQ TA MAL!!!!! E
      * @param key - Key of type K to be searched
-     * @return DoubleListNode<E> where the Entry with key was found, or the one with the key immmediately after
+     * @return DoubleListNode<E> where the Entry with key was found, or the one with the key immediately after
      */
     protected DoubleListNode<Entry<K, V>> findNode(K key) {
         DoubleListNode<Entry<K, V>> node = this.head;
-        while ((node != null) && (node.getElement().getKey().compareTo(key) != 0)) {
+        while ((node != null) && (node.getElement().getKey().compareTo(key) >= 0)) {
             node = node.getNext();
         }
         return node;
@@ -130,8 +130,16 @@ class OrderedDoubleList<K extends Comparable<K>, V>
     @Override
     public V insert(K key, V value) {
         DoubleListNode<Entry<K, V>> node = findNode(key);
-
-        // TODO
+        Entry<K,V> newEntry = new EntryClass<>(key,value);
+        if (node == null)
+            addLast(newEntry);
+        else if (node.getElement().getKey().compareTo(key)==0){
+                V oldValue = node.getElement().getValue();
+                node.setElement(newEntry);
+                return oldValue;
+        } else if (this.head.equals(node))
+                addFirst(newEntry);
+          else addBeforeNode(node,newEntry);
         return null;
     }
 
