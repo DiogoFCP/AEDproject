@@ -23,11 +23,10 @@ public class BSTKeyOrderIterator<K, V> implements Iterator<Entry<K,V>>{
      * @param node the starting node to add.
      */
     private void readLefts(BSTNode<K,V> node){
-        while (node.getLeft() != null) {
+        do {
             stack.push(node);
             node = node.getLeft();
-        }
-        stack.push(node);
+        } while (node.getLeft() != null);
     }
 
     public Entry<K,V> next() throws NoSuchElementException {
