@@ -185,7 +185,6 @@ public class AVLTree<K extends Comparable<K>, V>
                     this.rotateLeft1E(parent, leftChild, path);
                 else this.rotateLeft(parent, leftChild, path);
             }
-
         }
     }
 

@@ -26,7 +26,7 @@ public class BSTKeyOrderIterator<K, V> implements Iterator<Entry<K,V>>{
         do {
             stack.push(node);
             node = node.getLeft();
-        } while (node.getLeft() != null);
+        } while (node != null);
     }
 
     public Entry<K,V> next() throws NoSuchElementException {
