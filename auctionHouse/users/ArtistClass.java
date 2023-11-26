@@ -1,5 +1,6 @@
-package auctionHouse;
+package auctionHouse.users;
 
+import auctionHouse.art.WorkOfArt;
 import dataStructures.*;
 
 /**

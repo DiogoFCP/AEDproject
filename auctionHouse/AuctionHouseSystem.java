@@ -1,5 +1,14 @@
 package auctionHouse;
 
+import auctionHouse.art.WorkOfArt;
+import auctionHouse.art.WorkOfArtClass;
+import auctionHouse.auction.Auction;
+import auctionHouse.auction.AuctionClass;
+import auctionHouse.auction.Bid;
+import auctionHouse.users.Artist;
+import auctionHouse.users.ArtistClass;
+import auctionHouse.users.User;
+import auctionHouse.users.UserClass;
 import auctionHouse.exceptions.*;
 import dataStructures.*;
 
@@ -52,6 +61,14 @@ public class AuctionHouseSystem implements AuctionHouse {
     private final Dictionary<String, Auction> auctionMap;
 
     /**
+     * A collection of all the sold arts in the system,
+     *  always sorted by the compareTo of the WorkOfArtClass.
+     *  uses the own object as the key to be able to be sorted
+     *  by more criteria than just the artID.
+     */
+    private final Dictionary<WorkOfArt, WorkOfArt> artsSoldSorted;
+
+    /**
      * Constructor of the AuctionHouseSystem that
      * initializes its data structures and variables.
      */
@@ -59,6 +76,7 @@ public class AuctionHouseSystem implements AuctionHouse {
         userMap = new SepChainHashTable<>();
         artMap = new SepChainHashTable<>();
         auctionMap = new SepChainHashTable<>();
+        artsSoldSorted = new BinarySearchTree<>(); //TODO change later to AVL
     }
 
     /**
@@ -152,8 +170,13 @@ public class AuctionHouseSystem implements AuctionHouse {
      */
     private void removeWorksOfArtist(Artist artist) {
         Iterator<Entry<String, WorkOfArt>> it = artist.getWorkIterator();
-        while (it.hasNext())
-            this.artMap.remove(it.next().getValue().getArtID());
+        //Cant use the key of the entry (String) because it's the art name and not the ID.
+        while (it.hasNext()){
+            WorkOfArt art = it.next().getValue();
+            this.artMap.remove(art.getArtID());
+            this.artsSoldSorted.remove(art);
+        }
+
     }
 
     public void addUser(String login, String name, int age, String email)
@@ -261,8 +284,18 @@ public class AuctionHouseSystem implements AuctionHouse {
         if (!this.hasAuction(auctionID))
             throw new AuctionDoesNotExistsException();
         Auction auction = this.findAuction(auctionID);
+
+        Iterator<Bid> it = auction.closeAllSingularAuctions();
+        while(it.hasNext()){
+            Bid bid = it.next();
+            if( !bid.isFailedBid() ){
+                WorkOfArt art = this.findArt(bid.getArtID());
+                artsSoldSorted.insert(art, art);
+            }
+        }
         auctionMap.remove(convertToKey(auctionID));
-        return auction.closeAllSingularAuctions();
+        it.rewind();
+        return it;
     }
 
     public Iterator<WorkOfArt> listAuctionWorks(String auctionID)
@@ -298,5 +331,12 @@ public class AuctionHouseSystem implements AuctionHouse {
         if (auction.workHasNoBids(workOfArt))
             throw new WorkHasNoBidsException();
         return auction.getWorksBidsIterator(workOfArt);
+    }
+
+    public Iterator<Entry<WorkOfArt,WorkOfArt>> listWorksByValue()
+            throws NoSoldArtsException {
+        if(artsSoldSorted.isEmpty())
+            throw new NoSoldArtsException();
+        return artsSoldSorted.iterator();
     }
 }

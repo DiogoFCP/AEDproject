@@ -1,4 +1,4 @@
-package auctionHouse;
+package auctionHouse.art;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
-public interface WorkOfArt extends Serializable {
+public interface WorkOfArt extends Serializable, Comparable<WorkOfArt> {
 
     /**
      * Gets the art id.

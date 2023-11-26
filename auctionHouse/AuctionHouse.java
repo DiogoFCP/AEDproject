@@ -1,5 +1,9 @@
 package auctionHouse;
 
+import auctionHouse.art.WorkOfArt;
+import auctionHouse.auction.Bid;
+import auctionHouse.users.Artist;
+import auctionHouse.users.User;
 import auctionHouse.exceptions.*;
 import dataStructures.Entry;
 import dataStructures.Iterator;
@@ -162,4 +166,15 @@ public interface AuctionHouse extends Serializable {
     Iterator<Bid> listBidsWork(String auctionID, String artID)
             throws AuctionDoesNotExistsException, ArtDoesNotExistInAuctionException, WorkHasNoBidsException;
 
+    /**
+     * Lists all the works sold in the system, sorted by the highest value, when
+     * the value is equal, sorted by the name of the art.
+     * The iterator contains an entry instead of just the work of art because since,
+     * the sorting occurs based on value and name, and the arts are stored in a BST,
+     * the work of art is used as a key and value at the same time.
+     * @return an iterator with entrys with the art.
+     * @throws NoSoldArtsException if there are no sold arts in the system.
+     */
+    Iterator<Entry<WorkOfArt,WorkOfArt>> listWorksByValue()
+            throws NoSoldArtsException;
 }

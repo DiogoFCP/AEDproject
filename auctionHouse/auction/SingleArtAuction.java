@@ -1,5 +1,7 @@
-package auctionHouse;
+package auctionHouse.auction;
 
+import auctionHouse.art.WorkOfArt;
+import auctionHouse.users.User;
 import auctionHouse.exceptions.BidBelowMinValueException;
 import dataStructures.Iterator;
 

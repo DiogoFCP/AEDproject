@@ -1,4 +1,7 @@
-package auctionHouse;
+package auctionHouse.auction;
+
+import auctionHouse.art.WorkOfArt;
+import auctionHouse.users.User;
 
 /**
  * A bid that hold the value of the bid, the user who made the bid and the art.
@@ -23,7 +26,7 @@ public class BidClass implements Bid{
     private User bidder;
 
     /**
-     * The Art being bidded on.
+     * The Art being bid on.
      */
     private WorkOfArt art;
 
