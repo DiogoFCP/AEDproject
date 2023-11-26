@@ -1,5 +1,6 @@
 package auctionHouse;
 
+import dataStructures.Entry;
 import dataStructures.Iterator;
 
 /**
@@ -45,9 +46,11 @@ public interface Artist extends User{
 
     boolean hasWorksSelling();
     /**
-     * Gives all the works the artist has.
+     * Gives all the works the artist has and its corresponding
+     * names as the key to the value.
      * Only is cast if hasWorks.
+     *
      * @return Iterator copy of all works
      */
-    Iterator<WorkOfArt> getWorkIterator();
+    Iterator<Entry<String, WorkOfArt>> getWorkIterator();
 }

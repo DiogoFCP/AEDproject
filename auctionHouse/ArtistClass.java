@@ -1,8 +1,6 @@
 package auctionHouse;
 
-import dataStructures.FindAndGetDoubleList;
-import dataStructures.FindAndGetList;
-import dataStructures.Iterator;
+import dataStructures.*;
 
 /**
  * An artist is also a user but can add works of art and has an artistic name.
@@ -29,8 +27,9 @@ public class ArtistClass extends UserClass implements Artist {
 
     /**
      * A collection of all the works done by the artist.
+     * The key is the name of the art and the value is the art.
      */
-    private FindAndGetList<WorkOfArt> artistWorks;
+    private Dictionary<String, WorkOfArt> artistWorks;
 
     /**
      * Constructor of the class ArtistClass, that initializes its variables.
@@ -45,7 +44,7 @@ public class ArtistClass extends UserClass implements Artist {
         super(login, name, age, email);
         this.artisticName = artisticName;
         this.numbOfWorksSelling = 0;
-        artistWorks = new FindAndGetDoubleList<>();
+        artistWorks = new BinarySearchTree<>(); // TODO change later to AVL
     }
 
     public String getArtisticName() {
@@ -53,7 +52,7 @@ public class ArtistClass extends UserClass implements Artist {
     }
 
     public void addWork(WorkOfArt workOfArt) {
-        artistWorks.addLast(workOfArt);
+        artistWorks.insert(workOfArt.getName(), workOfArt);
     }
 
     public boolean hasWorks() {
@@ -72,7 +71,7 @@ public class ArtistClass extends UserClass implements Artist {
         return numbOfWorksSelling > 0;
     }
 
-    public Iterator<WorkOfArt> getWorkIterator() {
+    public Iterator<Entry<String, WorkOfArt>> getWorkIterator() {
         return artistWorks.iterator();
     }
 }

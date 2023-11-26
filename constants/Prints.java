@@ -35,4 +35,6 @@ public class Prints {
     public static final String SOLD_ART_LISTING = "%s %s %s %s %d\n";
 
     public static final String NOT_SOLD_ART_LISTING = "%s %s sem propostas de venda.\n";
+
+    public static final String ARTIST_WORKS_LISTING = "%s %s %d %d\n";
 }
