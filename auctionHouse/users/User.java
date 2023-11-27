@@ -1,4 +1,4 @@
-package auctionHouse;
+package auctionHouse.users;
 
 import java.io.Serializable;
 

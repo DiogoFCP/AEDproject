@@ -2,8 +2,13 @@ import java.io.*;
 import java.util.Scanner;
 
 import auctionHouse.*;
+import auctionHouse.art.WorkOfArt;
+import auctionHouse.auction.Bid;
+import auctionHouse.users.Artist;
+import auctionHouse.users.User;
 import auctionHouse.exceptions.*;
 import constants.*;
+import dataStructures.Entry;
 import dataStructures.Iterator;
 
 /**
@@ -303,7 +308,22 @@ public class Main {
      * @param in the input scanner.
      */
     private static void listArtistWorks(AuctionHouse ah, Scanner in){
-        // SECOND PART
+        String artistLogin = in.next();
+        System.out.println();
+        try{
+            Iterator<Entry<String, WorkOfArt>> it = ah.listArtistWorks(artistLogin);
+            while(it.hasNext()){
+                WorkOfArt a = it.next().getValue();
+                System.out.printf(Prints.ARTIST_WORKS_LISTING, a.getArtID(), a.getName(),
+                        a.getYear(), a.getHighestBid());
+            }
+        } catch (UserDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        } catch (ArtistDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        } catch (ArtistHasNoWorksException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -338,7 +358,17 @@ public class Main {
      * @param in the input scanner.
      */
     private static void listWorksByValue(AuctionHouse ah, Scanner in){
-        // SECOND PART
+        System.out.println();
+        try{
+            Iterator<Entry<WorkOfArt, WorkOfArt>> it = ah.listWorksByValue();
+            while(it.hasNext()){
+                WorkOfArt a = it.next().getValue();
+                System.out.printf(Prints.WORKS_BY_VALUE_LISTING, a.getArtID(), a.getName(), a.getYear(),
+                        a.getHighestBid(), a.getAuthorLogin(), a.getAuthorName());
+            }
+        } catch (NoSoldArtsException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**

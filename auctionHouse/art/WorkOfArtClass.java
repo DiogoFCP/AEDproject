@@ -1,4 +1,6 @@
-package auctionHouse;
+package auctionHouse.art;
+
+import auctionHouse.users.Artist;
 
 /**
  * A work of art created by an artist in the system,
@@ -105,5 +107,12 @@ public class WorkOfArtClass implements WorkOfArt {
     public void updateHighestBid(int value){
         if(value > this.highestBid)
             this.highestBid = value;
+    }
+
+    @Override
+    public int compareTo(WorkOfArt o) {
+        if(this.highestBid == o.getHighestBid())
+            return this.name.compareTo(o.getName());
+        return o.getHighestBid() - this.highestBid;
     }
 }

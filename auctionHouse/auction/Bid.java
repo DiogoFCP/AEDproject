@@ -1,4 +1,4 @@
-package auctionHouse;
+package auctionHouse.auction;
 
 import java.io.Serializable;
 

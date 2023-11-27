@@ -1,4 +1,4 @@
-package auctionHouse;
+package auctionHouse.users;
 
 /**
  * A collector who can bid on arts that are in auctions.
