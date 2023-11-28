@@ -1,14 +1,15 @@
-package auctionHouse.auction;
-
-import auctionHouse.art.WorkOfArt;
-import auctionHouse.users.User;
+package auctionHouse;
 
 /**
  * A bid that hold the value of the bid, the user who made the bid and the art.
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
-public class BidClass implements Bid{
+class BidClass implements Bid{
+
+
+    /*              Instance Variables               */
+
 
     /**
      * Serial Version UID of the Class
@@ -30,6 +31,10 @@ public class BidClass implements Bid{
      */
     private WorkOfArt art;
 
+
+    /*              Constructors Methods               */
+
+
     /**
      * Constructor of the BidClass that initializes all the variables.
      * @param bidder the user who made the bid.
@@ -41,6 +46,21 @@ public class BidClass implements Bid{
         this.bidder = bidder;
         this.art = art;
     }
+
+
+    /*              Protected Methods               */
+
+
+    /**
+     * Removes the bid from the bidder(User) of this bid.
+     */
+    protected void removeBidFromUser(){
+        ((UserClass)this.bidder).decNumbOfBids();
+    }
+
+
+    /*              Public Methods               */
+
 
     public String getBidderLogin() {
         return this.bidder.getLogin();
@@ -60,11 +80,9 @@ public class BidClass implements Bid{
         return this.art.getName();
     }
 
-    public void removeBidFromUser(){
-        this.bidder.decNumbOfBids();
-    }
-
     public boolean isFailedBid(){
         return value < 0;
     }
+
+    public WorkOfArt getArt() { return this.art; }
 }

@@ -1,4 +1,4 @@
-package auctionHouse.auction;
+package auctionHouse;
 
 import java.io.Serializable;
 
@@ -39,14 +39,16 @@ public interface Bid extends Serializable {
      */
     String getArtName();
 
-    /**
-     * Removes the bid from the bidder(User) of this bid.
-     */
-    void removeBidFromUser();
 
     /**
      * Used on dummy bids that are created when an art in an auction does not sell.
      * @return true if the art the bid contains failed (price==-1).
      */
     boolean isFailedBid();
+
+    /**
+     * Gets the art being bid on this bid.
+     * @return the art being bid on.
+     */
+    WorkOfArt getArt();
 }

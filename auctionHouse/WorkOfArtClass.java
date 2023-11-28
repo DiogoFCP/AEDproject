@@ -1,6 +1,4 @@
-package auctionHouse.art;
-
-import auctionHouse.users.Artist;
+package auctionHouse;
 
 /**
  * A work of art created by an artist in the system,
@@ -8,7 +6,11 @@ import auctionHouse.users.Artist;
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
-public class WorkOfArtClass implements WorkOfArt {
+class WorkOfArtClass implements WorkOfArt {
+
+
+    /*              Instance Variables               */
+
 
     /**
      * Serial Version UID of the Class
@@ -40,6 +42,10 @@ public class WorkOfArtClass implements WorkOfArt {
      */
     private int highestBid;
 
+
+    /*              Constructors Methods               */
+
+
     /**
      * Constructor of the WorkOfArtClass that initializes all the variables.
      * @param artID the unique art ID.
@@ -47,13 +53,50 @@ public class WorkOfArtClass implements WorkOfArt {
      * @param year the year the art was created.
      * @param name the name of the art.
      */
-    public WorkOfArtClass(String artID, Artist author, int year, String name){
+    public WorkOfArtClass(String artID, ArtistClass author, int year, String name){
         this.artID = artID;
         this.author = author;
         this.year = year;
         this.name = name;
         this.highestBid = 0;
     }
+
+
+    /*              Protected Methods               */
+
+
+    /**
+     * Decrements the number of arts made by the author of this art.
+     */
+    protected void removeFromSelling(){
+        ((ArtistClass)this.author).decSellingWorks();
+    }
+
+    /**
+     * Increments the number of arts made by the author of this art.
+     */
+    protected void addFromSelling(){
+        // this if is needed because in some cases this method
+        // is called on a constructor of a dummy, so we need to
+        // verify if the author is null, because if not inside a
+        // dummy we will get a null pointer exception.
+        if(this.author != null)
+            ((ArtistClass)this.author).incSellingWorks();
+    }
+
+    /**
+     * Updates the highest bid value of the art if the given
+     * value is bigger than the highest bid of the art.
+     * @param value the value being verified.
+     */
+    protected void updateHighestBid(int value){
+        if(value > this.highestBid)
+            this.highestBid = value;
+    }
+
+
+    /*              Public Methods               */
+
 
     public String getArtID(){
         return this.artID;
@@ -89,24 +132,6 @@ public class WorkOfArtClass implements WorkOfArt {
         if (this.artID == null) {
             return other.getArtID() == null;
         } else return this.artID.equals(other.getArtID());
-    }
-
-    public void removeFromSelling(){
-        this.author.decSellingWorks();
-    }
-
-    public void addFromSelling(){
-        // this if is needed because in some cases this method
-        // is called on a constructor of a dummy, so we need to
-        // verify if the author is null, because if not inside a
-        // dummy we will get a null pointer exception.
-        if(this.author != null)
-            this.author.incSellingWorks();
-    }
-
-    public void updateHighestBid(int value){
-        if(value > this.highestBid)
-            this.highestBid = value;
     }
 
     @Override

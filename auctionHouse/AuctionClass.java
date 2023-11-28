@@ -1,8 +1,5 @@
-package auctionHouse.auction;
+package auctionHouse;
 
-import auctionHouse.art.WorkOfArt;
-import auctionHouse.art.WorkOfArtClass;
-import auctionHouse.users.User;
 import auctionHouse.exceptions.BidBelowMinValueException;
 import dataStructures.*;
 
@@ -12,7 +9,11 @@ import dataStructures.*;
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
-public class AuctionClass implements Auction{
+class AuctionClass implements Auction{
+
+
+    /*              Instance Variables               */
+
 
     /**
      * Serial Version UID of the Class
@@ -30,6 +31,10 @@ public class AuctionClass implements Auction{
      */
     private final FindAndGetList<SingleArtAuction> artAuctionsList;
 
+
+    /*              Constructors Methods               */
+
+
     /**
      * Constructor of the AuctionClass that initializes all the variables.
      * @param auctionID the unique ID of the auction.
@@ -38,6 +43,10 @@ public class AuctionClass implements Auction{
         this.auctionID = auctionID;
         this.artAuctionsList = new FindAndGetDoubleList<>();
     }
+
+
+    /*              Private Methods               */
+
 
     /**
      * Checks if there is a single art auction in this auction with the given work of art.
@@ -57,13 +66,37 @@ public class AuctionClass implements Auction{
         return artAuctionsList.findAndGet(new SingleArtAuctionClass(workOfArt, 0));
     }
 
-    public String getAuctionID() {
-        return this.auctionID;
-    }
 
-    public void addWork(WorkOfArt workOfArt, int minimumBidRequired) {
+    /*              Protected Methods               */
+
+
+    /**
+     * Adds the work of art to the auction and sets the lowest bid it can sell for.
+     * @param workOfArt the work of art being added.
+     * @param minimumBidRequired the lowest value the work of art can be sold for.
+     */
+    protected void addWork(WorkOfArt workOfArt, int minimumBidRequired) {
         if(!this.hasSingularArtAuction(workOfArt))
             artAuctionsList.addLast(new SingleArtAuctionClass(workOfArt, minimumBidRequired));
+    }
+
+    /**
+     * Adds a bid to an art auction going on in this auction with its corresponding value.
+     * @param bidder the user who made the bid.
+     * @param workOfArt the art being bid on.
+     * @param value the value of the bid.
+     */
+    protected void addBid(User bidder, WorkOfArt workOfArt, int value) throws BidBelowMinValueException {
+        ((SingleArtAuctionClass)this.findSingularArtAuction(workOfArt))
+                .addBid(bidder, value);
+    }
+
+
+    /*              Public Methods               */
+
+
+    public String getAuctionID() {
+        return this.auctionID;
     }
 
     @Override
@@ -80,10 +113,6 @@ public class AuctionClass implements Auction{
 
     public boolean hasWorkOfArt(String artID){
         return this.hasSingularArtAuction(new WorkOfArtClass(artID, null, 0, null));
-    }
-
-    public void addBid(User bidder, WorkOfArt workOfArt, int value) throws BidBelowMinValueException {
-        this.findSingularArtAuction(workOfArt).addBid(bidder, value);
     }
 
     public boolean hasNoWorks(){ return artAuctionsList.isEmpty(); }
@@ -104,11 +133,13 @@ public class AuctionClass implements Auction{
         return findSingularArtAuction(workOfArt).getBidsIterator();
     }
 
-    public Iterator<Bid> closeAllSingularAuctions(){
+    public Iterator<Bid> closeAllSingularAuctions(Dictionary<WorkOfArt, WorkOfArt> artsSoldSorted){
         List<Bid> winners = new DoubleList<>();
         Iterator<SingleArtAuction> it = artAuctionsList.iterator();
         while (it.hasNext()){
-            winners.addLast(it.next().getWinningBid());
+            winners.addLast(
+                    ((SingleArtAuctionClass)it.next()).
+                            getWinningBid(artsSoldSorted));
         }
         return winners.iterator();
     }

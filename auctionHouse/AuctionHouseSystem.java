@@ -1,14 +1,5 @@
 package auctionHouse;
 
-import auctionHouse.art.WorkOfArt;
-import auctionHouse.art.WorkOfArtClass;
-import auctionHouse.auction.Auction;
-import auctionHouse.auction.AuctionClass;
-import auctionHouse.auction.Bid;
-import auctionHouse.users.Artist;
-import auctionHouse.users.ArtistClass;
-import auctionHouse.users.User;
-import auctionHouse.users.UserClass;
 import auctionHouse.exceptions.*;
 import dataStructures.*;
 
@@ -20,6 +11,10 @@ import dataStructures.*;
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
 public class AuctionHouseSystem implements AuctionHouse {
+
+
+    /*              Instance Variables               */
+
 
     /**
      * Serial Version UID of the Class
@@ -68,6 +63,10 @@ public class AuctionHouseSystem implements AuctionHouse {
      */
     private final Dictionary<WorkOfArt, WorkOfArt> artsSoldSorted;
 
+
+    /*              Constructors Methods               */
+
+
     /**
      * Constructor of the AuctionHouseSystem that
      * initializes its data structures and variables.
@@ -78,6 +77,10 @@ public class AuctionHouseSystem implements AuctionHouse {
         auctionMap = new SepChainHashTable<>();
         artsSoldSorted = new BinarySearchTree<>(); //TODO change later to AVL
     }
+
+
+    /*              Private Methods               */
+
 
     /**
      * Converts the id given to a key used on the
@@ -99,18 +102,8 @@ public class AuctionHouseSystem implements AuctionHouse {
      * @param userID name of the user we want to find
      * @return wanted user
      */
-    private User findUser(String userID) {
-        return userMap.find(convertToKey(userID));
-    }
-
-    /**
-     * Checks if there is a user with the given login in the system.
-     *
-     * @param login the same login (unique ID) as the user we are looking for.
-     * @return true if the user already exists in the system.
-     */
-    private boolean hasUser(String login) {
-        return this.findUser(convertToKey(login)) != null;
+    private UserClass findUser(String userID) {
+        return (UserClass) userMap.find(convertToKey(userID));
     }
 
     /**
@@ -119,18 +112,8 @@ public class AuctionHouseSystem implements AuctionHouse {
      * @param artID id of the art we want to find
      * @return wanted art
      */
-    private WorkOfArt findArt(String artID) {
-        return artMap.find(convertToKey(artID));
-    }
-
-    /**
-     * Checks if there is a work of art with the given art ID in the system.
-     *
-     * @param artID the same ID of the art (unique ID) we are looking for.
-     * @return true if the art exists
-     */
-    private boolean hasArt(String artID) {
-        return findArt(convertToKey(artID)) != null;
+    private WorkOfArtClass findArt(String artID) {
+        return (WorkOfArtClass) artMap.find(convertToKey(artID));
     }
 
     /**
@@ -139,28 +122,18 @@ public class AuctionHouseSystem implements AuctionHouse {
      * @param auctionID name of the auction we want to find
      * @return wanted auction
      */
-    private Auction findAuction(String auctionID) {
-        return auctionMap.find(convertToKey(auctionID));
+    private AuctionClass findAuction(String auctionID) {
+        return (AuctionClass) auctionMap.find(convertToKey(auctionID));
     }
 
     /**
-     * Checks if there is an auction with the given auction ID in the system.
+     * Verifies if the given user corresponds to an instance of the artist class.
      *
-     * @param auctionID the same ID of the auction (unique ID) we are looking for.
-     * @return true if the auction exists.
+     * @param user the user of the artist we are verifying.
+     * @return true if the user corresponds to an instance of an artist class.
      */
-    private boolean hasAuction(String auctionID) {
-        return findAuction(convertToKey(auctionID)) != null;
-    }
-
-    /**
-     * Verifies if the given artist login corresponds to a user in the system that is an instance of the artist class.
-     *
-     * @param artistLogin the login of the artist we are verifying.
-     * @return true if the login corresponds to an instance of an artist class.
-     */
-    private boolean isArtist(String artistLogin) {
-        return findUser(convertToKey(artistLogin)) instanceof ArtistClass;
+    private boolean isArtist(User user) {
+        return user instanceof ArtistClass;
     }
 
     /**
@@ -168,22 +141,25 @@ public class AuctionHouseSystem implements AuctionHouse {
      *
      * @param artist the artist that created all the works of art being removed.
      */
-    private void removeWorksOfArtist(Artist artist) {
+    private void removeWorksOfArtist(ArtistClass artist) {
         Iterator<Entry<String, WorkOfArt>> it = artist.getWorkIterator();
         //Cant use the key of the entry (String) because it's the art name and not the ID.
         while (it.hasNext()){
-            WorkOfArt art = it.next().getValue();
+            WorkOfArtClass art = (WorkOfArtClass) it.next().getValue();
             this.artMap.remove(art.getArtID());
             this.artsSoldSorted.remove(art);
         }
-
     }
+
+
+    /*              Public Methods               */
+
 
     public void addUser(String login, String name, int age, String email)
             throws InvalidAgeException, UserAlreadyExistsException {
         if (age < 18)
             throw new InvalidAgeException();
-        if (this.hasUser(login))
+        if (this.findUser(login) != null)
             throw new UserAlreadyExistsException();
         userMap.insert(convertToKey(login), new UserClass(login, name, age, email));
     }
@@ -192,19 +168,19 @@ public class AuctionHouseSystem implements AuctionHouse {
             throws InvalidAgeException, UserAlreadyExistsException {
         if (age < 18)
             throw new InvalidAgeException();
-        if (this.hasUser(login))
+        if (this.findUser(login) != null)
             throw new UserAlreadyExistsException();
         userMap.insert(convertToKey(login), new ArtistClass(login, name, artisticName, age, email));
     }
 
     public void removeUser(String login)
             throws UserDoesNotExistException, UserHasBidsException, ArtistHasAuctionedArtException {
-        if (!this.hasUser(login))
+        UserClass user = this.findUser(login);
+        if (user == null)
             throw new UserDoesNotExistException();
-        User user = this.findUser(login);
         if (user.hasBids())
             throw new UserHasBidsException();
-        if (user instanceof Artist artist && ((Artist) user).hasWorks()) {
+        if (user instanceof ArtistClass artist && artist.hasWorks()) {
             if (artist.hasWorksSelling())
                 throw new ArtistHasAuctionedArtException();
             this.removeWorksOfArtist(artist);
@@ -214,95 +190,102 @@ public class AuctionHouseSystem implements AuctionHouse {
 
     public void addWork(String artID, String artistLogin, int year, String artName)
             throws ArtAlreadyExistsException, UserDoesNotExistException, ArtistDoesNotExistException {
-        if (this.hasArt(artID))
+        if (this.findArt(artID) != null)
             throw new ArtAlreadyExistsException();
-        if (!this.hasUser(artistLogin))
+        UserClass user = this.findUser(artistLogin);
+        if (user == null)
             throw new UserDoesNotExistException();
-        if (!isArtist(artistLogin))
+        if (!this.isArtist(user))
             throw new ArtistDoesNotExistException();
-        Artist author = (Artist) this.findUser(artistLogin);
-        WorkOfArt workToAdd = new WorkOfArtClass(artID, author, year, artName);
+        ArtistClass author = (ArtistClass) user;
+        WorkOfArtClass workToAdd = new WorkOfArtClass(artID, author, year, artName);
         artMap.insert(convertToKey(artID), workToAdd);
         author.addWork(workToAdd);
     }
 
     public User getUser(String userLogin)
             throws UserDoesNotExistException {
-        if (!hasUser(userLogin))
+        User user = this.findUser(userLogin);
+        if (user == null)
             throw new UserDoesNotExistException();
-        return findUser(userLogin);
+        return user;
     }
 
     public Artist getArtist(String userLogin)
             throws UserDoesNotExistException, ArtistDoesNotExistException {
-        if (!this.hasUser(userLogin))
+        User user = this.findUser(userLogin);
+        if (user == null)
             throw new UserDoesNotExistException();
-        else if (!this.isArtist(userLogin))
+        else if (!this.isArtist(user))
             throw new ArtistDoesNotExistException();
-        return (Artist) findUser(userLogin);
+        return (Artist) user;
     }
 
     public WorkOfArt getWorkOfArt(String workID)
             throws ArtDoesNotExistException {
-        if (!this.hasArt(workID))
+        WorkOfArt art = findArt(workID);
+        if (art == null)
             throw new ArtDoesNotExistException();
-        return findArt(workID);
+        return art;
     }
 
     public void createAuction(String auctionID)
             throws AuctionAlreadyExistsException {
-        if (this.hasAuction(auctionID))
+        Auction auction = findAuction(auctionID);
+        if (auction != null)
             throw new AuctionAlreadyExistsException();
         auctionMap.insert(convertToKey(auctionID), new AuctionClass(auctionID));
     }
 
     public void addWorkAuction(String auctionID, String artID, int lowestBid)
             throws AuctionDoesNotExistsException, ArtDoesNotExistException {
-        if (!this.hasAuction(auctionID))
+        AuctionClass auction = this.findAuction(auctionID);
+        if (auction == null)
             throw new AuctionDoesNotExistsException();
-        if (!this.hasArt(artID))
+        WorkOfArt art = this.findArt(artID);
+        if (art == null)
             throw new ArtDoesNotExistException();
-        Auction auction = this.findAuction(auctionID);
-        auction.addWork(this.getWorkOfArt(artID), lowestBid);
+        auction.addWork(art, lowestBid);
     }
 
     public void addBid(String auctionID, String artID, String login, int value)
             throws UserDoesNotExistException, AuctionDoesNotExistsException,
             ArtDoesNotExistInAuctionException, BidBelowMinValueException {
-        if (!this.hasUser(login))
+        User user = this.findUser(login);
+        if (user == null)
             throw new UserDoesNotExistException();
-        if (!this.hasAuction(auctionID))
+        AuctionClass auction = this.findAuction(auctionID);
+        if (auction == null)
             throw new AuctionDoesNotExistsException();
-        Auction auction = this.findAuction(auctionID);
         if (!auction.hasWorkOfArt(artID))
             throw new ArtDoesNotExistInAuctionException();
-        auction.addBid(this.findUser(login), this.findArt(artID), value);
+        auction.addBid(user, this.findArt(artID), value);
     }
 
     public Iterator<Bid> closeAuction(String auctionID)
             throws AuctionDoesNotExistsException {
-        if (!this.hasAuction(auctionID))
-            throw new AuctionDoesNotExistsException();
         Auction auction = this.findAuction(auctionID);
+        if (auction == null)
+            throw new AuctionDoesNotExistsException();
 
-        Iterator<Bid> it = auction.closeAllSingularAuctions();
-        while(it.hasNext()){
+        Iterator<Bid> it = auction.closeAllSingularAuctions(this.artsSoldSorted);
+        /*while(it.hasNext()){
             Bid bid = it.next();
-            if( !bid.isFailedBid() ){
-                WorkOfArt art = this.findArt(bid.getArtID());
+            if( !bid.isFailedBid() ){    // TODO REMOVE LATER
+                WorkOfArt art = bid.getArt();
                 artsSoldSorted.insert(art, art);
             }
-        }
+        }*/
         auctionMap.remove(convertToKey(auctionID));
-        it.rewind();
+        //it.rewind(); // TODO REMOVE LATER
         return it;
     }
 
     public Iterator<WorkOfArt> listAuctionWorks(String auctionID)
             throws AuctionDoesNotExistsException, AuctionHasNoWorksException {
-        if (!this.hasAuction(auctionID))
-            throw new AuctionDoesNotExistsException();
         Auction auction = findAuction(auctionID);
+        if (auction == null)
+            throw new AuctionDoesNotExistsException();
         if (auction.hasNoWorks())
             throw new AuctionHasNoWorksException();
         return auction.getWorksIterator();
@@ -310,11 +293,12 @@ public class AuctionHouseSystem implements AuctionHouse {
 
     public Iterator<Entry<String, WorkOfArt>> listArtistWorks(String artistID)
             throws UserDoesNotExistException, ArtistDoesNotExistException, ArtistHasNoWorksException {
-        if(!this.hasUser(artistID))
+        User user = this.findUser(artistID);
+        if(user == null)
             throw new UserDoesNotExistException();
-        if(!this.isArtist(artistID))
+        if(this.isArtist(user))
             throw new ArtistDoesNotExistException();
-        Artist artist = (Artist) this.findUser(artistID);
+        ArtistClass artist = (ArtistClass) user;
         if(!artist.hasWorks())
             throw new ArtistHasNoWorksException();
         return artist.getWorkIterator();
@@ -322,9 +306,9 @@ public class AuctionHouseSystem implements AuctionHouse {
 
     public Iterator<Bid> listBidsWork(String auctionID, String artID)
             throws AuctionDoesNotExistsException, ArtDoesNotExistInAuctionException, WorkHasNoBidsException {
-        if (!this.hasAuction(auctionID))
-            throw new AuctionDoesNotExistsException();
         Auction auction = this.findAuction(auctionID);
+        if (auction == null)
+            throw new AuctionDoesNotExistsException();
         if (!auction.hasWorkOfArt(artID))
             throw new ArtDoesNotExistInAuctionException();
         WorkOfArt workOfArt = this.findArt(artID);

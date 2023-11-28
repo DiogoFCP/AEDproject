@@ -62,7 +62,7 @@ public class SepChainHashTable<K extends Comparable<K>, V>
 
     @SuppressWarnings("unchecked")
     protected void rehash(){
-        // TODO refazer com o construtor para otimizar
+        // TODO refazer com o construtor para otimizar/ criar nova sep hash table e buscar o .table e trocar neste
         // Creates new table
         Dictionary<K,V>[] oldTable = this.table;
 

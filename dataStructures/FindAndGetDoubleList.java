@@ -14,7 +14,7 @@ public class FindAndGetDoubleList<E> extends DoubleList<E> implements FindAndGet
     static final long serialVersionUID = 0L;
 
     /**
-     * TODO
+     * Initializes the list with his super constructor.
      */
     public FindAndGetDoubleList(){
         super();
