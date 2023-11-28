@@ -1,11 +1,15 @@
-package auctionHouse.users;
+package auctionHouse;
 
 /**
  * A collector who can bid on arts that are in auctions.
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
-public class UserClass implements User {
+class UserClass implements User {
+
+
+    /*              Instance Variables               */
+
 
     /**
      * Serial Version UID of the Class
@@ -37,6 +41,10 @@ public class UserClass implements User {
      */
     private int numbOfBids;
 
+
+    /*              Constructors Methods               */
+
+
     /**
      * Constructor of the UserClass that initializes all the variables.
      * @param login the login of the user (unique ID).
@@ -50,6 +58,32 @@ public class UserClass implements User {
         this.age = age;
         this.email = email;
         this.numbOfBids = 0;
+    }
+
+
+    /*              Protected Methods               */
+
+
+    /**
+     * Increments the number of bids done by the user.
+     */
+    protected void incNumbOfBids(){
+        numbOfBids++;
+    }
+
+    /**
+     * Decrements the number of bids done by the user.
+     */
+    protected void decNumbOfBids(){
+        numbOfBids--;
+    }
+
+
+    /*              Public Methods               */
+
+
+    public boolean hasBids(){
+        return numbOfBids>0;
     }
 
     public String getLogin(){
@@ -76,15 +110,5 @@ public class UserClass implements User {
         if (this.login == null) {
             return other.getLogin() == null;
         } else return this.login.equals(other.getLogin());
-    }
-
-    public void incNumbOfBids(){
-        numbOfBids++;
-    }
-    public void decNumbOfBids(){
-        numbOfBids--;
-    }
-    public boolean hasBids(){
-        return numbOfBids>0;
     }
 }

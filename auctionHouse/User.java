@@ -1,4 +1,4 @@
-package auctionHouse.users;
+package auctionHouse;
 
 import java.io.Serializable;
 
@@ -34,25 +34,15 @@ public interface User extends Serializable {
     String getEmail();
 
     /**
-     * Increments the number of bids done by the user.
+     * Compares both users based on their login (unique ID).
+     * @param obj the other user.
+     * @return true if they are the same user (same login ID).
      */
-    void incNumbOfBids();
-
-    /**
-     * Decrements the number of bids done by the user.
-     */
-    void decNumbOfBids();
+    boolean equals(Object obj);
 
     /**
      * Verifies if the user has made any bids.
      * @return true if the user made any bids.
      */
     boolean hasBids();
-
-    /**
-     * Compares both users based on their login (unique ID).
-     * @param obj the other user.
-     * @return true if they are the same user (same login ID).
-     */
-    boolean equals(Object obj);
 }

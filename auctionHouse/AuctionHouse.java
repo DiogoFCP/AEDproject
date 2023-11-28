@@ -1,9 +1,5 @@
 package auctionHouse;
 
-import auctionHouse.art.WorkOfArt;
-import auctionHouse.auction.Bid;
-import auctionHouse.users.Artist;
-import auctionHouse.users.User;
 import auctionHouse.exceptions.*;
 import dataStructures.Entry;
 import dataStructures.Iterator;

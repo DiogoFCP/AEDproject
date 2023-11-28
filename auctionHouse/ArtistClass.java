@@ -1,6 +1,5 @@
-package auctionHouse.users;
+package auctionHouse;
 
-import auctionHouse.art.WorkOfArt;
 import dataStructures.*;
 
 /**
@@ -9,7 +8,11 @@ import dataStructures.*;
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
-public class ArtistClass extends UserClass implements Artist {
+class ArtistClass extends UserClass implements Artist {
+
+
+    /*              Instance Variables              */
+
 
     /**
      * Serial Version UID of the Class
@@ -32,6 +35,10 @@ public class ArtistClass extends UserClass implements Artist {
      */
     private Dictionary<String, WorkOfArt> artistWorks;
 
+
+    /*              Constructors Methods               */
+
+
     /**
      * Constructor of the class ArtistClass, that initializes its variables.
      *
@@ -48,31 +55,65 @@ public class ArtistClass extends UserClass implements Artist {
         artistWorks = new BinarySearchTree<>(); // TODO change later to AVL
     }
 
+
+    /*              Protected Methods               */
+
+
+    /**
+     * Adds a work of art in the system to the respective artist
+     * @param workOfArt work of art that exists in the system
+     */
+    protected void addWork(WorkOfArt workOfArt) {
+        artistWorks.insert(workOfArt.getName(), workOfArt);
+    }
+
+    /**
+     * Checks if the artists has art works in his name
+     * @return true if it has worksOfArt
+     */
+    protected boolean hasWorks() {
+        return !artistWorks.isEmpty();
+    }
+
+    /**
+     * Increments the number of works from this artist being sold.
+     */
+    protected void incSellingWorks() {
+        numbOfWorksSelling++;
+    }
+
+    /**
+     * Decrements the number of works from this artist being sold.
+     */
+    protected void decSellingWorks() {
+        numbOfWorksSelling--;
+    }
+
+    /**
+     * Verifies if the artist has works being sold or not.
+     * @return true if the artist has works being sold.
+     */
+    protected boolean hasWorksSelling() {
+        return numbOfWorksSelling > 0;
+    }
+
+    /**
+     * Gives all the works the artist has and its corresponding
+     * names as the key to the value.
+     * Only is cast if hasWorks.
+     *
+     * @return Iterator copy of all works
+     */
+    protected Iterator<Entry<String, WorkOfArt>> getWorkIterator() {
+        return artistWorks.iterator();
+    }
+
+
+    /*              Public Methods               */
+
+
     public String getArtisticName() {
         return this.artisticName;
     }
 
-    public void addWork(WorkOfArt workOfArt) {
-        artistWorks.insert(workOfArt.getName(), workOfArt);
-    }
-
-    public boolean hasWorks() {
-        return !artistWorks.isEmpty();
-    }
-
-    public void incSellingWorks() {
-        numbOfWorksSelling++;
-    }
-
-    public void decSellingWorks() {
-        numbOfWorksSelling--;
-    }
-
-    public boolean hasWorksSelling() {
-        return numbOfWorksSelling > 0;
-    }
-
-    public Iterator<Entry<String, WorkOfArt>> getWorkIterator() {
-        return artistWorks.iterator();
-    }
 }

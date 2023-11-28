@@ -106,7 +106,7 @@ class OrderedDoubleList<K extends Comparable<K>, V>
     }
 
     /**
-     * TODO REFAZER ESTE COMMENT PQ TA MAL!!!!! E
+     * Finds a node with equal key or immediately after than the given key.
      * @param key - Key of type K to be searched
      * @return DoubleListNode<E> where the Entry with key was found, or the one with the key immediately after
      */

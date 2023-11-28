@@ -1,4 +1,4 @@
-package auctionHouse.art;
+package auctionHouse;
 
 import java.io.Serializable;
 
@@ -46,21 +46,4 @@ public interface WorkOfArt extends Serializable, Comparable<WorkOfArt> {
      * @return highest bid the art went for.
      */
     int getHighestBid();
-
-    /**
-     * Decrements the number of arts made by the author of this art.
-     */
-    void removeFromSelling();
-
-    /**
-     * Increments the number of arts made by the author of this art.
-     */
-    void addFromSelling();
-
-    /**
-     * Updates the highest bid value of the art if the given
-     * value is bigger than the highest bid of the art.
-     * @param value the value being verified.
-     */
-    void updateHighestBid(int value);
 }
