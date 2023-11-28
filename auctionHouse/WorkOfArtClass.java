@@ -53,7 +53,7 @@ class WorkOfArtClass implements WorkOfArt {
      * @param year the year the art was created.
      * @param name the name of the art.
      */
-    public WorkOfArtClass(String artID, Artist author, int year, String name){
+    public WorkOfArtClass(String artID, ArtistClass author, int year, String name){
         this.artID = artID;
         this.author = author;
         this.year = year;
