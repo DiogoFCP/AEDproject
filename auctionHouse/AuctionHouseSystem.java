@@ -21,21 +21,6 @@ public class AuctionHouseSystem implements AuctionHouse {
      */
     static final long serialVersionUID = 0L;
 
-    /**
-     * Expected base level number of users.
-     */
-    private static final int DEFAULT_USER_CAPACITY = 20000;
-
-    /**
-     * Expected base level number of arts.
-     */
-    private static final int DEFAULT_ART_CAPACITY = 10000;
-
-    /**
-     * Expected base level number of auctions.
-     */
-    private static final int DEFAULT_AUCTION_CAPACITY = 500;
-
 
     /**
      * A collection of all the users in the system (Users and Artists(also Users))

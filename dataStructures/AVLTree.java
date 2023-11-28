@@ -165,7 +165,8 @@ public class AVLTree<K extends Comparable<K>, V>
      * @param path - Stack of PathStep objects containing all ancestors of the inserted node
      */
     protected void reorganizeRem(Stack<PathStep<K, V>> path) {
-
+        //TODO VERIFICAR SE É FILHO ESQUERDO OU NAO E SEPARAR O SWITCH CONFORME
+        //TODO por dentro de um while com um boolean e enquanto n for null o stack
         PathStep<K, V> lastStep = path.pop();
         AVLNode<K, V> parent = (AVLNode<K, V>) lastStep.parent;
         AVLNode<K, V> rightChild = (AVLNode<K, V>) parent.getRight();
