@@ -49,7 +49,8 @@ class SingleArtAuctionClass implements SingleArtAuction{
      */
     public SingleArtAuctionClass(WorkOfArt art, int minimumBidRequired){
         this.art = art;
-        ((WorkOfArtClass) this.art).addFromSelling();
+        if (minimumBidRequired >= 0)
+            ((WorkOfArtClass) this.art).addFromSelling();
         this.minimumBidRequired = minimumBidRequired;
         this.bidsList = new FindAndGetDoubleList<>();
     }

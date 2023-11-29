@@ -63,7 +63,7 @@ class AuctionClass implements Auction{
      * @return wanted singular art auction.
      */
     private SingleArtAuction findSingularArtAuction(WorkOfArt workOfArt){
-        return artAuctionsList.findAndGet(new SingleArtAuctionClass(workOfArt, 0));
+        return artAuctionsList.findAndGet(new SingleArtAuctionClass(workOfArt, -1));
     }
 
 
