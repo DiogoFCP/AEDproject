@@ -2,10 +2,6 @@ import java.io.*;
 import java.util.Scanner;
 
 import auctionHouse.*;
-import auctionHouse.WorkOfArt;
-import auctionHouse.Bid;
-import auctionHouse.Artist;
-import auctionHouse.User;
 import auctionHouse.exceptions.*;
 import constants.*;
 import dataStructures.Entry;

@@ -65,46 +65,23 @@ class SingleArtAuctionClass implements SingleArtAuction{
      * @return the winning bid in this single art auction.
      */
     protected Bid getWinningBid(Dictionary<WorkOfArt, WorkOfArt> artsSoldSorted) {
-        //TODO remove later
-//        if (hasNoBids())
-//            return new BidClass(null,-1,this.art);
-//        Iterator<Bid> it = getBidsIterator();
-//        BidClass bid = (BidClass) bidsList.getFirst();
-//        while (it.hasNext()) {
-//            BidClass toCheck = (BidClass) it.next();
-//            toCheck.removeBidFromUser();
-//            if (toCheck.getBidValue() > bid.getBidValue()) {
-//                bid = toCheck;
-//            }
-//        }
-//        if(artsSoldSorted.find(this.art) != null)
-//            artsSoldSorted.remove(this.art);
-//
-//        WorkOfArtClass art = ((WorkOfArtClass)this.art);
-//        art.updateHighestBid(bid.getBidValue());
-//        art.removeFromSelling();
-//        artsSoldSorted.insert(art, art);
-//        return bid;
-        BidClass bid;
-        if (hasNoBids())
-            bid = new BidClass(null,-1,this.art);
-        else {
-            Iterator<Bid> it = getBidsIterator();
-            bid = (BidClass) bidsList.getFirst();
-
-            while (it.hasNext()) {
-                BidClass toCheck = (BidClass) it.next();
-                toCheck.removeBidFromUser();
-                if (toCheck.getBidValue() > bid.getBidValue()) {
-                    bid = toCheck;
-                }
+        WorkOfArtClass art = ((WorkOfArtClass)this.art);
+        if (hasNoBids()){
+            art.removeFromSelling();
+            return new BidClass(null,-1,this.art);
+        }
+        Iterator<Bid> it = getBidsIterator();
+        BidClass bid = (BidClass) bidsList.getFirst();
+        while (it.hasNext()) {
+            BidClass toCheck = (BidClass) it.next();
+            toCheck.removeBidFromUser();
+            if (toCheck.getBidValue() > bid.getBidValue()) {
+                bid = toCheck;
             }
         }
-
         if(artsSoldSorted.find(this.art) != null)
             artsSoldSorted.remove(this.art);
 
-        WorkOfArtClass art = ((WorkOfArtClass)this.art);
         art.updateHighestBid(bid.getBidValue());
         art.removeFromSelling();
         artsSoldSorted.insert(art, art);

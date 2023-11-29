@@ -62,15 +62,11 @@ public class SepChainHashTable<K extends Comparable<K>, V>
 
     @SuppressWarnings("unchecked")
     protected void rehash(){
-        // TODO refazer com o construtor para otimizar/ criar nova sep hash table e buscar o .table e trocar neste
         // Creates new table
         Dictionary<K,V>[] oldTable = this.table;
-
-        int newSize = HashTable.nextPrime((int) (1.1 * table.length));
-        table = (Dictionary<K,V>[]) new Dictionary[newSize];
-        for ( int i = 0; i < newSize; i++ )
-            table[i] = new OrderedDoubleList<K,V>();
-        maxSize = newSize;
+        SepChainHashTable<K,V> newTable = new SepChainHashTable<>(oldTable.length);
+        this.table = newTable.table;
+        this.maxSize = newTable.maxSize;
 
         // Transfers all entry to new table
         for(int i=0; i< oldTable.length; i++){

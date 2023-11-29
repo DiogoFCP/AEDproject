@@ -6,15 +6,19 @@ public class AVLTest {
 
         AVLTree<Integer, objetoTeste> teste = new AVLTree<>();
         Iterator<Entry<Integer, objetoTeste>> it;
-        for (int i = 0; i <= 10; i++) {
+        int numb = (int)(Math.random()*1000 % 100);
+        for (int i = 0; i <= numb; i++) {
             addValues(teste,i);
         }
 
-        printValues(teste);
-
-        teste.remove(5);
-        teste.remove(3);
-        teste.remove(9);
+        int numb2 = (int)(Math.random()*1000 % numb);
+        for (int i = 0; i < numb2; i++) {
+            System.out.println("Removing " + numb2);
+            teste.remove(numb2);
+            numb2 = (int) (Math.random()*1000 % numb);
+        }
+        System.out.println("Removing " + numb2);
+        teste.remove(numb2);
 
         printValues(teste);
 
