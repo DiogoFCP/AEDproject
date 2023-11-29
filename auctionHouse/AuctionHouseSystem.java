@@ -60,7 +60,7 @@ public class AuctionHouseSystem implements AuctionHouse {
         userMap = new SepChainHashTable<>();
         artMap = new SepChainHashTable<>();
         auctionMap = new SepChainHashTable<>();
-        artsSoldSorted = new BinarySearchTree<>(); //TODO change later to AVL
+        artsSoldSorted = new AVLTree<>();
     }
 
 
