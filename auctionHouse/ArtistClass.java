@@ -52,7 +52,7 @@ class ArtistClass extends UserClass implements Artist {
         super(login, name, age, email);
         this.artisticName = artisticName;
         this.numbOfWorksSelling = 0;
-        artistWorks = new BinarySearchTree<>(); // TODO change later to AVL
+        artistWorks = new AVLTree<>();
     }
 
 

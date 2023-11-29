@@ -131,7 +131,7 @@ public class AuctionHouseSystem implements AuctionHouse {
         //Cant use the key of the entry (String) because it's the art name and not the ID.
         while (it.hasNext()){
             WorkOfArtClass art = (WorkOfArtClass) it.next().getValue();
-            this.artMap.remove(art.getArtID());
+            this.artMap.remove(convertToKey(art.getArtID()));
             this.artsSoldSorted.remove(art);
         }
     }
@@ -281,7 +281,7 @@ public class AuctionHouseSystem implements AuctionHouse {
         User user = this.findUser(artistID);
         if(user == null)
             throw new UserDoesNotExistException();
-        if(this.isArtist(user))
+        if(!this.isArtist(user))
             throw new ArtistDoesNotExistException();
         ArtistClass artist = (ArtistClass) user;
         if(!artist.hasWorks())

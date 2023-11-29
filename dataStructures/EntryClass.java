@@ -1,5 +1,11 @@
 package dataStructures;
 
+/**
+ * Entry class implementation that holds K key and V value
+ * @param <K,V> Generics
+ * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
+ * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
+ */
 public class EntryClass<K, V> implements Entry<K, V>{
 
     private K key;
