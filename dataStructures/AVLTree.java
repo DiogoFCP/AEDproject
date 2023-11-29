@@ -165,30 +165,91 @@ public class AVLTree<K extends Comparable<K>, V>
      * @param path - Stack of PathStep objects containing all ancestors of the inserted node
      */
     protected void reorganizeRem(Stack<PathStep<K, V>> path) {
-        //TODO VERIFICAR SE É FILHO ESQUERDO OU NAO E SEPARAR O SWITCH CONFORME
-        //TODO por dentro de um while com um boolean e enquanto n for null o stack
+        boolean decress = true;
         PathStep<K, V> lastStep = path.pop();
         AVLNode<K, V> parent = (AVLNode<K, V>) lastStep.parent;
-        AVLNode<K, V> rightChild = (AVLNode<K, V>) parent.getRight();
-        AVLNode<K, V> leftChild = (AVLNode<K, V>) parent.getLeft();
-        switch (parent.getBalance()) {
-            case 'L' -> {
-                if (leftChild.getBalance() == 'R')
-                    this.rotateRight2(parent, rightChild, path);
-                else if (leftChild.getBalance() == 'E')
-                    this.rotateRight1E(parent, rightChild, path);
-                else this.rotateRight(parent, rightChild, path);
-            }
-            case 'R' -> {
-                if (rightChild.getBalance() == 'L')
-                    this.rotateLeft2(parent, leftChild, path);
-                else if (leftChild.getBalance() == 'E')
-                    this.rotateLeft1E(parent, leftChild, path);
-                else this.rotateLeft(parent, leftChild, path);
-            }
+        while (decress && parent != null) {
+            if (lastStep.isLeftChild)
+                // parent's left subtree has decressed.
+                switch (parent.getBalance()) {
+                    case 'L':
+                        parent.setBalance('E');
+                        decress = false;
+                        break;
+                    case 'E':
+                        parent.setBalance('R');
+                        break;
+                    case 'R':
+                        this.rebalanceRemLeft(parent, path);
+                        decress = false;
+                        break;
+                }
+            else
+                // parent's right subtree has decressed.
+                switch (parent.getBalance()) {
+                    case 'L':
+                        this.rebalanceRemRight(parent, path);
+                        decress = false;
+                        break;
+                    case 'E':
+                        parent.setBalance('L');
+                        break;
+                    case 'R':
+                        parent.setBalance('E');
+                        decress = false;
+                        break;
+                }
+            lastStep = path.pop();
+            parent = (AVLNode<K, V>) lastStep.parent;
         }
     }
 
+
+    /**
+     * Every ancestor of node is stored in the stack, which is not empty.
+     * height( node.getLeft() ) - height( node.getRight() ) = 2.
+     *
+     * @param node - root of subtree to balance
+     * @param path - Stack of PathStep objects containing all ancestors of node
+     */
+    protected void rebalanceRemLeft(AVLNode<K, V> node,
+                                    Stack<PathStep<K, V>> path) {
+        AVLNode<K, V> rightChild = (AVLNode<K, V>) node.getRight();
+        switch (rightChild.getBalance()) {
+            case 'L':
+                this.rotateRight2(node,rightChild,path);
+                break;
+             case 'E':
+                 this.rotateRight1E(node,rightChild,path);
+                 break;
+            case 'R':
+                this.rotateRight1R(node,rightChild,path);
+                break;
+        }
+    }
+
+
+    /**
+     * Every ancestor of node is stored in the stack, which is not empty.
+     * height( node.getRight() ) - height( node.getLeft() ) = 2.
+     *
+     * @param node - root of subtree to balance
+     * @param path - Stack of PathStep objects containing all ancestors of node
+     */
+    protected void rebalanceRemRight(AVLNode<K, V> node,
+                                     Stack<PathStep<K, V>> path) {
+        AVLNode<K, V> leftChild = (AVLNode<K, V>) node.getLeft();
+        switch (leftChild.getBalance()) {
+            case 'L':
+                this.rotateLeft1L(node,leftChild,path);
+                break;
+             case 'E':
+                 this.rotateLeft1E(node,leftChild,path);
+            case 'R':
+                this.rotateLeft2(node,leftChild,path);
+                break;
+        }
+    }
 
     /**
      * Performs a single left rotation rooted at theRoot,
