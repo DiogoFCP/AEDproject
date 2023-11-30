@@ -207,25 +207,25 @@ public class AVLTree<K extends Comparable<K>, V>
      * Every ancestor of node is stored in the stack, which is not empty.
      * height( node.getLeft() ) - height( node.getRight() ) = 2.
      *
-     * @param node       - root of subtree to balance
-     * @param path       - Stack of PathStep objects containing all ancestors of node
+     * @param node - root of subtree to balance
+     * @param path - Stack of PathStep objects containing all ancestors of node
      * @return decreased - The size changed depending on the type of rotation, necessary for the while cycle in the
-     *                      rebalancing method
+     * rebalancing method
      */
     protected boolean rebalanceRemRight(AVLNode<K, V> node,
-                                    Stack<PathStep<K, V>> path) {
+                                        Stack<PathStep<K, V>> path) {
         AVLNode<K, V> rightChild = (AVLNode<K, V>) node.getRight();
         boolean decreased = false;
         switch (rightChild.getBalance()) {
             case 'L':
-                this.rotateRight2(node,rightChild,path);
+                this.rotateRight2(node, rightChild, path);
                 decreased = true;
                 break;
-             case 'E':
-                 this.rotateRight1E(node,rightChild,path);
-                 break;
+            case 'E':
+                this.rotateRight1E(node, rightChild, path);
+                break;
             case 'R':
-                this.rotateRight1R(node,rightChild,path);
+                this.rotateRight1R(node, rightChild, path);
                 decreased = true;
                 break;
         }
@@ -237,13 +237,13 @@ public class AVLTree<K extends Comparable<K>, V>
      * Every ancestor of node is stored in the stack, which is not empty.
      * height( node.getRight() ) - height( node.getLeft() ) = 2.
      *
-     * @param node       - root of subtree to balance
-     * @param path       - Stack of PathStep objects containing all ancestors of node
+     * @param node - root of subtree to balance
+     * @param path - Stack of PathStep objects containing all ancestors of node
      * @return decreased - The size changed depending on the type of rotation, necessary for the while cycle in the
-     *      *                      rebalancing method
+     * *                      rebalancing method
      */
     protected boolean rebalanceRemLeft(AVLNode<K, V> node,
-                                     Stack<PathStep<K, V>> path) {
+                                       Stack<PathStep<K, V>> path) {
         AVLNode<K, V> leftChild = (AVLNode<K, V>) node.getLeft();
         boolean decreased = false;
         switch (leftChild.getBalance()) {

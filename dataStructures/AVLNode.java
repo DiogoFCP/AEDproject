@@ -1,20 +1,18 @@
-package dataStructures;                                         
+package dataStructures;
 
 /**
  * AVL node implementation of the BSTNode interface
- * 
- * @author AED team
- * @version 1.0
  *
  * @param <K> Generic type Key
- * @param <V> Generic type Value 
+ * @param <V> Generic type Value
+ * @author AED team
+ * @version 1.0
  */
-class AVLNode<K,V> extends BSTNode<K,V>
-{                                                                   
+class AVLNode<K, V> extends BSTNode<K, V> {
 
-	/**
-	 * Serial Version UID of the Class.
-	 */
+    /**
+     * Serial Version UID of the Class.
+     */
     static final long serialVersionUID = 0L;
 
 
@@ -30,51 +28,47 @@ class AVLNode<K,V> extends BSTNode<K,V>
 
     /**
      * Constructor for AVL nodes
-     * 
-     * @param key to be stored in this AVL tree node
-     * @param value to be stored in this AVL tree node
+     *
+     * @param key     to be stored in this AVL tree node
+     * @param value   to be stored in this AVL tree node
      * @param balance is Left, Right or Equally balanced
-     * @param left sub-tree of this node
-     * @param right sub-tree of this node
+     * @param left    sub-tree of this node
+     * @param right   sub-tree of this node
      */
-    public AVLNode( K key, V value, char balance, 
-        AVLNode<K,V> left, AVLNode<K,V> right )
-    {                                                                
+    public AVLNode(K key, V value, char balance,
+                   AVLNode<K, V> left, AVLNode<K, V> right) {
         super(key, value, left, right);
-        balanceFactor = balance;                                      
+        balanceFactor = balance;
     }
 
 
     /**
      * Constructor for AVL nodes
-     * 
-     * @param key to be stored in this AVL tree node
+     *
+     * @param key   to be stored in this AVL tree node
      * @param value to be stored in this AVL tree node
      */
-    public AVLNode( K key, V value )
-    {    
+    public AVLNode(K key, V value) {
         this(key, value, 'E', null, null);
     }
 
 
     /**
      * Returns the balance of the sub-tree below this node.
-     * 
+     *
      * @return balanceFactor - the balance factor of the sub-tree
      */
-    public char getBalance( )                           
-    {   
+    public char getBalance() {
         return balanceFactor;
     }
 
 
     /**
      * Sets the new balance of the sub-tree below this node.
-     * 
+     *
      * @param newBalance - the new balance factor of the sub-tree
      */
-    public void setBalance( char newBalance )
-    {    
+    public void setBalance(char newBalance) {
         balanceFactor = newBalance;
     }
 

@@ -2,10 +2,11 @@ package auctionHouse;
 
 /**
  * A bid that hold the value of the bid, the user who made the bid and the art.
+ *
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
-class BidClass implements Bid{
+class BidClass implements Bid {
 
 
     /*              Instance Variables               */
@@ -37,11 +38,12 @@ class BidClass implements Bid{
 
     /**
      * Constructor of the BidClass that initializes all the variables.
+     *
      * @param bidder the user who made the bid.
-     * @param value the value of the bid.
-     * @param art the art being bid on.
+     * @param value  the value of the bid.
+     * @param art    the art being bid on.
      */
-    public BidClass(User bidder, int value, WorkOfArt art){
+    public BidClass(User bidder, int value, WorkOfArt art) {
         this.value = value;
         this.bidder = bidder;
         this.art = art;
@@ -54,8 +56,8 @@ class BidClass implements Bid{
     /**
      * Removes the bid from the bidder(User) of this bid.
      */
-    protected void removeBidFromUser(){
-        ((UserClass)this.bidder).decNumbOfBids();
+    protected void removeBidFromUser() {
+        ((UserClass) this.bidder).decNumbOfBids();
     }
 
 
@@ -74,15 +76,19 @@ class BidClass implements Bid{
         return this.value;
     }
 
-    public String getArtID() { return this.art.getArtID(); }
+    public String getArtID() {
+        return this.art.getArtID();
+    }
 
     public String getArtName() {
         return this.art.getName();
     }
 
-    public boolean isFailedBid(){
+    public boolean isFailedBid() {
         return value < 0;
     }
 
-    public WorkOfArt getArt() { return this.art; }
+    public WorkOfArt getArt() {
+        return this.art;
+    }
 }

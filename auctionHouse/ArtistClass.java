@@ -1,6 +1,9 @@
 package auctionHouse;
 
-import dataStructures.*;
+import dataStructures.AVLTree;
+import dataStructures.Dictionary;
+import dataStructures.Entry;
+import dataStructures.Iterator;
 
 /**
  * An artist is also a user but can add works of art and has an artistic name.
@@ -61,6 +64,7 @@ class ArtistClass extends UserClass implements Artist {
 
     /**
      * Adds a work of art in the system to the respective artist
+     *
      * @param workOfArt work of art that exists in the system
      */
     protected void addWork(WorkOfArt workOfArt) {
@@ -69,6 +73,7 @@ class ArtistClass extends UserClass implements Artist {
 
     /**
      * Checks if the artists has art works in his name
+     *
      * @return true if it has worksOfArt
      */
     protected boolean hasWorks() {
@@ -91,6 +96,7 @@ class ArtistClass extends UserClass implements Artist {
 
     /**
      * Verifies if the artist has works being sold or not.
+     *
      * @return true if the artist has works being sold.
      */
     protected boolean hasWorksSelling() {

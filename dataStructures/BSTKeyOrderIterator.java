@@ -2,10 +2,10 @@ package dataStructures;
 
 import dataStructures.exceptions.NoSuchElementException;
 
-public class BSTKeyOrderIterator<K, V> implements Iterator<Entry<K,V>>{
+public class BSTKeyOrderIterator<K, V> implements Iterator<Entry<K, V>> {
 
-    private BSTNode<K,V> root;
-    private Stack<BSTNode<K,V>> stack;
+    private BSTNode<K, V> root;
+    private Stack<BSTNode<K, V>> stack;
 
     public BSTKeyOrderIterator(BSTNode<K, V> root) {
         stack = new StackInList<>();
@@ -20,21 +20,22 @@ public class BSTKeyOrderIterator<K, V> implements Iterator<Entry<K,V>>{
     /**
      * Inserts in the stack the staring node and all the left
      * branches of the given node, until it find a null in the left.
+     *
      * @param node the starting node to add.
      */
-    private void readLefts(BSTNode<K,V> node){
+    private void readLefts(BSTNode<K, V> node) {
         do {
             stack.push(node);
             node = node.getLeft();
         } while (node != null);
     }
 
-    public Entry<K,V> next() throws NoSuchElementException {
+    public Entry<K, V> next() throws NoSuchElementException {
 
         if (!hasNext())
             throw new NoSuchElementException();
 
-        BSTNode<K,V> toReturn = stack.pop();
+        BSTNode<K, V> toReturn = stack.pop();
 
         if (toReturn.getRight() != null)
             readLefts(toReturn.getRight());

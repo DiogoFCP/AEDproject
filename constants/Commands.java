@@ -2,6 +2,7 @@ package constants;
 
 /**
  * Class with all the commands constants of the system.
+ *
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */

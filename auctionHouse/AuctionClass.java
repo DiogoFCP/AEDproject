@@ -6,10 +6,11 @@ import dataStructures.*;
 /**
  * A system event identified by a unique ID, when created works of art
  * can be added to the auction, being able to then be auctioned and sold.
+ *
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
-class AuctionClass implements Auction{
+class AuctionClass implements Auction {
 
 
     /*              Instance Variables               */
@@ -37,9 +38,10 @@ class AuctionClass implements Auction{
 
     /**
      * Constructor of the AuctionClass that initializes all the variables.
+     *
      * @param auctionID the unique ID of the auction.
      */
-    public AuctionClass(String auctionID){
+    public AuctionClass(String auctionID) {
         this.auctionID = auctionID;
         this.artAuctionsList = new FindAndGetDoubleList<>();
     }
@@ -50,19 +52,23 @@ class AuctionClass implements Auction{
 
     /**
      * Checks if there is a single art auction in this auction with the given work of art.
+     *
      * @param workOfArt the work of art we are looking for in a single art auction.
      * @return true if the art exists in the auction
      */
-    private boolean hasSingularArtAuction(WorkOfArt workOfArt){
+    private boolean hasSingularArtAuction(WorkOfArt workOfArt) {
         return this.findSingularArtAuction(workOfArt) != null;
     }
 
     /**
      * Finds the singular art in this auction with the given work of art.
+     *
      * @param workOfArt the work of art we are looking for in a single art auction.
      * @return wanted singular art auction.
      */
-    private SingleArtAuction findSingularArtAuction(WorkOfArt workOfArt){
+    private SingleArtAuction findSingularArtAuction(WorkOfArt workOfArt) {
+        // This is a dummy SingleArtAuctionClass that is created with a negative integer for the minimumBidRequired
+        // for an if control inside the Object constructor.
         return artAuctionsList.findAndGet(new SingleArtAuctionClass(workOfArt, -1));
     }
 
@@ -72,22 +78,24 @@ class AuctionClass implements Auction{
 
     /**
      * Adds the work of art to the auction and sets the lowest bid it can sell for.
-     * @param workOfArt the work of art being added.
+     *
+     * @param workOfArt          the work of art being added.
      * @param minimumBidRequired the lowest value the work of art can be sold for.
      */
     protected void addWork(WorkOfArt workOfArt, int minimumBidRequired) {
-        if(!this.hasSingularArtAuction(workOfArt))
+        if (!this.hasSingularArtAuction(workOfArt))
             artAuctionsList.addLast(new SingleArtAuctionClass(workOfArt, minimumBidRequired));
     }
 
     /**
      * Adds a bid to an art auction going on in this auction with its corresponding value.
-     * @param bidder the user who made the bid.
+     *
+     * @param bidder    the user who made the bid.
      * @param workOfArt the art being bid on.
-     * @param value the value of the bid.
+     * @param value     the value of the bid.
      */
     protected void addBid(User bidder, WorkOfArt workOfArt, int value) throws BidBelowMinValueException {
-        ((SingleArtAuctionClass)this.findSingularArtAuction(workOfArt))
+        ((SingleArtAuctionClass) this.findSingularArtAuction(workOfArt))
                 .addBid(bidder, value);
     }
 
@@ -99,11 +107,17 @@ class AuctionClass implements Auction{
         return this.auctionID;
     }
 
+    /**
+     * Override equals to verify if two objects are the same
+     *
+     * @param obj object to compare with this
+     * @return true if they have the same auctionID
+     */
     @Override
-    public boolean equals(Object obj){
-        if(this == obj)
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
-        if(obj == null)
+        if (obj == null)
             return false;
         Auction other = (Auction) obj;
         if (this.auctionID == null) {
@@ -111,21 +125,24 @@ class AuctionClass implements Auction{
         } else return this.auctionID.equals(other.getAuctionID());
     }
 
-    public boolean hasWorkOfArt(String artID){
+    public boolean hasWorkOfArt(String artID) {
+        // We use a dummy with a WorkOfArtClass object with a null author
         return this.hasSingularArtAuction(new WorkOfArtClass(artID, null, 0, null));
     }
 
-    public boolean hasNoWorks(){ return artAuctionsList.isEmpty(); }
+    public boolean hasNoWorks() {
+        return artAuctionsList.isEmpty();
+    }
 
     public Iterator<WorkOfArt> getWorksIterator() {
         Iterator<SingleArtAuction> it = artAuctionsList.iterator();
         List<WorkOfArt> tmpList = new DoubleList<>();
-        while(it.hasNext())
+        while (it.hasNext())
             tmpList.addLast(it.next().getArt());
         return tmpList.iterator();
     }
 
-    public boolean workHasNoBids(WorkOfArt workOfArt){
+    public boolean workHasNoBids(WorkOfArt workOfArt) {
         return findSingularArtAuction(workOfArt).hasNoBids();
     }
 
@@ -133,12 +150,12 @@ class AuctionClass implements Auction{
         return findSingularArtAuction(workOfArt).getBidsIterator();
     }
 
-    public Iterator<Bid> closeAllSingularAuctions(Dictionary<WorkOfArt, WorkOfArt> artsSoldSorted){
+    public Iterator<Bid> closeAllSingularAuctions(Dictionary<WorkOfArt, WorkOfArt> artsSoldSorted) {
         List<Bid> winners = new DoubleList<>();
         Iterator<SingleArtAuction> it = artAuctionsList.iterator();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             winners.addLast(
-                    ((SingleArtAuctionClass)it.next()).
+                    ((SingleArtAuctionClass) it.next()).
                             getWinningBid(artsSoldSorted));
         }
         return winners.iterator();

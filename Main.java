@@ -1,11 +1,12 @@
-import java.io.*;
-import java.util.Scanner;
-
 import auctionHouse.*;
 import auctionHouse.exceptions.*;
-import constants.*;
+import constants.Commands;
+import constants.Prints;
 import dataStructures.Entry;
 import dataStructures.Iterator;
+
+import java.io.*;
+import java.util.Scanner;
 
 /**
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
@@ -52,16 +53,17 @@ public class Main {
     /**
      * Adds a new base user to the system, this user
      * has a login (unique ID), name, age and email.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void addUser(AuctionHouse ah, Scanner in){
+    private static void addUser(AuctionHouse ah, Scanner in) {
         String login = in.next();
         String name = in.nextLine().trim();
         int age = in.nextInt();
         String email = in.nextLine().trim();
         System.out.println();
-        try{
+        try {
             ah.addUser(login, name, age, email);
             System.out.println(Prints.USER_REGISTERED);
         } catch (InvalidAgeException e) {
@@ -74,17 +76,18 @@ public class Main {
     /**
      * Adds a new artist user to the system, this artist
      * has a login (unique ID), name, artistic name, age and email.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void addArtist(AuctionHouse ah, Scanner in){
+    private static void addArtist(AuctionHouse ah, Scanner in) {
         String login = in.next();
         String name = in.nextLine().trim();
         String artisticName = in.nextLine();
         int age = in.nextInt();
         String email = in.nextLine().trim();
         System.out.println();
-        try{
+        try {
             ah.addArtist(login, name, artisticName, age, email);
             System.out.println(Prints.ARTIST_REGISTERED);
         } catch (InvalidAgeException e) {
@@ -97,13 +100,14 @@ public class Main {
     /**
      * Removes a user with the given login from the system, if the user
      * is an artist also removes all the works the artist created.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void removeUser(AuctionHouse ah, Scanner in){
+    private static void removeUser(AuctionHouse ah, Scanner in) {
         String login = in.next();
         System.out.println();
-        try{
+        try {
             ah.removeUser(login);
             System.out.println(Prints.USER_REMOVED);
         } catch (UserHasBidsException e) {
@@ -118,16 +122,17 @@ public class Main {
     /**
      * Adds a work of art to the system, with a given art ID, login of the artist,
      * the year the art was created and the name of the art.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void addWork(AuctionHouse ah, Scanner in){
+    private static void addWork(AuctionHouse ah, Scanner in) {
         String artID = in.next();
         String artistLogin = in.next();
         int year = in.nextInt();
         String name = in.nextLine().trim();
         System.out.println();
-        try{
+        try {
             ah.addWork(artID, artistLogin, year, name);
             System.out.println(Prints.ART_REGISTERED);
         } catch (ArtAlreadyExistsException e) {
@@ -141,13 +146,14 @@ public class Main {
 
     /**
      * Lists all the known info about a user that exists in the system.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void infoUser(AuctionHouse ah, Scanner in){
+    private static void infoUser(AuctionHouse ah, Scanner in) {
         String login = in.next();
         System.out.println();
-        try{
+        try {
             User u = ah.getUser(login);
             System.out.printf(Prints.INFO_USER, u.getLogin(), u.getName(), u.getAge(), u.getEmail());
         } catch (UserDoesNotExistException e) {
@@ -157,13 +163,14 @@ public class Main {
 
     /**
      * Lists all the known info about an artist that exists in the system.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void infoArtist(AuctionHouse ah, Scanner in){
+    private static void infoArtist(AuctionHouse ah, Scanner in) {
         String login = in.next();
         System.out.println();
-        try{
+        try {
             Artist a = ah.getArtist(login);
             System.out.printf(Prints.INFO_ARTIST, a.getLogin(), a.getName(), a.getArtisticName(), a.getAge(), a.getEmail());
         } catch (ArtistDoesNotExistException e) {
@@ -175,13 +182,14 @@ public class Main {
 
     /**
      * Lists all the known info about a work of art that exists in the system.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void infoWork(AuctionHouse ah, Scanner in){
+    private static void infoWork(AuctionHouse ah, Scanner in) {
         String artID = in.next();
         System.out.println();
-        try{
+        try {
             WorkOfArt w = ah.getWorkOfArt(artID);
             System.out.printf(Prints.INFO_WORK, w.getArtID(), w.getName(), w.getYear(), w.getHighestBid(), w.getAuthorLogin(), w.getAuthorName());
         } catch (ArtDoesNotExistException e) {
@@ -191,13 +199,14 @@ public class Main {
 
     /**
      * Creates a new auction in the system with the given auction ID.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void createAuction(AuctionHouse ah, Scanner in){
+    private static void createAuction(AuctionHouse ah, Scanner in) {
         String auctionID = in.next();
         System.out.println();
-        try{
+        try {
             ah.createAuction(auctionID);
             System.out.println(Prints.AUCTION_REGISTERED);
         } catch (AuctionAlreadyExistsException e) {
@@ -207,15 +216,16 @@ public class Main {
 
     /**
      * Adds a work of art to a given auction in the system.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void addWorkAuction(AuctionHouse ah, Scanner in){
+    private static void addWorkAuction(AuctionHouse ah, Scanner in) {
         String auctionID = in.next();
         String artID = in.next();
         int lowestBid = in.nextInt();
         System.out.println();
-        try{
+        try {
             ah.addWorkAuction(auctionID, artID, lowestBid);
             System.out.println(Prints.WORK_ADDED_TO_AUCTION);
         } catch (AuctionDoesNotExistsException e) {
@@ -227,16 +237,17 @@ public class Main {
 
     /**
      * Adds a bid to a given work of art in a given auction in the system.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void bid(AuctionHouse ah, Scanner in){
+    private static void bid(AuctionHouse ah, Scanner in) {
         String auctionID = in.next();
         String artID = in.next();
         String login = in.next();
         int value = in.nextInt();
         System.out.println();
-        try{
+        try {
             ah.addBid(auctionID, artID, login, value);
             System.out.println(Prints.BID_ADDED);
         } catch (BidBelowMinValueException e) {
@@ -253,18 +264,19 @@ public class Main {
     /**
      * Closes the auction deciding the winners of said auction and lists
      * the status of every single art piece in the said auction.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void closeAuction(AuctionHouse ah, Scanner in){
+    private static void closeAuction(AuctionHouse ah, Scanner in) {
         String auctionID = in.next();
         System.out.println();
-        try{
+        try {
             Iterator<Bid> it = ah.closeAuction(auctionID);
             System.out.println(Prints.CLOSE_AUCTION_HEADER);
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 Bid b = it.next();
-                if(b.isFailedBid())
+                if (b.isFailedBid())
                     System.out.printf(Prints.NOT_SOLD_ART_LISTING, b.getArtID(), b.getArtName());
                 else
                     System.out.printf(Prints.SOLD_ART_LISTING, b.getArtID(), b.getArtName(),
@@ -278,15 +290,16 @@ public class Main {
 
     /**
      * Lists all the works of art in a given auction.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void listAuctionWorks(AuctionHouse ah, Scanner in){
+    private static void listAuctionWorks(AuctionHouse ah, Scanner in) {
         String auctionID = in.next();
         System.out.println();
-        try{
+        try {
             Iterator<WorkOfArt> it = ah.listAuctionWorks(auctionID);
-            while (it.hasNext()){
+            while (it.hasNext()) {
                 WorkOfArt a = it.next();
                 System.out.printf(Prints.AUCTION_WORKS_LISTING, a.getArtID(), a.getName(),
                         a.getYear(), a.getHighestBid(), a.getAuthorLogin(), a.getAuthorName());
@@ -300,15 +313,16 @@ public class Main {
 
     /**
      * Lists all the art works an artist has added to the system.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void listArtistWorks(AuctionHouse ah, Scanner in){
+    private static void listArtistWorks(AuctionHouse ah, Scanner in) {
         String artistLogin = in.next();
         System.out.println();
-        try{
+        try {
             Iterator<Entry<String, WorkOfArt>> it = ah.listArtistWorks(artistLogin);
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 WorkOfArt a = it.next().getValue();
                 System.out.printf(Prints.ARTIST_WORKS_LISTING, a.getArtID(), a.getName(),
                         a.getYear(), a.getHighestBid());
@@ -324,16 +338,17 @@ public class Main {
 
     /**
      * Lists all the bids associated to a given work in a given auction.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void listBidsWork(AuctionHouse ah, Scanner in){
+    private static void listBidsWork(AuctionHouse ah, Scanner in) {
         String auctionID = in.next();
         String artID = in.next();
         System.out.println();
-        try{
+        try {
             Iterator<Bid> it = ah.listBidsWork(auctionID, artID);
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 Bid b = it.next();
                 System.out.printf(Prints.BIDS_WORK_LISTING, b.getBidderLogin(),
                         b.getBidderName(), b.getBidValue());
@@ -350,14 +365,15 @@ public class Main {
     /**
      * Lists all the works in the system by descending order of the highest bid value of
      * the works that already have been sold.
+     *
      * @param ah the system interface.
      * @param in the input scanner.
      */
-    private static void listWorksByValue(AuctionHouse ah, Scanner in){
+    private static void listWorksByValue(AuctionHouse ah, Scanner in) {
         System.out.println();
-        try{
+        try {
             Iterator<Entry<WorkOfArt, WorkOfArt>> it = ah.listWorksByValue();
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 WorkOfArt a = it.next().getValue();
                 System.out.printf(Prints.WORKS_BY_VALUE_LISTING, a.getArtID(), a.getName(), a.getYear(),
                         a.getHighestBid(), a.getAuthorLogin(), a.getAuthorName());
@@ -369,10 +385,11 @@ public class Main {
 
     /**
      * Saves the auction house system, writing in the file that is going to store it.
+     *
      * @param ah the system interface.
      */
     private static void save(AuctionHouse ah) {
-        try{
+        try {
             ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(DATA_FILE));
             file.writeObject(ah);
             file.flush();

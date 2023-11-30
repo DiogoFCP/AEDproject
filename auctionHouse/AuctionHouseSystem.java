@@ -42,9 +42,9 @@ public class AuctionHouseSystem implements AuctionHouse {
 
     /**
      * A collection of all the sold arts in the system,
-     *  always sorted by the compareTo of the WorkOfArtClass.
-     *  uses the own object as the key to be able to be sorted
-     *  by more criteria than just the artID.
+     * always sorted by the compareTo of the WorkOfArtClass.
+     * uses the own object as the key to be able to be sorted
+     * by more criteria than just the artID.
      */
     private final Dictionary<WorkOfArt, WorkOfArt> artsSoldSorted;
 
@@ -77,7 +77,7 @@ public class AuctionHouseSystem implements AuctionHouse {
      * @param id the id being converted.
      * @return the id in a key form (in upper case).
      */
-    private String convertToKey(String id){
+    private String convertToKey(String id) {
         return id.toUpperCase();
     }
 
@@ -128,8 +128,8 @@ public class AuctionHouseSystem implements AuctionHouse {
      */
     private void removeWorksOfArtist(ArtistClass artist) {
         Iterator<Entry<String, WorkOfArt>> it = artist.getWorkIterator();
-        //Cant use the key of the entry (String) because it's the art name and not the ID.
-        while (it.hasNext()){
+        //Can't use the key of the entry (String) because it's the art name and not the ID.
+        while (it.hasNext()) {
             WorkOfArtClass art = (WorkOfArtClass) it.next().getValue();
             this.artMap.remove(convertToKey(art.getArtID()));
             this.artsSoldSorted.remove(art);
@@ -188,8 +188,7 @@ public class AuctionHouseSystem implements AuctionHouse {
         author.addWork(workToAdd);
     }
 
-    public User getUser(String userLogin)
-            throws UserDoesNotExistException {
+    public User getUser(String userLogin) throws UserDoesNotExistException {
         User user = this.findUser(userLogin);
         if (user == null)
             throw new UserDoesNotExistException();
@@ -254,15 +253,8 @@ public class AuctionHouseSystem implements AuctionHouse {
             throw new AuctionDoesNotExistsException();
 
         Iterator<Bid> it = auction.closeAllSingularAuctions(this.artsSoldSorted);
-        /*while(it.hasNext()){
-            Bid bid = it.next();
-            if( !bid.isFailedBid() ){    // TODO REMOVE LATER
-                WorkOfArt art = bid.getArt();
-                artsSoldSorted.insert(art, art);
-            }
-        }*/
+
         auctionMap.remove(convertToKey(auctionID));
-        //it.rewind(); // TODO REMOVE LATER
         return it;
     }
 
@@ -279,12 +271,12 @@ public class AuctionHouseSystem implements AuctionHouse {
     public Iterator<Entry<String, WorkOfArt>> listArtistWorks(String artistID)
             throws UserDoesNotExistException, ArtistDoesNotExistException, ArtistHasNoWorksException {
         User user = this.findUser(artistID);
-        if(user == null)
+        if (user == null)
             throw new UserDoesNotExistException();
-        if(!this.isArtist(user))
+        if (!this.isArtist(user))
             throw new ArtistDoesNotExistException();
         ArtistClass artist = (ArtistClass) user;
-        if(!artist.hasWorks())
+        if (!artist.hasWorks())
             throw new ArtistHasNoWorksException();
         return artist.getWorkIterator();
     }
@@ -302,9 +294,9 @@ public class AuctionHouseSystem implements AuctionHouse {
         return auction.getWorksBidsIterator(workOfArt);
     }
 
-    public Iterator<Entry<WorkOfArt,WorkOfArt>> listWorksByValue()
+    public Iterator<Entry<WorkOfArt, WorkOfArt>> listWorksByValue()
             throws NoSoldArtsException {
-        if(artsSoldSorted.isEmpty())
+        if (artsSoldSorted.isEmpty())
             throw new NoSoldArtsException();
         return artsSoldSorted.iterator();
     }

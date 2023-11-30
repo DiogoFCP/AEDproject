@@ -2,6 +2,7 @@ package auctionHouse;
 
 /**
  * A collector who can bid on arts that are in auctions.
+ *
  * @author DIOGOPINHEIRO (65122) df.pinheiro@campus.fct.unl.pt
  * @author TIAGOCOSTA (64398) tr.costa@campus.fct.unl.pt
  */
@@ -47,12 +48,13 @@ class UserClass implements User {
 
     /**
      * Constructor of the UserClass that initializes all the variables.
+     *
      * @param login the login of the user (unique ID).
-     * @param name the name of the user.
-     * @param age the age of the user.
+     * @param name  the name of the user.
+     * @param age   the age of the user.
      * @param email the email of the user.
      */
-    public UserClass(String login, String name, int age, String email){
+    public UserClass(String login, String name, int age, String email) {
         this.login = login;
         this.name = name;
         this.age = age;
@@ -67,14 +69,14 @@ class UserClass implements User {
     /**
      * Increments the number of bids done by the user.
      */
-    protected void incNumbOfBids(){
+    protected void incNumbOfBids() {
         numbOfBids++;
     }
 
     /**
      * Decrements the number of bids done by the user.
      */
-    protected void decNumbOfBids(){
+    protected void decNumbOfBids() {
         numbOfBids--;
     }
 
@@ -82,29 +84,31 @@ class UserClass implements User {
     /*              Public Methods               */
 
 
-    public boolean hasBids(){
-        return numbOfBids>0;
+    public boolean hasBids() {
+        return numbOfBids > 0;
     }
 
-    public String getLogin(){
+    public String getLogin() {
         return this.login;
     }
 
-    public String getName(){ return this.name; }
+    public String getName() {
+        return this.name;
+    }
 
-    public int getAge(){
+    public int getAge() {
         return this.age;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return this.email;
     }
 
     @Override
-    public boolean equals(Object obj){
-        if(this == obj)
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
-        if(obj == null)
+        if (obj == null)
             return false;
         User other = (User) obj;
         if (this.login == null) {
